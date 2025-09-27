@@ -1,27 +1,27 @@
 const steps = [
   {
     number: '01',
-    title: 'Perencanaan & Persetujuan',
+    title: 'Kurasi Lot & QC',
     description:
-      'Susun RKS, jadwalkan tahapan, dan dapatkan persetujuan internal dengan workflow digital yang dapat dilacak.',
+      'Unggah spesifikasi, hasil lab, dan foto tangki. Pilih floor price serta jadwal lelang yang ingin dibuka.',
   },
   {
     number: '02',
-    title: 'Publikasi & Partisipasi',
+    title: 'Broadcast ke Buyer',
     description:
-      'Publikasikan tender, broadcast ke vendor terverifikasi, dan kelola sesi tanya jawab secara terpusat.',
+      'APAS mengundang buyer tersertifikasi, membuka sesi tanya jawab, dan mengumpulkan deposit partisipasi.',
   },
   {
     number: '03',
-    title: 'Evaluasi Transparan',
+    title: 'Live Auction Interaktif',
     description:
-      'Gunakan penilaian multi-kriteria, scoring otomatis, dan audit trail untuk setiap keputusan panitia.',
+      'Pantau bid ladder, auto-extension, dan premi kualitas secara real-time lewat dashboard dinamis.',
   },
   {
     number: '04',
-    title: 'Penetapan & Kontrak',
+    title: 'Settlement & Pengiriman',
     description:
-      'Finalisasi pemenang dengan template BAHP digital, integrasi e-sign, dan monitoring SLA kontrak.',
+      'Konfirmasi pemenang, selesai-kan pembayaran via escrow, dan aktifkan modul logistik & tracking kapal.',
   },
 ];
 
@@ -30,10 +30,10 @@ const Process = () => {
     <section className="section section--alt" id="process">
       <div className="container">
         <div className="section__header">
-          <span className="badge">Alur Terpadu</span>
-          <h2>Tender digital dari awal hingga akhir, tanpa celah manual</h2>
+          <span className="badge">Alur APAS</span>
+          <h2>Empat tahap ringkas untuk menutup penjualan CPO terbaik</h2>
           <p>
-            Setiap tahapan saling terhubung untuk memastikan kepatuhan dan visibilitas penuh bagi seluruh pemangku kepentingan.
+            Proses dirancang agar tim komoditas Anda fokus pada strategi, sementara APAS mengotomatiskan hal teknis dan compliance.
           </p>
         </div>
         <div className="process__grid">

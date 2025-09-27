@@ -3,21 +3,21 @@ const CTA = () => {
     <section className="cta" id="daftar">
       <div className="container cta__inner">
         <div>
-          <h2>Siap memulai transformasi e-procurement Anda?</h2>
+          <h2>Siap melelang lot CPO Anda berikutnya?</h2>
           <p>
-            Tim kami siap mendampingi implementasi end-to-end. Daftarkan organisasi Anda dan nikmati demo gratis selama 14 hari.
+            Jadwalkan sesi onboarding 30 menit dengan tim APAS dan lihat bagaimana penjualan CPO Anda mendapatkan premium yang konsisten.
           </p>
         </div>
         <form className="cta__form">
           <label htmlFor="email" className="sr-only">
             Email kerja
           </label>
-          <input id="email" type="email" name="email" placeholder="Email profesional" required />
+          <input id="email" type="email" name="email" placeholder="Email perusahaan" required />
           <button type="submit" className="btn btn--secondary">
-            Jadwalkan Demo
+            Hubungi Tim APAS
           </button>
         </form>
-        <p className="cta__note">Tidak perlu kartu kredit. Support onboarding 24/7.</p>
+        <p className="cta__note">Tim support tersedia 24/7. Kami membantu dari publikasi lot hingga pengiriman.</p>
       </div>
     </section>
   );

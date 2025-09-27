@@ -3,21 +3,21 @@ import { Quote } from 'lucide-react';
 const testimonials = [
   {
     quote:
-      'Dengan e-Bidding, kami memangkas durasi tender dari 60 hari menjadi 25 hari tanpa kompromi terhadap regulasi. Transparansi meningkat drastis.',
-    name: 'Rani Prasetyo',
-    title: 'Direktur Pengadaan, BUMN Energi',
+      'Lewat APAS, lot kami selalu terserap dengan premium yang konsisten. Buyer melihat kualitas secara transparan sehingga bidding berlangsung agresif.',
+    name: 'Dewi Lestari',
+    title: 'Head of Marketing, Agrinas Palma Group',
   },
   {
     quote:
-      'Tim vendor kami menyukai proses onboarding yang cepat dan jelas. Semua dokumen terarsip otomatis dan mudah dicari saat audit.',
-    name: 'Bambang Wirawan',
-    title: 'Head of Procurement, Kota Surakarta',
+      'Auction room APAS membantu tim purchasing memonitor setiap increment harga. Settlement dan dokumen ekspor selesai dalam hitungan jam.',
+    name: 'James Hartono',
+    title: 'Director of Procurement, Nusantara Refinery',
   },
   {
     quote:
-      'Insight dari dashboard membantu kami membuat keputusan data-driven dalam negosiasi dan menghemat lebih dari 18% anggaran.',
-    name: 'Siti Ramadhani',
-    title: 'Chief Finance Officer, PT Karya Sejahtera',
+      'Kami bisa menjadwalkan lelang mingguan tanpa repot koordinasi manual. Modul logistik menutup gap hingga barang tiba di pelabuhan buyer.',
+    name: 'Intan Permata',
+    title: 'Head of Commodities, PT Sinar Sawit Sejahtera',
   },
 ];
 
@@ -27,7 +27,7 @@ const Testimonials = () => {
       <div className="container">
         <div className="section__header">
           <span className="badge badge--light">Cerita Sukses</span>
-          <h2>Dipercaya ratusan institusi publik dan swasta</h2>
+          <h2>Dipercaya produsen CPO dan refinery terkemuka</h2>
         </div>
         <div className="testimonials__grid">
           {testimonials.map((item) => (

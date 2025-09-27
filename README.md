@@ -1,14 +1,14 @@
-# e-Bidding Landing Page
+# APAS Landing Page
 
-Landing page modern untuk platform e-procurement berbasis React + Vite.
+Landing page modern untuk Agrinas Palma Auction System (APAS), platform lelang Crude Palm Oil berbasis React + Vite.
 
-## 🚀 Fitur Utama
+## 🚀 Highlight
 
-- Navigasi dengan tombol **Masuk** dan **Daftar Gratis**
-- Hero section dengan visual kartu tender dan CTA demo
-- Statistik kinerja, keunggulan fitur, dan alur proses tender
-- Testimoni pelanggan dan CTA formulir jadwalkan demo
-- Footer kontak dan link ke portal login
+- Hero section yang menonjolkan dinamika lot CPO dan CTA untuk seller
+- Statistik volume, premium harga, serta jaringan buyer APAS
+- Deskripsi fitur inti (QC digital, live alerts, analitik premium, dsb.)
+- Penjabaran alur lelang empat tahap dan testimoni produsen/buyer
+- CTA formulir onboarding serta footer kontak & portal login APAS
 
 ## 🧰 Tech Stack
 

@@ -1,8 +1,8 @@
 const stats = [
-  { value: '1.200+', label: 'Tender selesai setiap bulan' },
-  { value: '98%', label: 'Kepatuhan terhadap regulasi' },
-  { value: '7x', label: 'Lebih cepat dari proses manual' },
-  { value: '4.9/5', label: 'Rating kepuasan pengguna' },
+  { value: '150K ton', label: 'Volume CPO dilelang per tahun' },
+  { value: '12%+', label: 'Premium rata-rata dibanding harga spot' },
+  { value: '500+', label: 'Buyer & refinery tersertifikasi' },
+  { value: '<30 menit', label: 'Waktu rata-rata penutupan lot' },
 ];
 
 const Stats = () => {

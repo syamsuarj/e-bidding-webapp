@@ -3,33 +3,33 @@ import { ShieldCheck, BarChart3, Workflow, BellRing, FileSearch2, Users } from '
 const features = [
   {
     icon: ShieldCheck,
-    title: 'Kepatuhan Otomatis',
-    description: 'Template dokumen dan approval workflow yang mengikuti standar LKPP & ISO 37001.',
+    title: 'Kualitas Terdokumentasi',
+    description: 'Integrasikan hasil inspeksi FFA, moisture, dan sertifikasi lab langsung pada tiap lot CPO.',
   },
   {
     icon: Workflow,
-    title: 'Workflow Dinamis',
-    description: 'Sesuaikan alur tender dengan kebutuhan organisasi tanpa menulis kode tambahan.',
+    title: 'Penjadwalan Lot Fleksibel',
+    description: 'Atur jadwal lelang mingguan atau harian dengan kontrol volume, floor price, dan auto-extension.',
   },
   {
     icon: BellRing,
-    title: 'Notifikasi Cerdas',
-    description: 'Reminder otomatis untuk vendor & panitia agar tahapan tender tidak lagi terlewat.',
+    title: 'Alert Bid Detik-Real',
+    description: 'Notifikasi multi-channel untuk seller & buyer agar aksi terhadap lonjakan harga terjadi tepat waktu.',
   },
   {
     icon: BarChart3,
-    title: 'Analitik Real-time',
-    description: 'Dashboard visual untuk memantau performa tender, penghematan, dan produktivitas tim.',
+    title: 'Analitik Harga Premium',
+    description: 'Pantau tren premium, basis buyer, dan performa lot sebelumnya untuk strategi penjualan berikutnya.',
   },
   {
     icon: FileSearch2,
-    title: 'Audit Trail Lengkap',
-    description: 'Jejak aktivitas rinci untuk setiap keputusan dengan log yang terenkripsi.',
+    title: 'Kontrak & Dokumen Digital',
+    description: 'Generate deal confirmation, invoice, dan shipping instruction yang siap e-signature.',
   },
   {
     icon: Users,
-    title: 'Ekosistem Vendor',
-    description: 'Akses ke ribuan vendor terverifikasi dan bandingkan penawaran secara instan.',
+    title: 'Jaringan Buyer Global',
+    description: 'Jangkau refiners dan trader internasional yang telah melewati proses KYC dan compliance APAS.',
   },
 ];
 
@@ -38,10 +38,10 @@ const Features = () => {
     <section className="section" id="features">
       <div className="container">
         <div className="section__header">
-          <span className="badge badge--light">Kemampuan Utama</span>
-          <h2>Pengadaan strategis dalam satu platform terintegrasi</h2>
+          <span className="badge badge--light">Kenapa APAS</span>
+          <h2>Fitur yang memaksimalkan nilai jual Crude Palm Oil Anda</h2>
           <p>
-            Rancang tender, evaluasi penawaran, dan kelola vendor dengan pengalaman pengguna modern dan dilengkapi insight data.
+            Dari publikasi lot, dinamika bidding, hingga settlement, semua dijahit untuk produsen sawit yang ingin harga terbaik tanpa proses rumit.
           </p>
         </div>
         <div className="features__grid">

@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { Menu, X, ShieldCheck } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const navItems = [
   { label: 'Fitur', href: '#features' },
-  { label: 'Cara Kerja', href: '#process' },
+  { label: 'Alur Lelang', href: '#process' },
   { label: 'Testimoni', href: '#testimonials' },
   { label: 'Kontak', href: '#footer' },
 ];
@@ -17,11 +17,9 @@ const Navbar = () => {
     <header className="navbar">
       <div className="container">
         <div className="navbar__inner">
-          <a href="#top" className="brand" aria-label="e-Bidding Home">
-            <span className="brand__icon">
-              <ShieldCheck size={24} strokeWidth={1.5} />
-            </span>
-            <span className="brand__name">e-Bidding</span>
+          <a href="#top" className="brand" aria-label="Beranda APAS">
+            <img src="/logo-apas.png" alt="Logo APAS" className="brand__logo" />
+            <span className="sr-only">APAS - Agrinas Palma Auction System</span>
           </a>
 
           <nav className="navbar__desktop" aria-label="Navigasi utama">

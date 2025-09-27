@@ -5,70 +5,69 @@ const Hero = () => {
     <section className="hero" id="top">
       <div className="container hero__content">
         <div className="hero__copy">
-          <span className="badge">#1 Platform e-Procurement Indonesia</span>
+          <span className="badge">Platform Lelang CPO #1</span>
           <h1>
-            Transformasikan proses tender Anda dengan platform e-bidding yang{' '}
-            <span className="text-gradient">transparan dan efisien</span>.
+            APAS menghubungkan produsen Crude Palm Oil dengan buyer global dalam{' '}
+            <span className="text-gradient">lelang digital real-time</span>.
           </h1>
           <p>
-            Kelola seluruh siklus pengadaan secara digital, kurangi risiko kecurangan, dan percepat
-            pengambilan keputusan dengan insight real-time.
+            Agrinas Palma Auction System menghadirkan penemuan harga terbaik, verifikasi kualitas, dan settlement cepat untuk setiap lot minyak sawit mentah.
           </p>
           <div className="hero__actions">
             <a href="#daftar" className="btn btn--primary">
-              Daftar Sekarang
+              Mulai Sebagai Seller
               <ArrowRight size={18} />
             </a>
             <a href="#demo" className="btn btn--ghost">
               <Play size={18} />
-              Lihat Demo 3 Menit
+              Lihat Simulasi Auction
             </a>
           </div>
           <ul className="hero__benefits">
-            <li>Proses tender sesuai regulasi LKPP</li>
-            <li>Dashboard monitoring real-time</li>
-            <li>Dukungan onboarding &amp; training</li>
+            <li>Harga transparan per kilogram &amp; premi kualitas</li>
+            <li>Buyer tersertifikasi dengan due diligence otomatis</li>
+            <li>Integrasi logistik &amp; inspeksi independen</li>
           </ul>
         </div>
         <div className="hero__visual" aria-hidden="true">
           <div className="hero__card hero__card--main">
             <div className="hero__card-header">
-              <p>Tender Pengadaan IT Infrastruktur</p>
-              <span>Status: Evaluasi</span>
+              <p>Lot CPO 24/2025 · 500 MT</p>
+              <span>Status: Live Auction</span>
             </div>
             <div className="hero__card-body">
               <div className="hero__progress">
-                <span>90%</span>
+                <span>78%</span>
                 <div>
-                  <p>Compliance Score</p>
+                  <p>Bid Momentum</p>
                   <div className="progress-bar">
-                    <span style={{ width: '90%' }} />
+                    <span style={{ width: '78%' }} />
                   </div>
                 </div>
               </div>
               <div className="hero__bidders">
-                <p>Top 3 Penawaran</p>
+                <p>Top 3 Bidder</p>
                 <ul>
                   <li>
-                    <span>PT Maju Digital</span>
-                    <span className="price">Rp2,1M</span>
+                    <span>PT Refinery Nusantara</span>
+                    <span className="price">Rp12.450/kg</span>
                   </li>
                   <li>
-                    <span>PT Nusantara Teknologi</span>
-                    <span className="price">Rp2,3M</span>
+                    <span>Global Palm Trading</span>
+                    <span className="price">Rp12.420/kg</span>
                   </li>
                   <li>
-                    <span>PT Solusi Mandiri</span>
-                    <span className="price">Rp2,4M</span>
+                    <span>PT Minyak Maju</span>
+                    <span className="price">Rp12.400/kg</span>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
           <div className="hero__card hero__card--floating">
-            <p className="hero__metric-label">Rata-rata waktu tender</p>
-            <p className="hero__metric-value">23 hari</p>
-            <span className="hero__metric-chip">-32% vs manual</span>
+            <p className="hero__metric-label">Premium Harga</p>
+            <p className="hero__metric-value">+7,8%</p>
+            <span className="hero__metric-chip">vs Harga Referensi Pabrik</span>
           </div>
         </div>
       </div>
