@@ -15,7 +15,7 @@ const Hero = () => {
           </p>
           <div className="hero__actions">
             <a href="#daftar" className="btn btn--primary">
-              Mulai Sebagai Seller
+              Mulai Sebagai Buyer
               <ArrowRight size={18} />
             </a>
             <a href="#demo" className="btn btn--ghost">
