@@ -32,7 +32,7 @@ const Hero = () => {
         <div className="hero__visual" aria-hidden="true">
           <div className="hero__card hero__card--main">
             <div className="hero__card-header">
-              <p>Lot CPO 24/2025 · 500 MT</p>
+              <p>Lot CPO 24/2025 · 500.000 kg</p>
               <span>Status: Live Auction</span>
             </div>
             <div className="hero__card-body">
