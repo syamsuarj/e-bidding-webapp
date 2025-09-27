@@ -36,11 +36,11 @@ const Navbar = () => {
           </nav>
 
           <div className="navbar__actions">
-            <a href="#login" className="btn btn--ghost">
+            <a href="#hubungi" className="btn btn--ghost">
               Masuk
             </a>
-            <a href="#daftar" className="btn btn--primary">
-              Daftar Gratis
+            <a href="#/signup" className="btn btn--primary">
+              Registrasi
             </a>
             <button className="navbar__toggle" onClick={toggleMenu} aria-label="Buka menu">
               {open ? <X size={22} /> : <Menu size={22} />}
@@ -60,13 +60,13 @@ const Navbar = () => {
               </li>
             ))}
             <li>
-              <a href="#login" className="btn btn--ghost" onClick={toggleMenu}>
+              <a href="#hubungi" className="btn btn--ghost" onClick={toggleMenu}>
                 Masuk
               </a>
             </li>
             <li>
-              <a href="#daftar" className="btn btn--primary" onClick={toggleMenu}>
-                Daftar Gratis
+              <a href="#/signup" className="btn btn--primary" onClick={toggleMenu}>
+                Registrasi
               </a>
             </li>
           </ul>

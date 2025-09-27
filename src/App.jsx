@@ -25,7 +25,7 @@ const App = () => {
         <Process />
         <SupplyNetwork />
         <Testimonials />
-        <FAQ />
+  <FAQ />
         <CTA />
       </main>
       <Footer />

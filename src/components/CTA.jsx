@@ -1,6 +1,6 @@
 const CTA = () => {
   return (
-    <section className="cta" id="daftar">
+  <section className="cta" id="hubungi">
       <div className="container cta__inner">
         <div>
           <h2>Siap melelang lot dari 17 PKS PT APN?</h2>
