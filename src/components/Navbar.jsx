@@ -11,10 +11,15 @@ const navItems = [
   { label: 'Kontak', href: '#footer' },
 ];
 
-const Navbar = () => {
+const Navbar = ({ onLoginClick }) => {
   const [open, setOpen] = useState(false);
 
   const toggleMenu = () => setOpen(!open);
+  const handleLoginClick = () => {
+    if (typeof onLoginClick === 'function') {
+      onLoginClick();
+    }
+  };
 
   return (
     <header className="navbar">
@@ -36,9 +41,9 @@ const Navbar = () => {
           </nav>
 
           <div className="navbar__actions">
-            <a href="#hubungi" className="btn btn--ghost">
+            <button type="button" className="btn btn--ghost" onClick={handleLoginClick}>
               Masuk
-            </a>
+            </button>
             <a href="#/signup" className="btn btn--primary">
               Registrasi
             </a>
@@ -60,9 +65,16 @@ const Navbar = () => {
               </li>
             ))}
             <li>
-              <a href="#hubungi" className="btn btn--ghost" onClick={toggleMenu}>
+              <button
+                type="button"
+                className="btn btn--ghost"
+                onClick={() => {
+                  handleLoginClick();
+                  toggleMenu();
+                }}
+              >
                 Masuk
-              </a>
+              </button>
             </li>
             <li>
               <a href="#/signup" className="btn btn--primary" onClick={toggleMenu}>

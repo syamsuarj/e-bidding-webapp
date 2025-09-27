@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import SignUp from './components/SignUp.jsx';
+import Dashboard from './components/Dashboard.jsx';
 import './index.css';
 
 const resolveRoute = () => {
@@ -10,6 +11,10 @@ const resolveRoute = () => {
 
   if (normalizedHash === '/signup' || normalizedPath.endsWith('/signup')) {
     return 'signup';
+  }
+
+  if (normalizedHash === '/dashboard' || normalizedPath.endsWith('/dashboard')) {
+    return 'dashboard';
   }
 
   return 'home';
@@ -33,6 +38,10 @@ const AppRouter = () => {
 
   if (route === 'signup') {
     return <SignUp />;
+  }
+
+  if (route === 'dashboard') {
+    return <Dashboard />;
   }
 
   return <App />;
