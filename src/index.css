@@ -830,13 +830,85 @@ a {
   gap: 1.2rem;
 }
 
-.signup__documents > p {
-  color: rgba(15, 23, 42, 0.7);
-  font-size: 0.95rem;
+.signup__documents-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
 }
 
-.signup__section + .signup__section {
-  margin-top: 0;
+.signup__documents-header h3 {
+  font-size: 1.16rem;
+  margin-bottom: 0.2rem;
+}
+
+.signup__documents-header p {
+  font-size: 0.88rem;
+  color: rgba(15, 23, 42, 0.65);
+  max-width: 240px;
+}
+
+.signup__documents-progress {
+  display: grid;
+  justify-items: flex-end;
+  gap: 0.25rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: var(--radius-md);
+  background: rgba(15, 159, 110, 0.08);
+  border: 1px solid rgba(15, 159, 110, 0.14);
+  min-width: 140px;
+}
+
+.signup__documents-progress span {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.signup__documents-progress small {
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(15, 23, 42, 0.6);
+}
+
+.signup__documents-progress-optional {
+  color: rgba(15, 23, 42, 0.5);
+}
+
+.signup__documents-group {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.signup__documents-group + .signup__documents-group {
+  padding-top: 0.4rem;
+  border-top: 1px solid rgba(15, 159, 110, 0.12);
+}
+
+.signup__documents-group h4 {
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(15, 23, 42, 0.62);
+}
+
+.signup__documents-list {
+  list-style: none;
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+}
+
+.signup__documents-list--grid {
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+}
+
+.signup__documents > p {
+  color: rgba(15, 23, 42, 0.68);
+  font-size: 0.86rem;
 }
 
 .signup__section h3 {
@@ -928,19 +1000,18 @@ a {
 
 .signup__terms input {
   width: 1.1rem;
+  height: 1.1rem;
+}
+
 .signup__form {
   display: grid;
   gap: 2rem;
 }
 
-  height: 1.1rem;
-}
-
 .signup__terms-link {
   background: none;
-  font-size: 1.2rem;
-  margin-bottom: 1.2rem;
-  color: rgba(15, 23, 42, 0.88);
+  border: none;
+  color: var(--color-primary);
   font-weight: 600;
   cursor: pointer;
   padding: 0;
@@ -959,49 +1030,98 @@ a {
   border-radius: var(--radius-sm);
 }
 
-.signup__documents h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.6rem;
-}
-
-.signup__documents-list {
-  display: grid;
-  gap: 1rem;
-  margin: 1.2rem 0 0;
-}
-
 .signup__document {
   border: 1px solid rgba(15, 159, 110, 0.16);
   border-radius: var(--radius-md);
-  padding: 1.05rem 1.2rem;
-  background: rgba(243, 249, 244, 0.75);
-  display: grid;
-  gap: 0.7rem;
+  padding: 0.85rem 0.95rem;
+  background: rgba(243, 249, 244, 0.65);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 64px;
 }
 
-.signup__document-title {
-  display: inline-flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  align-items: center;
+.signup__document-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.signup__document-name {
   font-weight: 600;
+  color: rgba(15, 23, 42, 0.88);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .signup__badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.2rem 0.6rem;
+  padding: 0.18rem 0.54rem;
   border-radius: 999px;
-  background: rgba(15, 159, 110, 0.16);
+  background: rgba(15, 159, 110, 0.14);
   color: var(--color-primary);
-  font-size: 0.75rem;
+  font-size: 0.68rem;
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-.signup__document-description {
-  color: rgba(15, 23, 42, 0.7);
-  font-size: 0.92rem;
+.signup__document-controls {
+  display: grid;
+  gap: 0.3rem;
+  justify-items: flex-end;
+  min-width: 130px;
+}
+
+.signup__upload-file {
+  font-size: 0.76rem;
+  color: rgba(15, 23, 42, 0.55);
+  max-width: 150px;
+  word-break: break-word;
+  text-align: right;
+}
+
+.signup__documents-optional {
+  border: 1px dashed rgba(15, 159, 110, 0.3);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 0.9rem;
+  background: rgba(15, 159, 110, 0.08);
+}
+
+.signup__documents-optional summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
+  list-style: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: rgba(15, 23, 42, 0.8);
+}
+
+.signup__documents-optional summary::-webkit-details-marker {
+  display: none;
+}
+
+.signup__documents-optional[open] summary {
+  margin-bottom: 0.7rem;
+}
+
+.signup__documents-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: white;
+  color: var(--color-primary);
+  font-size: 0.72rem;
+  font-weight: 700;
 }
 
 .signup__badge--optional {
@@ -1307,6 +1427,33 @@ a {
     position: static;
   }
 
+  .signup__documents-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .signup__documents-progress {
+    width: 100%;
+    justify-items: start;
+  }
+
+  .signup__document {
+    flex-direction: column;
+  }
+
+  .signup__document-controls {
+    width: 100%;
+    justify-items: stretch;
+  }
+
+  .signup__upload {
+    width: 100%;
+  }
+
+  .signup__documents-list--grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
   .signup__login {
     margin-top: 2.4rem;
   }
@@ -1354,5 +1501,14 @@ a {
 
   .signup__login {
     padding: 1.6rem;
+  }
+
+  .signup__upload-file {
+    max-width: 100%;
+    text-align: left;
+  }
+
+  .signup__documents-list--grid {
+    grid-template-columns: 1fr;
   }
 }

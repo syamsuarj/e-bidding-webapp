@@ -239,27 +239,33 @@ const SignUp = () => {
   const handleShowTerms = () => setShowTerms(true);
   const handleHideTerms = () => setShowTerms(false);
 
+  const formatFileName = (file) => {
+    if (!file) return 'Belum ada file';
+    return file.name.length > 28 ? `${file.name.slice(0, 26)}…` : file.name;
+  };
+
   const renderDocumentRow = (doc, optional) => {
     const currentFile = documents[doc.key];
     return (
-      <div className="signup__document" key={doc.key}>
-        <div>
-          <p className="signup__document-title">
-            {doc.label}
-            {!optional && <span className="signup__badge">Wajib</span>}
-            {optional && <span className="signup__badge signup__badge--optional">Opsional</span>}
-          </p>
-          <p className="signup__document-description">{doc.description}</p>
+      <li className="signup__document" key={doc.key} title={doc.description}>
+        <div className="signup__document-label">
+          <span className="signup__document-name">{doc.label}</span>
+          <span className={`signup__badge ${optional ? 'signup__badge--optional' : ''}`}>{optional ? 'Opsional' : 'Wajib'}</span>
         </div>
-        <label className="signup__upload">
-          <input
-            type="file"
-            accept=".pdf,.png,.jpg,.jpeg"
-            onChange={(event) => handleDocumentChange(doc.key, event.target.files)}
-          />
-          <span>{currentFile ? currentFile.name : 'Pilih file'}</span>
-        </label>
-      </div>
+        <div className="signup__document-controls">
+          <label className="signup__upload">
+            <input
+              type="file"
+              accept=".pdf,.png,.jpg,.jpeg"
+              onChange={(event) => handleDocumentChange(doc.key, event.target.files)}
+            />
+            <span>{currentFile ? 'Ganti File' : 'Unggah'}</span>
+          </label>
+          <small className="signup__upload-file" aria-live="polite">
+            {formatFileName(currentFile)}
+          </small>
+        </div>
+      </li>
     );
   };
 
@@ -482,14 +488,42 @@ const SignUp = () => {
           </form>
 
           <aside className="signup__documents" aria-label="Unggah dokumen">
-            <h3>Unggah Dokumen Legal</h3>
-            <p>Format diperbolehkan: PDF, JPG, atau PNG (maks. 10 MB per file).</p>
-            <div className="signup__documents-list">
-              {requiredDocuments.map((doc) => renderDocumentRow(doc, false))}
-              {optionalDocuments.map((doc) => renderDocumentRow(doc, true))}
+            <header className="signup__documents-header">
+              <div>
+                <h3>Unggah Dokumen Legal</h3>
+                <p>Format diizinkan: PDF, JPG, PNG · Maks. 10 MB per file.</p>
+              </div>
+              <div className="signup__documents-progress" aria-live="polite">
+                <span>{uploadedRequiredCount}/{requiredDocuments.length}</span>
+                <small>Dokumen wajib terunggah</small>
+                {optionalDocuments.length > 0 && (
+                  <small className="signup__documents-progress-optional">
+                    Opsional: {uploadedOptionalCount}/{optionalDocuments.length}
+                  </small>
+                )}
+              </div>
+            </header>
+            <div className="signup__documents-group" aria-label="Dokumen wajib">
+              <h4>Dokumen Wajib</h4>
+              <ul className="signup__documents-list signup__documents-list--grid">
+                {requiredDocuments.map((doc) => renderDocumentRow(doc, false))}
+              </ul>
             </div>
+            {optionalDocuments.length > 0 && (
+              <details className="signup__documents-optional" aria-label="Dokumen opsional">
+                <summary>
+                  <span>Dokumen Opsional</span>
+                  <span className="signup__documents-badge">
+                    {uploadedOptionalCount}/{optionalDocuments.length}
+                  </span>
+                </summary>
+                <ul className="signup__documents-list signup__documents-list--grid">
+                  {optionalDocuments.map((doc) => renderDocumentRow(doc, true))}
+                </ul>
+              </details>
+            )}
             <p className="signup__review-note">
-              Setelah dikirim, tim bisnis akan memverifikasi dokumen dalam waktu maksimal 1 x 24 jam. Status akun akan berubah menjadi <strong>Menunggu Verifikasi</strong> hingga proses selesai.
+              Setelah dikirim, tim bisnis akan meninjau berkas maksimal 1 x 24 jam sebelum akun aktif.
             </p>
           </aside>
         </div>
