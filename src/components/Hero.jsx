@@ -5,28 +5,28 @@ const Hero = () => {
     <section className="hero" id="top">
       <div className="container hero__content">
         <div className="hero__copy">
-          <span className="badge">Platform Lelang CPO #1</span>
+          <span className="badge">PT Agrinas Palma Nusantara</span>
           <h1>
-            APAS menghubungkan produsen Crude Palm Oil dengan buyer global dalam{' '}
+            APAS menghubungkan 17 pabrik kelapa sawit APN dengan buyer global melalui{' '}
             <span className="text-gradient">lelang digital real-time</span>.
           </h1>
           <p>
-            Agrinas Palma Auction System menghadirkan penemuan harga terbaik, verifikasi kualitas, dan settlement cepat untuk setiap lot minyak sawit mentah.
+            Agrinas Palma Auction System menayangkan lot CPO, PKO, PKM, dan CPKO lengkap dengan data laboratorium, mempermudah buyer memastikan kualitas sebelum mengunci harga premium.
           </p>
           <div className="hero__actions">
             <a href="#daftar" className="btn btn--primary">
-              Mulai Sebagai Buyer
+              Lihat Jadwal Lelang
               <ArrowRight size={18} />
             </a>
-            <a href="#demo" className="btn btn--ghost">
+            <a href="#daftar" className="btn btn--ghost">
               <Play size={18} />
-              Lihat Simulasi Auction
+              Jadwalkan Demo APAS
             </a>
           </div>
           <ul className="hero__benefits">
-            <li>Harga transparan per kilogram &amp; premi kualitas</li>
+            <li>Penjualan CPO, PKO, PKM, dan CPKO dengan data QC terbaru</li>
             <li>Buyer tersertifikasi dengan due diligence otomatis</li>
-            <li>Integrasi logistik &amp; inspeksi independen</li>
+            <li>Integrasi logistik, pembayaran, dan invoicing setelah deal</li>
           </ul>
         </div>
         <div className="hero__visual" aria-hidden="true">

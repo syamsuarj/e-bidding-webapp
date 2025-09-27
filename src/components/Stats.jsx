@@ -1,8 +1,8 @@
 const stats = [
-  { value: '150K ton', label: 'Volume CPO dilelang per tahun' },
+  { value: '17 PKS', label: 'Jaringan pabrik PT APN seluruh Indonesia' },
+  { value: '4 Produk', label: 'CPO, PKO, PKM, dan CPKO siap bidding' },
+  { value: '500+', label: 'Buyer refiners & trader tersertifikasi' },
   { value: '12%+', label: 'Premium rata-rata dibanding harga spot' },
-  { value: '500+', label: 'Buyer & refinery tersertifikasi' },
-  { value: '<30 menit', label: 'Waktu rata-rata penutupan lot' },
 ];
 
 const Stats = () => {

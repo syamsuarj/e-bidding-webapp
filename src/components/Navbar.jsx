@@ -2,9 +2,12 @@ import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 
 const navItems = [
-  { label: 'Fitur', href: '#features' },
+  { label: 'Produk', href: '#products' },
+  { label: 'Platform', href: '#platform' },
+  { label: 'Jaringan', href: '#network' },
   { label: 'Alur Lelang', href: '#process' },
   { label: 'Testimoni', href: '#testimonials' },
+  { label: 'FAQ', href: '#faq' },
   { label: 'Kontak', href: '#footer' },
 ];
 

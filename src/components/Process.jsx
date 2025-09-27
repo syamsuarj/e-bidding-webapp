@@ -1,27 +1,33 @@
 const steps = [
   {
     number: '01',
-    title: 'Kurasi Lot & QC',
+    title: 'Onboarding & Hak Akses',
     description:
-      'Unggah spesifikasi, hasil lab, dan foto tangki. Pilih floor price serta jadwal lelang yang ingin dibuka.',
+      'Registrasi buyer/seller, verifikasi dokumen, penetapan level akses, dan aktivasi virtual account untuk deposit jaminan.',
   },
   {
     number: '02',
-    title: 'Broadcast ke Buyer',
+    title: 'Kurasi Lot & QC',
     description:
-      'APAS mengundang buyer tersertifikasi, membuka sesi tanya jawab, dan mengumpulkan deposit partisipasi.',
+      'Tim PKS mengunggah detail lot (CPO, PKO, PKM, CPKO), sertifikat lab, dan menentukan jadwal lelang serta floor price.',
   },
   {
     number: '03',
-    title: 'Live Auction Interaktif',
+    title: 'Katalog & Notifikasi',
     description:
-      'Pantau bid ladder, auto-extension, dan premi kualitas secara real-time lewat dashboard dinamis.',
+      'Buyer memilih lot favorit, menambahkan ke watchlist, dan menerima notifikasi closing soon atau perubahan jadwal.',
   },
   {
     number: '04',
-    title: 'Settlement & Pengiriman',
+    title: 'Live Bidding',
     description:
-      'Konfirmasi pemenang, selesai-kan pembayaran via escrow, dan aktifkan modul logistik & tracking kapal.',
+      'Mode forward auction dengan auto-extension, leaderboard transparan, serta reminder bagi pemenang pertama agar tidak mundur.',
+  },
+  {
+    number: '05',
+    title: 'Pembayaran & Logistik',
+    description:
+      'Konfirmasi pembayaran, generate invoice, dan koordinasi shipping hingga status berganti menjadi delivered.',
   },
 ];
 
@@ -31,7 +37,7 @@ const Process = () => {
       <div className="container">
         <div className="section__header">
           <span className="badge">Alur APAS</span>
-          <h2>Empat tahap ringkas untuk menutup penjualan CPO terbaik</h2>
+          <h2>Lima langkah terintegrasi dari onboarding hingga pengiriman</h2>
           <p>
             Proses dirancang agar tim komoditas Anda fokus pada strategi, sementara APAS mengotomatiskan hal teknis dan compliance.
           </p>

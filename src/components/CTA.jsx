@@ -3,10 +3,10 @@ const CTA = () => {
     <section className="cta" id="daftar">
       <div className="container cta__inner">
         <div>
-          <h2>Siap melelang lot CPO Anda berikutnya?</h2>
-          <p>
-            Jadwalkan sesi onboarding 30 menit dengan tim APAS dan lihat bagaimana penjualan CPO Anda mendapatkan premium yang konsisten.
-          </p>
+            <h2>Siap melelang lot dari 17 PKS PT APN?</h2>
+            <p>
+              Jadwalkan sesi onboarding 30 menit dengan tim Agrinas Palma Nusantara dan pelajari bagaimana APAS membantu mengoptimalkan harga jual CPO, PKO, PKM, maupun CPKO.
+            </p>
         </div>
         <form className="cta__form">
           <label htmlFor="email" className="sr-only">

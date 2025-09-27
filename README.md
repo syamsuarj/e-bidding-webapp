@@ -4,11 +4,10 @@ Landing page modern untuk Agrinas Palma Auction System (APAS), platform lelang C
 
 ## 🚀 Highlight
 
-- Hero section yang menonjolkan dinamika lot CPO dan CTA untuk seller
-- Statistik volume, premium harga, serta jaringan buyer APAS
-- Deskripsi fitur inti (QC digital, live alerts, analitik premium, dsb.)
-- Penjabaran alur lelang empat tahap dan testimoni produsen/buyer
-- CTA formulir onboarding serta footer kontak & portal login APAS
+- Hero section yang mempresentasikan jaringan 17 PKS PT APN dan empat komoditas utama
+- Statistik ringkas, showcase produk (CPO, PKO, PKM, CPKO), serta modul platform mengikuti diagram bisnis
+- Grid fitur lanjutan, alur lima tahap dari onboarding hingga logistik, dan tabel jaringan pabrik
+- Testimoni produsen & buyer, FAQ, serta CTA onboarding untuk demo APAS
 
 ## 🧰 Tech Stack
 

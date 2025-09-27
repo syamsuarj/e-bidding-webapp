@@ -7,7 +7,7 @@ const Footer = () => {
         <div>
           <h3>APAS</h3>
           <p>
-            Agrinas Palma Auction System memfasilitasi produsen sawit dan buyer global menutup transaksi Crude Palm Oil secara cepat, transparan, dan aman.
+            Agrinas Palma Auction System memfasilitasi 17 pabrik sawit PT APN untuk menjual CPO, PKO, PKM, dan CPKO secara cepat, transparan, dan aman kepada buyer global.
           </p>
         </div>
         <div>
