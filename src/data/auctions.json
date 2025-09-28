@@ -1,0 +1,162 @@
+[
+  {
+    "id": "AUC-2025-0001",
+    "title": "CPO Batch 10 Ton - Sumatera Utara",
+    "startDate": "2025-10-01 09:00",
+    "endDate": "2025-10-01 12:00",
+    "status": "Terjadwal",
+    "participants": 14
+  },
+  {
+    "id": "AUC-2025-0002",
+    "title": "Kernel 5 Ton - Riau",
+    "startDate": "2025-10-03 13:00",
+    "endDate": "2025-10-03 15:00",
+    "status": "Terbuka",
+    "participants": 22
+  },
+  {
+    "id": "AUC-2025-0003",
+    "title": "CPO 20 Ton - Kalimantan Barat",
+    "startDate": "2025-09-20 10:00",
+    "endDate": "2025-09-20 12:30",
+    "status": "Selesai",
+    "participants": 18
+  },
+  {
+    "id": "AUC-2025-0004",
+    "title": "PKO 8 Ton - Jambi",
+    "startDate": "2025-10-05 09:30",
+    "endDate": "2025-10-05 11:30",
+    "status": "Terbuka",
+    "participants": 9
+  },
+  {
+    "id": "AUC-2025-0005",
+    "title": "CPO 15 Ton - Aceh",
+    "startDate": "2025-10-06 09:00",
+    "endDate": "2025-10-06 12:00",
+    "status": "Terjadwal",
+    "participants": 7
+  },
+  {
+    "id": "AUC-2025-0006",
+    "title": "Kernel 12 Ton - Sumatera Barat",
+    "startDate": "2025-10-07 13:00",
+    "endDate": "2025-10-07 15:00",
+    "status": "Terjadwal",
+    "participants": 11
+  },
+  {
+    "id": "AUC-2025-0007",
+    "title": "PKO 10 Ton - Lampung",
+    "startDate": "2025-10-08 09:00",
+    "endDate": "2025-10-08 11:30",
+    "status": "Terjadwal",
+    "participants": 5
+  },
+  {
+    "id": "AUC-2025-0008",
+    "title": "CPO 25 Ton - Kalimantan Tengah",
+    "startDate": "2025-09-18 10:00",
+    "endDate": "2025-09-18 12:30",
+    "status": "Selesai",
+    "participants": 21
+  },
+  {
+    "id": "AUC-2025-0009",
+    "title": "Kernel 7 Ton - Kalimantan Selatan",
+    "startDate": "2025-09-22 13:00",
+    "endDate": "2025-09-22 15:00",
+    "status": "Selesai",
+    "participants": 10
+  },
+  {
+    "id": "AUC-2025-0010",
+    "title": "CPO 18 Ton - Sulawesi Selatan",
+    "startDate": "2025-10-10 09:00",
+    "endDate": "2025-10-10 12:00",
+    "status": "Terjadwal",
+    "participants": 13
+  },
+  {
+    "id": "AUC-2025-0011",
+    "title": "PKO 6 Ton - Sulawesi Tengah",
+    "startDate": "2025-10-11 09:30",
+    "endDate": "2025-10-11 11:30",
+    "status": "Terjadwal",
+    "participants": 8
+  },
+  {
+    "id": "AUC-2025-0012",
+    "title": "CPO 30 Ton - Sumatera Selatan",
+    "startDate": "2025-09-10 10:00",
+    "endDate": "2025-09-10 12:30",
+    "status": "Selesai",
+    "participants": 26
+  },
+  {
+    "id": "AUC-2025-0013",
+    "title": "Kernel 9 Ton - Jambi",
+    "startDate": "2025-09-12 13:00",
+    "endDate": "2025-09-12 15:00",
+    "status": "Selesai",
+    "participants": 12
+  },
+  {
+    "id": "AUC-2025-0014",
+    "title": "CPO 12 Ton - Riau",
+    "startDate": "2025-10-12 09:00",
+    "endDate": "2025-10-12 12:00",
+    "status": "Terjadwal",
+    "participants": 6
+  },
+  {
+    "id": "AUC-2025-0015",
+    "title": "PKO 15 Ton - Kalimantan Timur",
+    "startDate": "2025-10-13 09:00",
+    "endDate": "2025-10-13 11:30",
+    "status": "Terjadwal",
+    "participants": 9
+  },
+  {
+    "id": "AUC-2025-0016",
+    "title": "CPO 22 Ton - Bangka Belitung",
+    "startDate": "2025-09-02 10:00",
+    "endDate": "2025-09-02 12:30",
+    "status": "Selesai",
+    "participants": 17
+  },
+  {
+    "id": "AUC-2025-0017",
+    "title": "Kernel 11 Ton - Banten",
+    "startDate": "2025-09-05 13:00",
+    "endDate": "2025-09-05 15:00",
+    "status": "Selesai",
+    "participants": 11
+  },
+  {
+    "id": "AUC-2025-0018",
+    "title": "CPO 16 Ton - Jawa Barat",
+    "startDate": "2025-10-14 09:00",
+    "endDate": "2025-10-14 12:00",
+    "status": "Terjadwal",
+    "participants": 10
+  },
+  {
+    "id": "AUC-2025-0019",
+    "title": "Kernel 14 Ton - Jawa Tengah",
+    "startDate": "2025-10-15 13:00",
+    "endDate": "2025-10-15 15:00",
+    "status": "Terjadwal",
+    "participants": 15
+  },
+  {
+    "id": "AUC-2025-0020",
+    "title": "CPO 28 Ton - Jawa Timur",
+    "startDate": "2025-09-01 10:00",
+    "endDate": "2025-09-01 12:30",
+    "status": "Selesai",
+    "participants": 24
+  }
+]

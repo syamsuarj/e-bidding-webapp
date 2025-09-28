@@ -1,0 +1,182 @@
+[
+  {
+    "id": "PKS-2025-0001",
+    "name": "PKS Nusantara Plant 1",
+    "location": "Sumatera Utara",
+    "capacity": "30 TPH",
+    "owner": "Nusantara Agro Tbk",
+    "status": "Aktif",
+    "since": "2018"
+  },
+  {
+    "id": "PKS-2025-0002",
+    "name": "PKS Riau Jaya",
+    "location": "Riau",
+    "capacity": "45 TPH",
+    "owner": "Riau Jaya Group",
+    "status": "Aktif",
+    "since": "2020"
+  },
+  {
+    "id": "PKS-2025-0003",
+    "name": "PKS Kalbar Sejahtera",
+    "location": "Kalimantan Barat",
+    "capacity": "60 TPH",
+    "owner": "Kalbar Sejahtera",
+    "status": "Perawatan",
+    "since": "2016"
+  },
+  {
+    "id": "PKS-2025-0004",
+    "name": "PKS Jambi Makmur",
+    "location": "Jambi",
+    "capacity": "30 TPH",
+    "owner": "Makmur Abadi",
+    "status": "Tidak Aktif",
+    "since": "2015"
+  },
+  {
+    "id": "PKS-2025-0005",
+    "name": "PKS Sumut 2",
+    "location": "Sumatera Utara",
+    "capacity": "30 TPH",
+    "owner": "Nusantara Agro",
+    "status": "Aktif",
+    "since": "2019"
+  },
+  {
+    "id": "PKS-2025-0006",
+    "name": "PKS Riau Makmur",
+    "location": "Riau",
+    "capacity": "45 TPH",
+    "owner": "Riau Jaya Group",
+    "status": "Perawatan",
+    "since": "2017"
+  },
+  {
+    "id": "PKS-2025-0007",
+    "name": "PKS Kalbar 2",
+    "location": "Kalimantan Barat",
+    "capacity": "60 TPH",
+    "owner": "Kalbar Sejahtera",
+    "status": "Aktif",
+    "since": "2014"
+  },
+  {
+    "id": "PKS-2025-0008",
+    "name": "PKS Jambi Prima",
+    "location": "Jambi",
+    "capacity": "30 TPH",
+    "owner": "Makmur Abadi",
+    "status": "Aktif",
+    "since": "2013"
+  },
+  {
+    "id": "PKS-2025-0009",
+    "name": "PKS Kaltim Mandiri",
+    "location": "Kalimantan Timur",
+    "capacity": "60 TPH",
+    "owner": "Kaltim Mandiri",
+    "status": "Aktif",
+    "since": "2019"
+  },
+  {
+    "id": "PKS-2025-0010",
+    "name": "PKS Sulsel Jaya",
+    "location": "Sulawesi Selatan",
+    "capacity": "45 TPH",
+    "owner": "Sulsel Jaya",
+    "status": "Perawatan",
+    "since": "2021"
+  },
+  {
+    "id": "PKS-2025-0011",
+    "name": "PKS Aceh Lestari",
+    "location": "Aceh",
+    "capacity": "30 TPH",
+    "owner": "Aceh Lestari",
+    "status": "Aktif",
+    "since": "2016"
+  },
+  {
+    "id": "PKS-2025-0012",
+    "name": "PKS Sumbar Sejahtera",
+    "location": "Sumatera Barat",
+    "capacity": "45 TPH",
+    "owner": "Sumbar Sejahtera",
+    "status": "Aktif",
+    "since": "2018"
+  },
+  {
+    "id": "PKS-2025-0013",
+    "name": "PKS Kalteng Maju",
+    "location": "Kalimantan Tengah",
+    "capacity": "60 TPH",
+    "owner": "Kalteng Maju",
+    "status": "Tidak Aktif",
+    "since": "2015"
+  },
+  {
+    "id": "PKS-2025-0014",
+    "name": "PKS Kalsel Abadi",
+    "location": "Kalimantan Selatan",
+    "capacity": "30 TPH",
+    "owner": "Kalsel Abadi",
+    "status": "Aktif",
+    "since": "2020"
+  },
+  {
+    "id": "PKS-2025-0015",
+    "name": "PKS Sultra Sejahtera",
+    "location": "Sulawesi Tenggara",
+    "capacity": "45 TPH",
+    "owner": "Sultra Sejahtera",
+    "status": "Aktif",
+    "since": "2017"
+  },
+  {
+    "id": "PKS-2025-0016",
+    "name": "PKS Babel Prima",
+    "location": "Bangka Belitung",
+    "capacity": "30 TPH",
+    "owner": "Babel Prima",
+    "status": "Perawatan",
+    "since": "2016"
+  },
+  {
+    "id": "PKS-2025-0017",
+    "name": "PKS Banten Makmur",
+    "location": "Banten",
+    "capacity": "45 TPH",
+    "owner": "Banten Makmur",
+    "status": "Aktif",
+    "since": "2018"
+  },
+  {
+    "id": "PKS-2025-0018",
+    "name": "PKS Jabar Lestari",
+    "location": "Jawa Barat",
+    "capacity": "30 TPH",
+    "owner": "Jabar Lestari",
+    "status": "Aktif",
+    "since": "2014"
+  },
+  {
+    "id": "PKS-2025-0019",
+    "name": "PKS Jateng Jaya",
+    "location": "Jawa Tengah",
+    "capacity": "45 TPH",
+    "owner": "Jateng Jaya",
+    "status": "Aktif",
+    "since": "2022"
+  },
+  {
+    "id": "PKS-2025-0020",
+    "name": "PKS Jatim Sejahtera",
+    "location": "Jawa Timur",
+    "capacity": "60 TPH",
+    "owner": "Jatim Sejahtera",
+    "status": "Perawatan",
+    "since": "2019"
+  }
+]

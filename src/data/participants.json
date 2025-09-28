@@ -1,0 +1,182 @@
+[
+  {
+    "id": "PTC-2025-0001",
+    "name": "PT Nusantara Agro",
+    "company": "Nusantara Agro Tbk",
+    "email": "admin@nusagro.co.id",
+    "phone": "+62 812-3456-7890",
+    "status": "Terverifikasi",
+    "registeredAt": "2025-08-12"
+  },
+  {
+    "id": "PTC-2025-0002",
+    "name": "CV Sawit Maju",
+    "company": "CV Sawit Maju",
+    "email": "cs@sawitmaju.id",
+    "phone": "+62 811-2233-4455",
+    "status": "Menunggu",
+    "registeredAt": "2025-09-01"
+  },
+  {
+    "id": "PTC-2025-0003",
+    "name": "PT Andalas Palm",
+    "company": "Andalas Palm",
+    "email": "info@andalaspalm.com",
+    "phone": "+62 813-6666-7777",
+    "status": "Ditolak",
+    "registeredAt": "2025-07-28"
+  },
+  {
+    "id": "PTC-2025-0004",
+    "name": "UD Kencana Jaya",
+    "company": "UD Kencana Jaya",
+    "email": "halo@kencanajaya.id",
+    "phone": "+62 815-9090-1010",
+    "status": "Terverifikasi",
+    "registeredAt": "2025-09-15"
+  },
+  {
+    "id": "PTC-2025-0005",
+    "name": "PT Sinar Alam",
+    "company": "PT Sinar Alam",
+    "email": "contact@sinaralam.co.id",
+    "phone": "+62 817-1111-2222",
+    "status": "Terverifikasi",
+    "registeredAt": "2025-08-02"
+  },
+  {
+    "id": "PTC-2025-0006",
+    "name": "PT Borneo Palm",
+    "company": "Borneo Palm",
+    "email": "admin@borneopalm.id",
+    "phone": "+62 812-1212-3434",
+    "status": "Menunggu",
+    "registeredAt": "2025-09-10"
+  },
+  {
+    "id": "PTC-2025-0007",
+    "name": "PT Sejahtera Abadi",
+    "company": "Sejahtera Abadi",
+    "email": "info@sejahteraabadi.id",
+    "phone": "+62 819-5555-6666",
+    "status": "Terverifikasi",
+    "registeredAt": "2025-08-20"
+  },
+  {
+    "id": "PTC-2025-0008",
+    "name": "CV Dunia Sawit",
+    "company": "CV Dunia Sawit",
+    "email": "cs@duniasawit.co.id",
+    "phone": "+62 813-2222-4444",
+    "status": "Terverifikasi",
+    "registeredAt": "2025-07-30"
+  },
+  {
+    "id": "PTC-2025-0009",
+    "name": "PT Citra Bumi",
+    "company": "PT Citra Bumi",
+    "email": "halo@citrabumi.id",
+    "phone": "+62 818-3333-7777",
+    "status": "Menunggu",
+    "registeredAt": "2025-09-18"
+  },
+  {
+    "id": "PTC-2025-0010",
+    "name": "PT Samudra Palm",
+    "company": "PT Samudra Palm",
+    "email": "info@samudrapalm.com",
+    "phone": "+62 811-4444-8888",
+    "status": "Ditolak",
+    "registeredAt": "2025-07-12"
+  },
+  {
+    "id": "PTC-2025-0011",
+    "name": "PT Nusantara Jaya",
+    "company": "PT Nusantara Jaya",
+    "email": "admin@nusantarajaya.id",
+    "phone": "+62 812-9090-1010",
+    "status": "Terverifikasi",
+    "registeredAt": "2025-08-05"
+  },
+  {
+    "id": "PTC-2025-0012",
+    "name": "PT Pertiwi Palm",
+    "company": "PT Pertiwi Palm",
+    "email": "cs@pertiwipalm.id",
+    "phone": "+62 813-1212-7878",
+    "status": "Menunggu",
+    "registeredAt": "2025-09-08"
+  },
+  {
+    "id": "PTC-2025-0013",
+    "name": "CV Mitra Lestari",
+    "company": "CV Mitra Lestari",
+    "email": "halo@mitralestari.id",
+    "phone": "+62 819-2020-4040",
+    "status": "Terverifikasi",
+    "registeredAt": "2025-08-18"
+  },
+  {
+    "id": "PTC-2025-0014",
+    "name": "PT Bukit Sawit",
+    "company": "PT Bukit Sawit",
+    "email": "info@bukitsawit.co.id",
+    "phone": "+62 811-6060-9090",
+    "status": "Terverifikasi",
+    "registeredAt": "2025-07-25"
+  },
+  {
+    "id": "PTC-2025-0015",
+    "name": "PT Alam Sejahtera",
+    "company": "PT Alam Sejahtera",
+    "email": "admin@alamsejahtera.id",
+    "phone": "+62 817-3030-9090",
+    "status": "Menunggu",
+    "registeredAt": "2025-09-20"
+  },
+  {
+    "id": "PTC-2025-0016",
+    "name": "PT Lestari Hijau",
+    "company": "PT Lestari Hijau",
+    "email": "cs@lestarhijau.com",
+    "phone": "+62 812-5454-3232",
+    "status": "Terverifikasi",
+    "registeredAt": "2025-08-22"
+  },
+  {
+    "id": "PTC-2025-0017",
+    "name": "PT Hutan Makmur",
+    "company": "PT Hutan Makmur",
+    "email": "info@hutanmakmur.id",
+    "phone": "+62 815-9090-1111",
+    "status": "Terverifikasi",
+    "registeredAt": "2025-08-28"
+  },
+  {
+    "id": "PTC-2025-0018",
+    "name": "CV Bumi Sawit",
+    "company": "CV Bumi Sawit",
+    "email": "cs@bumisawit.id",
+    "phone": "+62 819-1212-5656",
+    "status": "Menunggu",
+    "registeredAt": "2025-09-12"
+  },
+  {
+    "id": "PTC-2025-0019",
+    "name": "PT Agro Maju",
+    "company": "PT Agro Maju",
+    "email": "admin@agromaju.id",
+    "phone": "+62 813-3333-6666",
+    "status": "Terverifikasi",
+    "registeredAt": "2025-08-10"
+  },
+  {
+    "id": "PTC-2025-0020",
+    "name": "PT Energi Lestari",
+    "company": "PT Energi Lestari",
+    "email": "info@energilstari.co.id",
+    "phone": "+62 811-2222-3333",
+    "status": "Terverifikasi",
+    "registeredAt": "2025-07-08"
+  }
+]

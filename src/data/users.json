@@ -1,0 +1,162 @@
+[
+  {
+    "id": "USR-2025-0001",
+    "name": "Ayu Wulandari",
+    "email": "ayu.wulandari@example.com",
+    "phone": "+62 812-1111-2221",
+    "role": "buyer",
+    "status": "Aktif"
+  },
+  {
+    "id": "USR-2025-0002",
+    "name": "Budi Santoso",
+    "email": "budi.santoso@example.com",
+    "phone": "+62 812-1111-2222",
+    "role": "seller",
+    "status": "Aktif"
+  },
+  {
+    "id": "USR-2025-0003",
+    "name": "Citra Lestari",
+    "email": "citra.lestari@example.com",
+    "phone": "+62 812-1111-2223",
+    "role": "auditor",
+    "status": "Aktif"
+  },
+  {
+    "id": "USR-2025-0004",
+    "name": "Dedi Pratama",
+    "email": "dedi.pratama@example.com",
+    "phone": "+62 812-1111-2224",
+    "role": "admin",
+    "status": "Aktif"
+  },
+  {
+    "id": "USR-2025-0005",
+    "name": "Erni Safitri",
+    "email": "erni.safitri@example.com",
+    "phone": "+62 812-1111-2225",
+    "role": "buyer",
+    "status": "Nonaktif"
+  },
+  {
+    "id": "USR-2025-0006",
+    "name": "Fajar Hidayat",
+    "email": "fajar.hidayat@example.com",
+    "phone": "+62 812-1111-2226",
+    "role": "seller",
+    "status": "Aktif"
+  },
+  {
+    "id": "USR-2025-0007",
+    "name": "Gita Permata",
+    "email": "gita.permata@example.com",
+    "phone": "+62 812-1111-2227",
+    "role": "buyer",
+    "status": "Aktif"
+  },
+  {
+    "id": "USR-2025-0008",
+    "name": "Hendra Saputra",
+    "email": "hendra.saputra@example.com",
+    "phone": "+62 812-1111-2228",
+    "role": "auditor",
+    "status": "Aktif"
+  },
+  {
+    "id": "USR-2025-0009",
+    "name": "Intan Rahma",
+    "email": "intan.rahma@example.com",
+    "phone": "+62 812-1111-2229",
+    "role": "seller",
+    "status": "Aktif"
+  },
+  {
+    "id": "USR-2025-0010",
+    "name": "Joko Widodo",
+    "email": "joko.widodo@example.com",
+    "phone": "+62 812-1111-2230",
+    "role": "buyer",
+    "status": "Aktif"
+  },
+  {
+    "id": "USR-2025-0011",
+    "name": "Kiki Amelia",
+    "email": "kiki.amelia@example.com",
+    "phone": "+62 812-1111-2231",
+    "role": "seller",
+    "status": "Aktif"
+  },
+  {
+    "id": "USR-2025-0012",
+    "name": "Lukman Hakim",
+    "email": "lukman.hakim@example.com",
+    "phone": "+62 812-1111-2232",
+    "role": "auditor",
+    "status": "Nonaktif"
+  },
+  {
+    "id": "USR-2025-0013",
+    "name": "Maya Sari",
+    "email": "maya.sari@example.com",
+    "phone": "+62 812-1111-2233",
+    "role": "admin",
+    "status": "Aktif"
+  },
+  {
+    "id": "USR-2025-0014",
+    "name": "Nanda Putra",
+    "email": "nanda.putra@example.com",
+    "phone": "+62 812-1111-2234",
+    "role": "buyer",
+    "status": "Aktif"
+  },
+  {
+    "id": "USR-2025-0015",
+    "name": "Ovi Kartika",
+    "email": "ovi.kartika@example.com",
+    "phone": "+62 812-1111-2235",
+    "role": "seller",
+    "status": "Aktif"
+  },
+  {
+    "id": "USR-2025-0016",
+    "name": "Pandu Wirawan",
+    "email": "pandu.wirawan@example.com",
+    "phone": "+62 812-1111-2236",
+    "role": "auditor",
+    "status": "Aktif"
+  },
+  {
+    "id": "USR-2025-0017",
+    "name": "Qori Maulida",
+    "email": "qori.maulida@example.com",
+    "phone": "+62 812-1111-2237",
+    "role": "buyer",
+    "status": "Aktif"
+  },
+  {
+    "id": "USR-2025-0018",
+    "name": "Rangga Saputra",
+    "email": "rangga.saputra@example.com",
+    "phone": "+62 812-1111-2238",
+    "role": "seller",
+    "status": "Nonaktif"
+  },
+  {
+    "id": "USR-2025-0019",
+    "name": "Sinta Dewi",
+    "email": "sinta.dewi@example.com",
+    "phone": "+62 812-1111-2239",
+    "role": "admin",
+    "status": "Aktif"
+  },
+  {
+    "id": "USR-2025-0020",
+    "name": "Tono Surya",
+    "email": "tono.surya@example.com",
+    "phone": "+62 812-1111-2240",
+    "role": "buyer",
+    "status": "Aktif"
+  }
+]

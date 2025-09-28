@@ -1,0 +1,128 @@
+[
+  {
+    "id": "POL-2025-0001",
+    "title": "Kebijakan Keamanan Informasi",
+    "category": "Keamanan",
+    "status": "Aktif",
+    "version": "1.2",
+    "effectiveDate": "2025-01-15",
+    "owner": "Divisi TI"
+  },
+  {
+    "id": "POL-2025-0002",
+    "title": "Kebijakan Privasi Data Pengguna",
+    "category": "Privasi",
+    "status": "Diperbarui",
+    "version": "2.1",
+    "effectiveDate": "2025-07-01",
+    "owner": "Kepatuhan"
+  },
+  {
+    "id": "POL-2025-0003",
+    "title": "Kebijakan Penggunaan Sistem",
+    "category": "Operasional",
+    "status": "Aktif",
+    "version": "1.0",
+    "effectiveDate": "2025-03-10",
+    "owner": "Operasional"
+  },
+  {
+    "id": "POL-2025-0004",
+    "title": "Kebijakan Retensi Data",
+    "category": "Kepatuhan",
+    "status": "Draf",
+    "version": "0.9",
+    "effectiveDate": "2025-10-01",
+    "owner": "Kepatuhan"
+  },
+  {
+    "id": "POL-2025-0005",
+    "title": "Kebijakan Manajemen Akses",
+    "category": "Keamanan",
+    "status": "Aktif",
+    "version": "1.3",
+    "effectiveDate": "2025-02-20",
+    "owner": "Divisi TI"
+  },
+  {
+    "id": "POL-2025-0006",
+    "title": "Kebijakan Insiden Keamanan",
+    "category": "Keamanan",
+    "status": "Aktif",
+    "version": "1.1",
+    "effectiveDate": "2025-05-05",
+    "owner": "Divisi TI"
+  },
+  {
+    "id": "POL-2025-0007",
+    "title": "Kebijakan Vendor & Pihak Ketiga",
+    "category": "Kepatuhan",
+    "status": "Aktif",
+    "version": "1.0",
+    "effectiveDate": "2025-06-12",
+    "owner": "Pengadaan"
+  },
+  {
+    "id": "POL-2025-0008",
+    "title": "Kebijakan Audit & Logging",
+    "category": "Operasional",
+    "status": "Diperbarui",
+    "version": "1.4",
+    "effectiveDate": "2025-08-20",
+    "owner": "Divisi TI"
+  },
+  {
+    "id": "POL-2025-0009",
+    "title": "Kebijakan Pengelolaan Patch",
+    "category": "Operasional",
+    "status": "Aktif",
+    "version": "1.0",
+    "effectiveDate": "2025-04-01",
+    "owner": "Divisi TI"
+  },
+  {
+    "id": "POL-2025-0010",
+    "title": "Kebijakan Enkripsi Data",
+    "category": "Keamanan",
+    "status": "Aktif",
+    "version": "1.0",
+    "effectiveDate": "2025-01-30",
+    "owner": "Divisi TI"
+  },
+  {
+    "id": "POL-2025-0011",
+    "title": "Kebijakan Backup dan Pemulihan",
+    "category": "Operasional",
+    "status": "Diperbarui",
+    "version": "1.2",
+    "effectiveDate": "2025-07-15",
+    "owner": "Operasional"
+  },
+  {
+    "id": "POL-2025-0012",
+    "title": "Kebijakan Akses Jarak Jauh",
+    "category": "Keamanan",
+    "status": "Aktif",
+    "version": "1.1",
+    "effectiveDate": "2025-05-28",
+    "owner": "Divisi TI"
+  },
+  {
+    "id": "POL-2025-0013",
+    "title": "Kebijakan Klasifikasi Data",
+    "category": "Privasi",
+    "status": "Aktif",
+    "version": "1.0",
+    "effectiveDate": "2025-03-22",
+    "owner": "Kepatuhan"
+  },
+  {
+    "id": "POL-2025-0014",
+    "title": "Kebijakan Penghapusan Aman",
+    "category": "Keamanan",
+    "status": "Draf",
+    "version": "0.8",
+    "effectiveDate": "2025-10-10",
+    "owner": "Divisi TI"
+  }
+]
