@@ -20,36 +20,44 @@ const mills = [
 
 const SupplyNetwork = () => {
   return (
-    <section className="section" id="network">
-      <div className="container">
-        <div className="section__header" data-reveal="fade-up">
+    <section className="py-24 sm:py-28" id="network">
+      <div className="container space-y-10">
+        <div className="max-w-3xl space-y-4" data-reveal="fade-up">
           <span className="badge badge--light">Supply Network</span>
-          <h2>17 pabrik kelapa sawit PT Agrinas Palma Nusantara siap memasok pasar</h2>
-          <p>
+          <h2 className="text-3xl font-bold leading-tight sm:text-4xl">
+            17 pabrik kelapa sawit PT Agrinas Palma Nusantara siap memasok pasar
+          </h2>
+          <p className="text-base text-slate-600">
             Jaringan pabrik tersebar di Sumatera, Kalimantan, dan kawasan timur Indonesia. Buyer dapat memilih sumber pasokan terdekat dengan kebutuhan logistiknya.
           </p>
         </div>
-        <div className="network-table-wrapper" data-reveal="fade-up" data-reveal-delay="120">
-          <table className="network-table">
-            <thead>
-              <tr>
-                <th>Pabrik</th>
-                <th>Provinsi</th>
-                <th>Kapasitas Olah</th>
-                <th>Produk</th>
-              </tr>
-            </thead>
-            <tbody>
-              {mills.map((mill) => (
-                <tr key={mill.name}>
-                  <td>{mill.name}</td>
-                  <td>{mill.province}</td>
-                  <td>{mill.capacity}</td>
-                  <td>{mill.status}</td>
+        <div
+          className="overflow-hidden rounded-2xl border border-primary/10 bg-surface shadow-soft"
+          data-reveal="fade-up"
+          data-reveal-delay="120"
+        >
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[640px] divide-y divide-primary/10">
+              <thead className="bg-secondary/30 text-left text-xs font-semibold uppercase tracking-wide text-emerald-900">
+                <tr>
+                  <th className="px-6 py-4">Pabrik</th>
+                  <th className="px-6 py-4">Provinsi</th>
+                  <th className="px-6 py-4">Kapasitas Olah</th>
+                  <th className="px-6 py-4">Produk</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-primary/10 text-sm text-slate-700">
+                {mills.map((mill) => (
+                  <tr key={mill.name} className="transition hover:bg-primary/5">
+                    <td className="px-6 py-4 font-semibold text-slate-900">{mill.name}</td>
+                    <td className="px-6 py-4">{mill.province}</td>
+                    <td className="px-6 py-4">{mill.capacity}</td>
+                    <td className="px-6 py-4 text-primary">{mill.status}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </section>
