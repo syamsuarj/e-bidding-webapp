@@ -13,6 +13,7 @@ const navItems = [
 
 const Navbar = ({ onLoginClick }) => {
   const [open, setOpen] = useState(false);
+  const logoUrl = `${import.meta.env.BASE_URL}logo-apas.png`;
 
   const toggleMenu = () => setOpen(!open);
   const handleLoginClick = () => {
@@ -25,7 +26,7 @@ const Navbar = ({ onLoginClick }) => {
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-sm">
       <div className="container flex items-center justify-between gap-6 py-4">
         <a href="#top" className="flex items-center gap-3 font-semibold text-lg text-primary" aria-label="Beranda APAS">
-          <img src="/logo-apas.png" alt="Logo APAS" className="h-14 w-auto rounded-lg shadow-brand" />
+          <img src={logoUrl} alt="Logo APAS" className="h-14 w-auto rounded-lg shadow-brand" />
           <span className="sr-only">APAS - Agrinas Palma Auction System</span>
         </a>
 

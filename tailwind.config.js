@@ -5,6 +5,21 @@ export default {
     './src/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: '1rem',
+        sm: '1.5rem',
+        lg: '2rem',
+      },
+      screens: {
+        sm: '640px',
+        md: '768px',
+        lg: '992px',
+        xl: '1100px',
+        '2xl': '1100px',
+      },
+    },
     extend: {
       colors: {
         primary: {

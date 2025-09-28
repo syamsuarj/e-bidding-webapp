@@ -14,10 +14,6 @@
   body {
     @apply bg-background text-text font-jakarta antialiased;
   }
-
-  .container {
-    @apply mx-auto w-full max-w-[1100px] px-4 sm:px-6 lg:px-8;
-  }
 }
 
 @layer components {
