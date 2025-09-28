@@ -35,7 +35,7 @@ const Process = () => {
   return (
     <section className="section section--alt" id="process">
       <div className="container">
-        <div className="section__header">
+        <div className="section__header" data-reveal="fade-up">
           <span className="badge">Alur APAS</span>
           <h2>Lima langkah terintegrasi dari onboarding hingga pengiriman</h2>
           <p>
@@ -43,8 +43,13 @@ const Process = () => {
           </p>
         </div>
         <div className="process__grid">
-          {steps.map((step) => (
-            <article key={step.number} className="process-card">
+          {steps.map((step, index) => (
+            <article
+              key={step.number}
+              className="process-card"
+              data-reveal="fade-up"
+              data-reveal-delay={String(index * 80)}
+            >
               <span className="process-card__number">{step.number}</span>
               <h3>{step.title}</h3>
               <p>{step.description}</p>

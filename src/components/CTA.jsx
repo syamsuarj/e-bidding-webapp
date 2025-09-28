@@ -1,7 +1,7 @@
 const CTA = () => {
   return (
   <section className="cta" id="hubungi">
-      <div className="container cta__inner">
+      <div className="container cta__inner" data-reveal="fade-up">
         <div>
           <h2>Siap melelang lot dari 17 PKS PT APN?</h2>
           <p>

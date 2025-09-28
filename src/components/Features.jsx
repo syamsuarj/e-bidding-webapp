@@ -37,7 +37,7 @@ const Features = () => {
   return (
     <section className="section" id="features">
       <div className="container">
-        <div className="section__header">
+        <div className="section__header" data-reveal="fade-up">
           <span className="badge badge--light">Kenapa APAS</span>
           <h2>Fitur yang memaksimalkan nilai jual Crude Palm Oil Anda</h2>
           <p>
@@ -45,8 +45,13 @@ const Features = () => {
           </p>
         </div>
         <div className="features__grid">
-          {features.map(({ icon: Icon, title, description }) => (
-            <article key={title} className="feature-card">
+          {features.map(({ icon: Icon, title, description }, index) => (
+            <article
+              key={title}
+              className="feature-card"
+              data-reveal="fade-up"
+              data-reveal-delay={String(index * 60)}
+            >
               <span className="feature-card__icon">
                 <Icon size={28} strokeWidth={1.5} />
               </span>

@@ -33,7 +33,7 @@ const ProductShowcase = () => {
   return (
     <section className="section" id="products">
       <div className="container">
-        <div className="section__header">
+        <div className="section__header" data-reveal="fade-up">
           <span className="badge badge--light">Portofolio Produk</span>
           <h2>Empat komoditas utama APN siap dilelang ke buyer global</h2>
           <p>
@@ -41,8 +41,13 @@ const ProductShowcase = () => {
           </p>
         </div>
         <div className="product-grid">
-          {products.map((product) => (
-            <article key={product.code} className="product-card">
+          {products.map((product, index) => (
+            <article
+              key={product.code}
+              className="product-card"
+              data-reveal="fade-up"
+              data-reveal-delay={String(80 * index)}
+            >
               <div className="product-card__header">
                 <span className="product-card__code">{product.code}</span>
                 <h3>{product.name}</h3>

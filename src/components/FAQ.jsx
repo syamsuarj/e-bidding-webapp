@@ -25,7 +25,7 @@ const FAQ = () => {
   return (
     <section className="section section--alt" id="faq">
       <div className="container faq">
-        <div className="section__header">
+        <div className="section__header" data-reveal="fade-up">
           <span className="badge">Pertanyaan Umum</span>
           <h2>FAQ seputar Agrinas Palma Auction System</h2>
           <p>
@@ -33,8 +33,13 @@ const FAQ = () => {
           </p>
         </div>
         <div className="faq__list">
-          {faqs.map((faq) => (
-            <article key={faq.question} className="faq__item">
+          {faqs.map((faq, index) => (
+            <article
+              key={faq.question}
+              className="faq__item"
+              data-reveal="fade-up"
+              data-reveal-delay={String(index * 80)}
+            >
               <h3>{faq.question}</h3>
               <p>{faq.answer}</p>
             </article>

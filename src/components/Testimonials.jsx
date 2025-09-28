@@ -25,13 +25,18 @@ const Testimonials = () => {
   return (
     <section className="section" id="testimonials">
       <div className="container">
-        <div className="section__header">
+        <div className="section__header" data-reveal="fade-up">
           <span className="badge badge--light">Cerita Sukses</span>
           <h2>Dipercaya produsen CPO dan refinery terkemuka</h2>
         </div>
         <div className="testimonials__grid">
-          {testimonials.map((item) => (
-            <figure key={item.name} className="testimonial-card">
+          {testimonials.map((item, index) => (
+            <figure
+              key={item.name}
+              className="testimonial-card"
+              data-reveal="fade-up"
+              data-reveal-delay={String(index * 120)}
+            >
               <Quote className="testimonial-card__icon" size={32} strokeWidth={1.5} />
               <blockquote>{item.quote}</blockquote>
               <figcaption>

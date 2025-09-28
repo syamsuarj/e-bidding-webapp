@@ -4,7 +4,7 @@ const Hero = () => {
   return (
     <section className="hero" id="top">
       <div className="container hero__content">
-        <div className="hero__copy">
+        <div className="hero__copy" data-reveal="fade-up">
           <span className="badge">PT Agrinas Palma Nusantara</span>
           <h1>
             APAS menghubungkan 17 pabrik kelapa sawit APN dengan buyer global melalui{' '}
@@ -29,7 +29,7 @@ const Hero = () => {
             <li>Integrasi logistik, pembayaran, dan invoicing setelah deal</li>
           </ul>
         </div>
-        <div className="hero__visual" aria-hidden="true">
+        <div className="hero__visual" aria-hidden="true" data-reveal="fade-left" data-reveal-delay="140">
           <div className="hero__card hero__card--main">
             <div className="hero__card-header">
               <p>Lot CPO 24/2025 · 500.000 kg</p>
@@ -64,7 +64,7 @@ const Hero = () => {
               </div>
             </div>
           </div>
-          <div className="hero__card hero__card--floating">
+          <div className="hero__card hero__card--floating" data-reveal="zoom-in" data-reveal-delay="260">
             <p className="hero__metric-label">Premium Harga</p>
             <p className="hero__metric-value">+7,8%</p>
             <span className="hero__metric-chip">vs Harga Referensi Pabrik</span>

@@ -43,7 +43,7 @@ const PlatformModules = () => {
   return (
     <section className="section section--alt" id="platform">
       <div className="container">
-        <div className="section__header">
+        <div className="section__header" data-reveal="fade-up">
           <span className="badge">Ekosistem APAS</span>
           <h2>Seluruh proses bisnis PT APN diorkestrasi dalam satu platform</h2>
           <p>
@@ -51,8 +51,13 @@ const PlatformModules = () => {
           </p>
         </div>
         <div className="platform-grid">
-          {modules.map(({ icon: Icon, title, description }) => (
-            <article key={title} className="platform-card">
+          {modules.map(({ icon: Icon, title, description }, index) => (
+            <article
+              key={title}
+              className="platform-card"
+              data-reveal="fade-up"
+              data-reveal-delay={String(index * 70)}
+            >
               <span className="platform-card__icon">
                 <Icon size={26} strokeWidth={1.6} />
               </span>

@@ -22,14 +22,14 @@ const SupplyNetwork = () => {
   return (
     <section className="section" id="network">
       <div className="container">
-        <div className="section__header">
+        <div className="section__header" data-reveal="fade-up">
           <span className="badge badge--light">Supply Network</span>
           <h2>17 pabrik kelapa sawit PT Agrinas Palma Nusantara siap memasok pasar</h2>
           <p>
             Jaringan pabrik tersebar di Sumatera, Kalimantan, dan kawasan timur Indonesia. Buyer dapat memilih sumber pasokan terdekat dengan kebutuhan logistiknya.
           </p>
         </div>
-        <div className="network-table-wrapper">
+        <div className="network-table-wrapper" data-reveal="fade-up" data-reveal-delay="120">
           <table className="network-table">
             <thead>
               <tr>
