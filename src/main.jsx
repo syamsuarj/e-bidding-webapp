@@ -67,12 +67,16 @@ const AppRouter = () => {
       if (!el || el.tagName !== "A") return;
 
       const href = el.getAttribute("href");
+      const target = el.getAttribute("target");
+      const download = el.getAttribute("download");
       // External or hash links should be ignored
       if (
         !href ||
         href.startsWith("http") ||
         href.startsWith("#") ||
-        href.startsWith("mailto:")
+        href.startsWith("mailto:") ||
+        target === "_blank" ||
+        download != null
       )
         return;
 
