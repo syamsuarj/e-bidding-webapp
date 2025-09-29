@@ -17,10 +17,10 @@ import AdminPKSDetail from "./components/admin/AdminPKSDetail.jsx";
 import "./index.css";
 
 const resolveRoute = () => {
-  const normalizedHash = window.location.hash.replace(/^#/, "");
   const normalizedPath = window.location.pathname.replace(/\/+$/, "");
 
-  // Support clean path-based navigation first
+  // Clean path-based navigation
+  if (normalizedPath === "" || normalizedPath === "/") return "home";
   if (normalizedPath.endsWith("/signup")) return "signup";
   if (normalizedPath.endsWith("/user/dashboard")) return "dashboard";
   if (normalizedPath.endsWith("/admin/dashboard")) return "admin-dashboard";
@@ -38,24 +38,6 @@ const resolveRoute = () => {
     return "admin-participant-detail";
   if (/^\/admin\/pks\/.+/.test(normalizedPath)) return "admin-pks-detail";
 
-  // Fallback: hash-based navigation
-  if (normalizedHash === "/signup") return "signup";
-  if (normalizedHash === "/dashboard") return "dashboard";
-  if (normalizedHash === "/admin/login") return "admin-login";
-  if (normalizedHash === "/admin/roles") return "admin-roles";
-  if (normalizedHash === "/admin/dashboard") return "admin/dashboard";
-  if (normalizedHash === "/admin/auctions") return "admin-auctions";
-  if (/^#\/admin\/auctions\/.+/.test(window.location.hash))
-    return "admin-auction-detail";
-  if (normalizedHash === "/admin/participants") return "admin-participants";
-  if (normalizedHash === "/admin/pks") return "admin-pks";
-  if (normalizedHash === "/admin/users") return "admin-users";
-  if (normalizedHash === "/admin/policies") return "admin-policies";
-  if (/^#\/admin\/participants\/.+/.test(window.location.hash))
-    return "admin-participant-detail";
-  if (/^#\/admin\/pks\/.+/.test(window.location.hash))
-    return "admin-pks-detail";
-
   return "home";
 };
 
@@ -63,15 +45,57 @@ const AppRouter = () => {
   const [route, setRoute] = useState(resolveRoute);
 
   useEffect(() => {
-    const handleHashChange = () => setRoute(resolveRoute());
     const handlePopState = () => setRoute(resolveRoute());
+    const handleClick = (e) => {
+      // Only intercept left-clicks without modifier keys
+      if (
+        e.defaultPrevented ||
+        e.button !== 0 ||
+        e.metaKey ||
+        e.ctrlKey ||
+        e.shiftKey ||
+        e.altKey
+      )
+        return;
 
-    window.addEventListener("hashchange", handleHashChange);
+      // Traverse up to find anchor
+      let el = e.target;
+      while (el && el !== document.body) {
+        if (el.tagName === "A" && el.getAttribute("href")) break;
+        el = el.parentElement;
+      }
+      if (!el || el.tagName !== "A") return;
+
+      const href = el.getAttribute("href");
+      // External or hash links should be ignored
+      if (
+        !href ||
+        href.startsWith("http") ||
+        href.startsWith("#") ||
+        href.startsWith("mailto:")
+      )
+        return;
+
+      // Only intercept app routes; let other absolute links (e.g. /docs/*.pdf) pass through
+      const isAppRoute =
+        href === "/" ||
+        href === "/signup" ||
+        href === "/user/dashboard" ||
+        href.startsWith("/admin/");
+
+      if (isAppRoute) {
+        e.preventDefault();
+        window.history.pushState(null, "", href);
+        handlePopState();
+      }
+    };
+
     window.addEventListener("popstate", handlePopState);
+    document.addEventListener("click", handleClick);
 
     return () => {
-      window.removeEventListener("hashchange", handleHashChange);
       window.removeEventListener("popstate", handlePopState);
+      document.removeEventListener("click", handleClick);
     };
   }, []);
 
