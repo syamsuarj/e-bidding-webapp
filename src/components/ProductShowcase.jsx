@@ -31,35 +31,44 @@ const products = [
 
 const ProductShowcase = () => {
   return (
-    <section className="section" id="products">
-      <div className="container">
-        <div className="section__header" data-reveal="fade-up">
+    <section className="py-24 sm:py-28" id="products">
+      <div className="container space-y-12">
+        <div className="max-w-2xl space-y-4" data-reveal="fade-up">
           <span className="badge badge--light">Portofolio Produk</span>
-          <h2>Empat komoditas utama APN siap dilelang ke buyer global</h2>
-          <p>
+          <h2 className="text-3xl font-bold leading-tight sm:text-4xl">
+            Empat komoditas utama APN siap dilelang ke buyer global
+          </h2>
+          <p className="text-base text-slate-600">
             Setiap lot sudah terverifikasi kualitasnya, lengkap dengan data laboratorium dan fasilitas logistik dari 17 pabrik kelapa sawit PT Agrinas Palma Nusantara.
           </p>
         </div>
-        <div className="product-grid">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {products.map((product, index) => (
             <article
               key={product.code}
-              className="product-card"
+              className="grid gap-5 rounded-2xl border border-primary/15 bg-surface p-7 shadow-soft transition hover:-translate-y-1 hover:shadow-lg"
               data-reveal="fade-up"
               data-reveal-delay={String(80 * index)}
             >
-              <div className="product-card__header">
-                <span className="product-card__code">{product.code}</span>
-                <h3>{product.name}</h3>
+              <div className="flex items-baseline gap-3">
+                <span className="inline-flex items-center rounded-full bg-primary/15 px-3 py-1 text-sm font-semibold text-primary">
+                  {product.code}
+                </span>
+                <h3 className="text-lg font-semibold text-slate-900">{product.name}</h3>
               </div>
-              <p className="product-card__description">{product.description}</p>
-              <ul className="product-card__highlights">
+              <p className="text-sm text-slate-600">{product.description}</p>
+              <ul className="space-y-2 text-sm text-slate-700">
                 {product.highlights.map((item) => (
-                  <li key={item}>{item}</li>
+                  <li key={item} className="flex items-start gap-2">
+                    <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-secondary" />
+                    <span>{item}</span>
+                  </li>
                 ))}
               </ul>
-              <div className="product-card__footer">
-                <span className="product-card__tag">Lot mingguan &amp; kontrak spot</span>
+              <div>
+                <span className="inline-block rounded-full bg-secondary/30 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-900">
+                  Lot mingguan &amp; kontrak spot
+                </span>
               </div>
             </article>
           ))}

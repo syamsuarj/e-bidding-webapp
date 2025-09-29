@@ -35,28 +35,30 @@ const features = [
 
 const Features = () => {
   return (
-    <section className="section" id="features">
-      <div className="container">
-        <div className="section__header" data-reveal="fade-up">
+    <section className="py-24 sm:py-28" id="features">
+      <div className="container space-y-12">
+        <div className="max-w-2xl space-y-4" data-reveal="fade-up">
           <span className="badge badge--light">Kenapa APAS</span>
-          <h2>Fitur yang memaksimalkan nilai jual Crude Palm Oil Anda</h2>
-          <p>
+          <h2 className="text-3xl font-bold leading-tight sm:text-4xl">
+            Fitur yang memaksimalkan nilai jual Crude Palm Oil Anda
+          </h2>
+          <p className="text-base text-slate-600">
             Dari publikasi lot, dinamika bidding, hingga settlement, semua dijahit untuk produsen sawit yang ingin harga terbaik tanpa proses rumit.
           </p>
         </div>
-        <div className="features__grid">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {features.map(({ icon: Icon, title, description }, index) => (
             <article
               key={title}
-              className="feature-card"
+              className="grid gap-4 rounded-2xl border border-primary/10 bg-surface p-7 shadow-soft"
               data-reveal="fade-up"
               data-reveal-delay={String(index * 60)}
             >
-              <span className="feature-card__icon">
+              <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <Icon size={28} strokeWidth={1.5} />
               </span>
-              <h3>{title}</h3>
-              <p>{description}</p>
+              <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
+              <p className="text-sm text-slate-600">{description}</p>
             </article>
           ))}
         </div>

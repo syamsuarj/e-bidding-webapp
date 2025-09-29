@@ -23,25 +23,25 @@ const testimonials = [
 
 const Testimonials = () => {
   return (
-    <section className="section" id="testimonials">
-      <div className="container">
-        <div className="section__header" data-reveal="fade-up">
+    <section className="py-24 sm:py-28" id="testimonials">
+      <div className="container space-y-12">
+        <div className="max-w-2xl space-y-4" data-reveal="fade-up">
           <span className="badge badge--light">Cerita Sukses</span>
-          <h2>Dipercaya produsen CPO dan refinery terkemuka</h2>
+          <h2 className="text-3xl font-bold leading-tight sm:text-4xl">Dipercaya produsen CPO dan refinery terkemuka</h2>
         </div>
-        <div className="testimonials__grid">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {testimonials.map((item, index) => (
             <figure
               key={item.name}
-              className="testimonial-card"
+              className="grid gap-4 rounded-2xl border border-primary/10 bg-surface p-7 shadow-soft"
               data-reveal="fade-up"
               data-reveal-delay={String(index * 120)}
             >
-              <Quote className="testimonial-card__icon" size={32} strokeWidth={1.5} />
-              <blockquote>{item.quote}</blockquote>
-              <figcaption>
-                <p>{item.name}</p>
-                <span>{item.title}</span>
+              <Quote className="text-primary/60" size={32} strokeWidth={1.5} />
+              <blockquote className="text-sm leading-relaxed text-slate-700">{item.quote}</blockquote>
+              <figcaption className="space-y-1">
+                <p className="text-base font-semibold text-slate-900">{item.name}</p>
+                <span className="text-sm text-slate-600">{item.title}</span>
               </figcaption>
             </figure>
           ))}

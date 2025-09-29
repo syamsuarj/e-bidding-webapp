@@ -73,9 +73,9 @@ const App = () => {
   }, []);
 
   return (
-    <div className="app-wrapper">
+    <div className="flex min-h-screen flex-col bg-background text-text">
       <Navbar onLoginClick={() => setLoginOpen(true)} />
-      <main>
+      <main className="flex-1">
         <Hero />
         <Stats />
         <ProductShowcase />
@@ -83,8 +83,8 @@ const App = () => {
         <Features />
         <Process />
         <SupplyNetwork />
-    <Testimonials />
-    <FAQ />
+        <Testimonials />
+        <FAQ />
         <CTA />
       </main>
       <Footer />

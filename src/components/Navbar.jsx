@@ -13,6 +13,7 @@ const navItems = [
 
 const Navbar = ({ onLoginClick }) => {
   const [open, setOpen] = useState(false);
+  const logoUrl = `${import.meta.env.BASE_URL}logo-apas.png`;
 
   const toggleMenu = () => setOpen(!open);
   const handleLoginClick = () => {
@@ -22,44 +23,48 @@ const Navbar = ({ onLoginClick }) => {
   };
 
   return (
-    <header className="navbar">
-      <div className="container">
-        <div className="navbar__inner">
-          <a href="#top" className="brand" aria-label="Beranda APAS">
-            <img src="/logo-apas.png" alt="Logo APAS" className="brand__logo" />
-            <span className="sr-only">APAS - Agrinas Palma Auction System</span>
+    <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-sm">
+      <div className="container flex items-center justify-between gap-6 py-4">
+        <a href="#top" className="flex items-center gap-3 font-semibold text-lg text-primary" aria-label="Beranda APAS">
+          <img src={logoUrl} alt="Logo APAS" className="h-14 w-auto rounded-lg shadow-brand" />
+          <span className="sr-only">APAS - Agrinas Palma Auction System</span>
+        </a>
+
+        <nav className="hidden lg:block" aria-label="Navigasi utama">
+          <ul className="flex items-center gap-8 text-sm font-medium text-text/75">
+            {navItems.map((item) => (
+              <li key={item.label}>
+                <a className="transition-colors hover:text-primary" href={item.href}>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="flex items-center gap-3">
+          <button type="button" className="hidden sm:inline-flex btn btn--ghost" onClick={handleLoginClick}>
+            Masuk
+          </button>
+          <a href="#/signup" className="hidden sm:inline-flex btn btn--primary">
+            Registrasi
           </a>
-
-          <nav className="navbar__desktop" aria-label="Navigasi utama">
-            <ul>
-              {navItems.map((item) => (
-                <li key={item.label}>
-                  <a href={item.href}>{item.label}</a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          <div className="navbar__actions">
-            <button type="button" className="btn btn--ghost" onClick={handleLoginClick}>
-              Masuk
-            </button>
-            <a href="#/signup" className="btn btn--primary">
-              Registrasi
-            </a>
-            <button className="navbar__toggle" onClick={toggleMenu} aria-label="Buka menu">
-              {open ? <X size={22} /> : <Menu size={22} />}
-            </button>
-          </div>
+          <button
+            className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-border text-text transition lg:hidden"
+            onClick={toggleMenu}
+            aria-label="Buka menu"
+          >
+            {open ? <X size={22} /> : <Menu size={22} />}
+          </button>
         </div>
       </div>
 
       {open && (
-        <nav className="navbar__mobile" aria-label="Navigasi utama mobile">
-          <ul>
+        <nav className="border-t border-border bg-surface lg:hidden" aria-label="Navigasi utama mobile">
+          <ul className="container flex flex-col gap-4 py-6">
             {navItems.map((item) => (
               <li key={item.label}>
-                <a href={item.href} onClick={toggleMenu}>
+                <a className="block rounded-md px-3 py-2 text-base font-medium text-text/80 transition hover:bg-background" href={item.href} onClick={toggleMenu}>
                   {item.label}
                 </a>
               </li>
@@ -67,7 +72,7 @@ const Navbar = ({ onLoginClick }) => {
             <li>
               <button
                 type="button"
-                className="btn btn--ghost"
+                className="btn btn--ghost w-full"
                 onClick={() => {
                   handleLoginClick();
                   toggleMenu();
@@ -77,7 +82,7 @@ const Navbar = ({ onLoginClick }) => {
               </button>
             </li>
             <li>
-              <a href="#/signup" className="btn btn--primary" onClick={toggleMenu}>
+              <a href="#/signup" className="btn btn--primary w-full" onClick={toggleMenu}>
                 Registrasi
               </a>
             </li>

@@ -41,28 +41,30 @@ const modules = [
 
 const PlatformModules = () => {
   return (
-    <section className="section section--alt" id="platform">
-      <div className="container">
-        <div className="section__header" data-reveal="fade-up">
+    <section className="bg-gradient-to-b from-primary/8 via-background to-background py-24 sm:py-28" id="platform">
+      <div className="container space-y-12">
+        <div className="max-w-2xl space-y-4" data-reveal="fade-up">
           <span className="badge">Ekosistem APAS</span>
-          <h2>Seluruh proses bisnis PT APN diorkestrasi dalam satu platform</h2>
-          <p>
+          <h2 className="text-3xl font-bold leading-tight sm:text-4xl">
+            Seluruh proses bisnis PT APN diorkestrasi dalam satu platform
+          </h2>
+          <p className="text-base text-slate-600">
             Diagram bisnis memperlihatkan perjalanan buyer dari katalog hingga pembayaran. Modul APAS dibangun mengikuti kebutuhan nyata 17 pabrik APN.
           </p>
         </div>
-        <div className="platform-grid">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {modules.map(({ icon: Icon, title, description }, index) => (
             <article
               key={title}
-              className="platform-card"
+              className="grid gap-4 rounded-2xl border border-primary/10 bg-surface p-7 shadow-soft"
               data-reveal="fade-up"
               data-reveal-delay={String(index * 70)}
             >
-              <span className="platform-card__icon">
+              <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <Icon size={26} strokeWidth={1.6} />
               </span>
-              <h3>{title}</h3>
-              <p>{description}</p>
+              <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
+              <p className="text-sm text-slate-600">{description}</p>
             </article>
           ))}
         </div>

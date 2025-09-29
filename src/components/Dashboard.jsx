@@ -125,6 +125,35 @@ const Dashboard = () => {
     return active?.label ?? 'Dashboard Saya';
   }, [activeSection]);
 
+  const cardClass = 'rounded-2xl border border-primary/15 bg-surface p-6 shadow-soft';
+  const highlightCardClass = 'rounded-2xl border border-primary/15 bg-gradient-to-br from-primary/10 to-secondary/20 p-6 shadow-soft';
+  const sectionClass = 'space-y-6 rounded-3xl border border-primary/15 bg-surface p-8 shadow-soft';
+  const statusStyles = {
+    onbidding: 'inline-flex items-center rounded-full bg-primary/15 px-3 py-1 text-xs font-semibold text-primary',
+    closingsoon: 'inline-flex items-center rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-700',
+    comingsoon: 'inline-flex items-center rounded-full bg-slate-200 px-3 py-1 text-xs font-semibold text-slate-700',
+  };
+  const pillStyles = {
+    success: 'inline-flex items-center rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700',
+    danger: 'inline-flex items-center rounded-full bg-rose-100 px-3 py-1 text-xs font-semibold text-rose-700',
+  };
+  const badgeStyles = {
+    complete: 'inline-flex items-center rounded-full bg-primary/15 px-3 py-1 text-xs font-semibold text-primary',
+    warning: 'inline-flex items-center rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-700',
+  };
+  const primaryButtonClass =
+    'inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white shadow-brand transition hover:bg-primary-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary';
+  const ghostButtonClass =
+    'inline-flex items-center justify-center gap-2 rounded-full border border-primary/20 px-5 py-2 text-sm font-semibold text-primary transition hover:border-primary hover:bg-primary/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary';
+  const quickBidButtonClass =
+    'inline-flex items-center justify-center rounded-full border border-primary/20 bg-white px-3 py-2 text-sm font-semibold text-primary transition hover:border-primary hover:bg-primary/10 disabled:cursor-not-allowed disabled:border-slate-200 disabled:text-slate-400';
+  const inputFieldClass =
+    'w-full rounded-2xl border border-primary/20 bg-white px-4 py-3 text-base font-semibold text-slate-900 shadow-sm transition focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/40 disabled:cursor-not-allowed disabled:border-slate-200 disabled:bg-slate-50 disabled:text-slate-400';
+  const menuButtonClass = (isActive) =>
+    `flex w-full items-center justify-between rounded-2xl px-4 py-3 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
+      isActive ? 'bg-primary text-white shadow-brand' : 'text-slate-600 hover:bg-primary/10 hover:text-primary'
+    }`;
+
   const filteredCatalog = useMemo(() => {
     if (catalogFilter === 'all') {
       return catalogItems;
@@ -315,48 +344,51 @@ const Dashboard = () => {
   }, [biddingState?.status, biddingState?.highestBid, selectedAuction]);
 
   const renderOverview = () => (
-    <div className="dashboard__grid">
-      <article className="dashboard__card">
-        <h3>Level Akses</h3>
-        <p>
-          <strong>Vendor Terverifikasi</strong>
-        </p>
-        <small>Akun siap mengikuti seluruh sesi lelang APAS.</small>
+    <div className="grid gap-5 lg:grid-cols-2 xl:grid-cols-3">
+      <article className={cardClass}>
+        <h3 className="text-lg font-semibold text-slate-900">Level Akses</h3>
+        <p className="mt-2 text-sm text-slate-500">Status akun</p>
+        <p className="mt-1 text-base font-semibold text-primary">Vendor Terverifikasi</p>
+        <p className="mt-4 text-sm text-slate-600">Akun siap mengikuti seluruh sesi lelang APAS.</p>
       </article>
-      <article className="dashboard__card">
-        <h3>Saldo Virtual Account</h3>
-        <p className="dashboard__metric">Rp 125.000.000</p>
-        <small>Dapat digunakan sebagai jaminan saat mengikuti lelang.</small>
+      <article className={cardClass}>
+        <h3 className="text-lg font-semibold text-slate-900">Saldo Virtual Account</h3>
+        <p className="mt-3 text-2xl font-semibold tracking-tight text-primary">Rp 125.000.000</p>
+        <p className="mt-2 text-sm text-slate-600">Dapat digunakan sebagai jaminan saat mengikuti lelang.</p>
       </article>
-      <article className="dashboard__card dashboard__card--highlight">
-        <h3>Lelang Aktif Hari Ini</h3>
-        <p className="dashboard__metric">{catalogItems.filter((item) => item.statusKey !== 'comingSoon').length}</p>
-        <ul>
+      <article className={highlightCardClass}>
+        <h3 className="text-lg font-semibold text-slate-900">Lelang Aktif Hari Ini</h3>
+        <p className="mt-3 text-3xl font-bold tracking-tight text-primary">{catalogItems.filter((item) => item.statusKey !== 'comingSoon').length}</p>
+        <ul className="mt-4 space-y-1 text-sm text-slate-700">
           {catalogItems
             .filter((item) => item.statusKey !== 'comingSoon')
             .map((item) => (
-              <li key={item.id}>
-                {item.id} · {item.product}
+              <li key={item.id} className="flex items-center justify-between">
+                <span className="font-medium text-slate-800">{item.product}</span>
+                <span className="text-xs text-slate-500">{item.id}</span>
               </li>
             ))}
         </ul>
       </article>
-      <article className="dashboard__card">
-        <h3>Notifikasi Penting</h3>
-        <ul className="dashboard__list">
-          <li>Upload bukti pembayaran invoice #INV-230925 sebelum 29 Sep 2025.</li>
-          <li>Perbaharui data profil PIC sebelum 5 Okt 2025.</li>
-          <li>Reminder sesi bidding dimulai 30 menit lagi.</li>
+      <article className={cardClass}>
+        <h3 className="text-lg font-semibold text-slate-900">Notifikasi Penting</h3>
+        <ul className="mt-4 space-y-3 text-sm text-slate-600">
+          <li className="rounded-xl bg-primary/5 px-4 py-3">Upload bukti pembayaran invoice #INV-230925 sebelum 29 Sep 2025.</li>
+          <li className="rounded-xl bg-secondary/10 px-4 py-3">Perbaharui data profil PIC sebelum 5 Okt 2025.</li>
+          <li className="rounded-xl bg-emerald-50 px-4 py-3">Reminder sesi bidding dimulai 30 menit lagi.</li>
         </ul>
       </article>
       {selectedAuction && biddingState && (
-        <article className="dashboard__card dashboard__card--inline">
-          <h3>Sesi Lelang yang Sedang Diikuti</h3>
-          <p>
-            <strong>{selectedAuction.product}</strong>
+        <article className={`${cardClass} flex flex-col gap-3`}>
+          <h3 className="text-lg font-semibold text-slate-900">Sesi Lelang Aktif</h3>
+          <p className="text-base font-semibold text-primary">{selectedAuction.product}</p>
+          <p className="text-sm text-slate-600">
+            Status:{' '}
+            <span className="font-semibold">
+              {biddingState.status === 'WON' ? 'Menang' : biddingState.status === 'CLOSED' ? 'Selesai' : 'Sedang berlangsung'}
+            </span>
           </p>
-          <small>Status: {biddingState.status === 'WON' ? 'Menang' : biddingState.status === 'CLOSED' ? 'Selesai' : 'Sedang berlangsung'}</small>
-          <button type="button" className="btn btn--primary" onClick={() => setActiveSection('bidding')}>
+          <button type="button" className={primaryButtonClass} onClick={() => setActiveSection('bidding')}>
             Buka Halaman Bidding
           </button>
         </article>
@@ -365,58 +397,67 @@ const Dashboard = () => {
   );
 
   const renderCatalog = () => (
-    <div className="dashboard__section">
-      <header>
-        <h3>Daftar Produk Lelang</h3>
-        <p>Pilih kategori PKS lalu ikuti proses bidding sesuai status.</p>
+    <div className={sectionClass}>
+      <header className="space-y-1">
+        <h3 className="text-xl font-semibold text-slate-900">Daftar Produk Lelang</h3>
+        <p className="text-sm text-slate-600">Pilih kategori PKS lalu ikuti proses bidding sesuai status.</p>
       </header>
-      <div className="dashboard__filters" role="tablist">
-        {catalogFilters.map((filter) => (
-          <button
-            key={filter.key}
-            type="button"
-            role="tab"
-            className={`dashboard__filter ${catalogFilter === filter.key ? 'is-active' : ''}`}
-            onClick={() => setCatalogFilter(filter.key)}
-          >
-            {filter.label}
-          </button>
-        ))}
+      <div className="flex flex-wrap gap-2" role="tablist">
+        {catalogFilters.map((filter) => {
+          const isActive = catalogFilter === filter.key;
+          return (
+            <button
+              key={filter.key}
+              type="button"
+              role="tab"
+              className={`inline-flex items-center rounded-full border px-4 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
+                isActive
+                  ? 'border-primary bg-primary/10 text-primary shadow-sm'
+                  : 'border-primary/10 text-slate-600 hover:border-primary/40 hover:text-primary'
+              }`}
+              onClick={() => setCatalogFilter(filter.key)}
+            >
+              {filter.label}
+            </button>
+          );
+        })}
       </div>
-      <div className="dashboard__catalog-grid">
+      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
         {filteredCatalog.map((item) => (
-          <article key={item.id} className="dashboard__catalog-card">
-            <header>
-              <span className={`dashboard__status dashboard__status--${item.statusKey.toLowerCase()}`}>{item.status}</span>
-              <h4>{item.product}</h4>
-              <p>{item.mill}</p>
+          <article key={item.id} className={`${cardClass} flex flex-col gap-4`}>
+            <header className="space-y-2">
+              <span className={statusStyles[item.statusKey.toLowerCase()] ?? statusStyles.onbidding}>{item.status}</span>
+              <h4 className="text-lg font-semibold text-slate-900">{item.product}</h4>
+              <p className="text-sm text-slate-500">{item.mill}</p>
             </header>
-            <dl>
-              <div>
-                <dt>Penutupan</dt>
-                <dd>{item.closingLabel}</dd>
+            <dl className="grid grid-cols-2 gap-3 text-sm text-slate-600">
+              <div className="rounded-xl bg-primary/5 px-4 py-3">
+                <dt className="text-xs uppercase tracking-wide text-slate-500">Penutupan</dt>
+                <dd className="mt-1 font-semibold text-slate-800">{item.closingLabel}</dd>
               </div>
-              <div>
-                <dt>Volume</dt>
-                <dd>{item.volume}</dd>
+              <div className="rounded-xl bg-primary/5 px-4 py-3">
+                <dt className="text-xs uppercase tracking-wide text-slate-500">Volume</dt>
+                <dd className="mt-1 font-semibold text-slate-800">{item.volume}</dd>
               </div>
-              <div>
-                <dt>Spesifikasi</dt>
-                <dd>{item.ffa}</dd>
+              <div className="rounded-xl bg-primary/5 px-4 py-3">
+                <dt className="text-xs uppercase tracking-wide text-slate-500">Spesifikasi</dt>
+                <dd className="mt-1 font-semibold text-slate-800">{item.ffa}</dd>
               </div>
-              <div>
-                <dt>Lokasi</dt>
-                <dd>{item.location}</dd>
+              <div className="rounded-xl bg-primary/5 px-4 py-3">
+                <dt className="text-xs uppercase tracking-wide text-slate-500">Lokasi</dt>
+                <dd className="mt-1 font-semibold text-slate-800">{item.location}</dd>
               </div>
-              <div>
-                <dt>Harga Awal</dt>
-                <dd>{formatCurrency(item.basePrice)}/{item.unit}</dd>
+              <div className="rounded-xl bg-primary/5 px-4 py-3">
+                <dt className="text-xs uppercase tracking-wide text-slate-500">Harga Awal</dt>
+                <dd className="mt-1 font-semibold text-slate-800">
+                  {formatCurrency(item.basePrice)}/{item.unit}
+                </dd>
               </div>
             </dl>
-            <footer>
+            <footer className="mt-auto">
               <button
                 type="button"
-                className="dashboard__action"
+                className={`${primaryButtonClass} w-full ${item.statusKey === 'comingSoon' ? 'cursor-not-allowed bg-primary/30 text-white hover:bg-primary/30' : ''}`}
                 onClick={() => ensureSelectedAuction(item)}
                 disabled={item.statusKey === 'comingSoon'}
               >
@@ -432,10 +473,10 @@ const Dashboard = () => {
   const renderBidding = () => {
     if (!selectedAuction || !biddingState) {
       return (
-        <div className="dashboard__section">
-          <header>
-            <h3>Belum ada sesi bidding yang dipilih</h3>
-            <p>Silakan pilih produk dari katalog untuk memulai proses e-Bidding.</p>
+        <div className={sectionClass}>
+          <header className="space-y-1">
+            <h3 className="text-xl font-semibold text-slate-900">Belum ada sesi bidding yang dipilih</h3>
+            <p className="text-sm text-slate-600">Silakan pilih produk dari katalog untuk memulai proses e-Bidding.</p>
           </header>
         </div>
       );
@@ -445,143 +486,174 @@ const Dashboard = () => {
     const sessionClosed = biddingState.status === 'CLOSED' || userIsWinner;
 
     return (
-      <div className="dashboard__section dashboard__section--bidding">
-        <header className="dashboard__bidding-header">
-          <div>
-            <span className={`dashboard__status dashboard__status--${selectedAuction.statusKey.toLowerCase()}`}>{selectedAuction.status}</span>
-            <h3>{selectedAuction.product}</h3>
-            <p>PKS {selectedAuction.mill} • Penutupan {selectedAuction.closingLabel}</p>
-          </div>
-          <div className="dashboard__countdown" role="timer" aria-live="polite">
-            <span>{formatRemainingTime(biddingState.remainingSeconds)}</span>
-            <small>Waktu tersisa</small>
-          </div>
-        </header>
-
-        {biddingMessage && <div className="dashboard__alert dashboard__alert--success">{biddingMessage}</div>}
-        {biddingError && <div className="dashboard__alert dashboard__alert--error">{biddingError}</div>}
-        {biddingState.status === 'SCHEDULED' && (
-          <div className="dashboard__alert dashboard__alert--info">
-            Sesi ini belum dibuka. Anda akan menerima notifikasi ketika status berubah menjadi <strong>On Bidding</strong>.
-          </div>
-        )}
-
-        <div className="dashboard__bidding-layout">
-          <section className="dashboard__bidding-details">
-            <h4>Informasi Produk</h4>
-            <dl>
-              <div>
-                <dt>Volume</dt>
-                <dd>{selectedAuction.volume}</dd>
-              </div>
-              <div>
-                <dt>Harga Awal</dt>
-                <dd>{formatCurrency(selectedAuction.basePrice)}/{selectedAuction.unit}</dd>
-              </div>
-              <div>
-                <dt>Increment Minimal</dt>
-                <dd>{formatCurrency(selectedAuction.minIncrement)}/{selectedAuction.unit}</dd>
-              </div>
-              <div>
-                <dt>Spesifikasi</dt>
-                <dd>{selectedAuction.ffa}</dd>
-              </div>
-              <div>
-                <dt>Lokasi</dt>
-                <dd>{selectedAuction.location}</dd>
-              </div>
-            </dl>
-            <div className="dashboard__bid-preview">
-              <p>Penawaran tertinggi saat ini</p>
-              <strong>{formatCurrency(biddingState.highestBid)}/{selectedAuction.unit}</strong>
-              <small>Oleh {biddingState.highestBidder}</small>
+      <div className="space-y-6">
+        <section className={`${sectionClass} space-y-6`}>
+          <header className="flex flex-col gap-4 border-b border-primary/10 pb-6 md:flex-row md:items-center md:justify-between">
+            <div className="space-y-2">
+              <span className={statusStyles[selectedAuction.statusKey.toLowerCase()] ?? statusStyles.onbidding}>{selectedAuction.status}</span>
+              <h3 className="text-2xl font-semibold text-slate-900">{selectedAuction.product}</h3>
+              <p className="text-sm text-slate-600">PKS {selectedAuction.mill} • Penutupan {selectedAuction.closingLabel}</p>
             </div>
-            <div className="dashboard__reminder">
-              <label>
-                <input type="checkbox" checked={autoReminder} onChange={(event) => setAutoReminder(event.target.checked)} />
-                Kirimkan reminder ketika waktu tersisa 5 menit
-              </label>
-              {autoReminder && <small>Notifikasi akan dikirim ke email procurement@sumbersawit.co.id.</small>}
+            <div className="inline-flex flex-col items-center justify-center rounded-2xl bg-primary/5 px-6 py-4 text-primary" role="timer" aria-live="polite">
+              <span className="text-3xl font-bold tracking-tight">{formatRemainingTime(biddingState.remainingSeconds)}</span>
+              <small className="text-xs font-semibold uppercase tracking-wide text-primary/80">Waktu tersisa</small>
             </div>
-          </section>
+          </header>
 
-          <section className="dashboard__bidding-action">
-            <h4>Ajukan Penawaran</h4>
-            <form onSubmit={handlePlaceBid} className="dashboard__bid-form">
-              <label>
-                <span>Nominal Penawaran</span>
-                <input
-                  type="number"
-                  min={minAcceptableBid ?? selectedAuction.basePrice}
-                  step={selectedAuction.minIncrement}
-                  value={bidAmount}
-                  onChange={(event) => setBidAmount(event.target.value)}
-                  disabled={sessionClosed || biddingState.status === 'SCHEDULED'}
-                />
-              </label>
-              <div className="dashboard__bid-quick">
-                {[selectedAuction.minIncrement, selectedAuction.minIncrement * 2, selectedAuction.minIncrement * 4].map((increment) => (
-                  <button
-                    key={increment}
-                    type="button"
-                    onClick={() => handleQuickAdjust(increment)}
-                    disabled={sessionClosed || biddingState.status !== 'ACTIVE'}
-                  >
-                    +{formatCurrency(increment)}
-                  </button>
-                ))}
+          {biddingMessage && (
+            <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">{biddingMessage}</div>
+          )}
+          {biddingError && (
+            <div className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">{biddingError}</div>
+          )}
+          {biddingState.status === 'SCHEDULED' && (
+            <div className="rounded-2xl border border-primary/20 bg-primary/10 px-4 py-3 text-sm text-primary">
+              Sesi ini belum dibuka. Anda akan menerima notifikasi ketika status berubah menjadi <strong>On Bidding</strong>.
+            </div>
+          )}
+
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(320px,360px)]">
+            <section className={`${cardClass} space-y-5`}>
+              <div>
+                <h4 className="text-lg font-semibold text-slate-900">Informasi Produk</h4>
+                <dl className="mt-4 grid grid-cols-2 gap-3 text-sm text-slate-600">
+                  <div className="rounded-xl bg-primary/5 px-4 py-3">
+                    <dt className="text-xs uppercase tracking-wide text-slate-500">Volume</dt>
+                    <dd className="mt-1 font-semibold text-slate-800">{selectedAuction.volume}</dd>
+                  </div>
+                  <div className="rounded-xl bg-primary/5 px-4 py-3">
+                    <dt className="text-xs uppercase tracking-wide text-slate-500">Harga Awal</dt>
+                    <dd className="mt-1 font-semibold text-slate-800">
+                      {formatCurrency(selectedAuction.basePrice)}/{selectedAuction.unit}
+                    </dd>
+                  </div>
+                  <div className="rounded-xl bg-primary/5 px-4 py-3">
+                    <dt className="text-xs uppercase tracking-wide text-slate-500">Increment Minimal</dt>
+                    <dd className="mt-1 font-semibold text-slate-800">
+                      {formatCurrency(selectedAuction.minIncrement)}/{selectedAuction.unit}
+                    </dd>
+                  </div>
+                  <div className="rounded-xl bg-primary/5 px-4 py-3">
+                    <dt className="text-xs uppercase tracking-wide text-slate-500">Spesifikasi</dt>
+                    <dd className="mt-1 font-semibold text-slate-800">{selectedAuction.ffa}</dd>
+                  </div>
+                  <div className="rounded-xl bg-primary/5 px-4 py-3">
+                    <dt className="text-xs uppercase tracking-wide text-slate-500">Lokasi</dt>
+                    <dd className="mt-1 font-semibold text-slate-800">{selectedAuction.location}</dd>
+                  </div>
+                </dl>
               </div>
-              {minAcceptableBid && biddingState.status === 'ACTIVE' && (
-                <small>
-                  {biddingState.highestBidder === 'Belum ada penawaran' ? 'Minimal penawaran awal' : 'Minimal penawaran selanjutnya'}:{' '}
-                  <strong>{formatCurrency(minAcceptableBid)}/{selectedAuction.unit}</strong>
-                </small>
-              )}
-              <button type="submit" className="btn btn--primary" disabled={sessionClosed || biddingState.status !== 'ACTIVE'}>
-                Kirim Penawaran
-              </button>
-            </form>
-            <button
-              type="button"
-              className="btn btn--ghost"
-              onClick={finalizeBidding}
-              disabled={sessionClosed || biddingState.status !== 'ACTIVE'}
-            >
-              Selesaikan Sesi (Simulasi)
-            </button>
-            {userIsWinner && (
-              <div className="dashboard__win-card">
-                <h5>Selamat! Anda pemenang lelang</h5>
-                <p>
-                  Silakan lanjutkan ke modul pembayaran untuk konfirmasi transfer jaminan dan pengeluaran invoice.
+              <div className="rounded-2xl border border-primary/15 bg-primary/5 px-5 py-4 text-primary">
+                <p className="text-xs uppercase tracking-wide text-primary/80">Penawaran tertinggi saat ini</p>
+                <p className="mt-2 text-2xl font-semibold tracking-tight">
+                  {formatCurrency(biddingState.highestBid)}/{selectedAuction.unit}
                 </p>
-                <ul>
-                  <li>Nilai menang: {formatCurrency(biddingState.highestBid)}/{selectedAuction.unit}</li>
-                  <li>Batas pembayaran: 1 x 24 jam setelah pemenang diumumkan</li>
-                </ul>
+                <p className="text-sm text-primary/80">Oleh {biddingState.highestBidder}</p>
               </div>
-            )}
-          </section>
-        </div>
+              <label className="flex flex-col gap-2 rounded-2xl border border-primary/10 bg-primary/5 px-4 py-3 text-sm text-slate-600">
+                <span className="font-semibold text-slate-700">Pengingat otomatis</span>
+                <div className="flex items-start gap-3">
+                  <input
+                    type="checkbox"
+                    className="mt-1 h-4 w-4 rounded border-primary/40 text-primary focus:ring-primary/40"
+                    checked={autoReminder}
+                    onChange={(event) => setAutoReminder(event.target.checked)}
+                  />
+                  <div>
+                    <p>Kirimkan reminder ketika waktu tersisa 5 menit.</p>
+                    {autoReminder && (
+                      <small className="mt-1 block text-xs text-slate-500">Notifikasi akan dikirim ke email procurement@sumbersawit.co.id.</small>
+                    )}
+                  </div>
+                </div>
+              </label>
+            </section>
 
-        <section className="dashboard__timeline-wrapper">
-          <h4>Alur Bidding</h4>
-          <ol className="dashboard__timeline">
+            <section className={`${cardClass} space-y-4`}>
+              <div className="space-y-1">
+                <h4 className="text-lg font-semibold text-slate-900">Ajukan Penawaran</h4>
+                <p className="text-sm text-slate-600">Masukkan harga terbaik Anda, sistem akan memperbarui secara real-time.</p>
+              </div>
+              <form onSubmit={handlePlaceBid} className="space-y-4">
+                <label className="block space-y-2 text-sm font-semibold text-slate-700">
+                  <span>Nominal Penawaran</span>
+                  <input
+                    type="number"
+                    min={minAcceptableBid ?? selectedAuction.basePrice}
+                    step={selectedAuction.minIncrement}
+                    value={bidAmount}
+                    onChange={(event) => setBidAmount(event.target.value)}
+                    disabled={sessionClosed || biddingState.status === 'SCHEDULED'}
+                    className={inputFieldClass}
+                  />
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  {[selectedAuction.minIncrement, selectedAuction.minIncrement * 2, selectedAuction.minIncrement * 4].map((increment) => (
+                    <button
+                      key={increment}
+                      type="button"
+                      onClick={() => handleQuickAdjust(increment)}
+                      disabled={sessionClosed || biddingState.status !== 'ACTIVE'}
+                      className={quickBidButtonClass}
+                    >
+                      +{formatCurrency(increment)}
+                    </button>
+                  ))}
+                </div>
+                {minAcceptableBid && biddingState.status === 'ACTIVE' && (
+                  <p className="text-sm text-slate-600">
+                    {biddingState.highestBidder === 'Belum ada penawaran' ? 'Minimal penawaran awal' : 'Minimal penawaran selanjutnya'}:{' '}
+                    <span className="font-semibold text-primary">
+                      {formatCurrency(minAcceptableBid)}/{selectedAuction.unit}
+                    </span>
+                  </p>
+                )}
+                <button type="submit" className={`${primaryButtonClass} w-full`} disabled={sessionClosed || biddingState.status !== 'ACTIVE'}>
+                  Kirim Penawaran
+                </button>
+              </form>
+              <button
+                type="button"
+                className={`${ghostButtonClass} w-full`}
+                onClick={finalizeBidding}
+                disabled={sessionClosed || biddingState.status !== 'ACTIVE'}
+              >
+                Selesaikan Sesi (Simulasi)
+              </button>
+              {userIsWinner && (
+                <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-4 text-sm text-emerald-700">
+                  <h5 className="text-base font-semibold text-emerald-800">Selamat! Anda pemenang lelang</h5>
+                  <p className="mt-2">
+                    Silakan lanjutkan ke modul pembayaran untuk konfirmasi transfer jaminan dan pengeluaran invoice.
+                  </p>
+                  <ul className="mt-3 space-y-1">
+                    <li>Nilai menang: {formatCurrency(biddingState.highestBid)}/{selectedAuction.unit}</li>
+                    <li>Batas pembayaran: 1 x 24 jam setelah pemenang diumumkan</li>
+                  </ul>
+                </div>
+              )}
+            </section>
+          </div>
+        </section>
+
+        <section className={sectionClass}>
+          <h4 className="text-lg font-semibold text-slate-900">Alur Bidding</h4>
+          <ol className="mt-6 space-y-4">
             {biddingState.activityLog.map((log, index) => (
-              <li key={`${log.label}-${index}`}>
-                <div>
-                  <span className="dashboard__timeline-time">{log.time}</span>
-                  <strong>{log.label}</strong>
-                  {log.description && <p>{log.description}</p>}
+              <li key={`${log.label}-${index}`} className="relative rounded-2xl border border-primary/10 bg-surface px-4 py-3 shadow-sm">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-xs uppercase tracking-wide text-slate-500">{log.time}</p>
+                    <p className="mt-1 font-semibold text-slate-900">{log.label}</p>
+                    {log.description && <p className="mt-1 text-sm text-slate-600">{log.description}</p>}
+                  </div>
                 </div>
               </li>
             ))}
             {userIsWinner && (
-              <li className="dashboard__timeline-next">
-                <div>
-                  <strong>Langkah berikutnya</strong>
-                  <p>Input bukti pembayaran dan buat invoice baru pada modul Pembayaran & Invoicing.</p>
-                </div>
+              <li className="rounded-2xl border border-primary/15 bg-primary/5 px-4 py-3 text-sm text-primary">
+                <strong className="block text-base font-semibold text-primary">Langkah berikutnya</strong>
+                <p className="mt-1 text-primary/80">Input bukti pembayaran dan buat invoice baru pada modul Pembayaran &amp; Invoicing.</p>
               </li>
             )}
           </ol>
@@ -591,34 +663,32 @@ const Dashboard = () => {
   };
 
   const renderHistory = () => (
-    <div className="dashboard__section">
-      <header>
-        <h3>Riwayat Lelang Terakhir</h3>
-        <p>Pantau performa bidding perusahaan Anda pada sesi sebelumnya.</p>
+    <div className={sectionClass}>
+      <header className="space-y-1">
+        <h3 className="text-xl font-semibold text-slate-900">Riwayat Lelang Terakhir</h3>
+        <p className="text-sm text-slate-600">Pantau performa bidding perusahaan Anda pada sesi sebelumnya.</p>
       </header>
-      <div className="dashboard__table-wrapper">
-        <table className="dashboard__table">
-          <thead>
+      <div className="overflow-hidden rounded-2xl border border-primary/15">
+        <table className="min-w-full divide-y divide-primary/10 text-sm">
+          <thead className="bg-primary/5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
             <tr>
-              <th>Kode Lelang</th>
-              <th>Produk</th>
-              <th>Bid Terakhir</th>
-              <th>Status</th>
-              <th>Tanggal</th>
+              <th className="px-4 py-3">Kode Lelang</th>
+              <th className="px-4 py-3">Produk</th>
+              <th className="px-4 py-3">Bid Terakhir</th>
+              <th className="px-4 py-3">Status</th>
+              <th className="px-4 py-3">Tanggal</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="divide-y divide-primary/10 bg-surface text-slate-700">
             {historyData.map((item) => (
-              <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.product}</td>
-                <td>{item.bid}</td>
-                <td>
-                  <span className={`dashboard__pill dashboard__pill--${item.status === 'Menang' ? 'success' : 'danger'}`}>
-                    {item.status}
-                  </span>
+              <tr key={item.id} className="hover:bg-primary/5">
+                <td className="px-4 py-3 font-semibold text-slate-900">{item.id}</td>
+                <td className="px-4 py-3">{item.product}</td>
+                <td className="px-4 py-3 text-slate-900">{item.bid}</td>
+                <td className="px-4 py-3">
+                  <span className={pillStyles[item.status === 'Menang' ? 'success' : 'danger']}>{item.status}</span>
                 </td>
-                <td>{item.date}</td>
+                <td className="px-4 py-3 text-slate-500">{item.date}</td>
               </tr>
             ))}
           </tbody>
@@ -628,41 +698,53 @@ const Dashboard = () => {
   );
 
   const renderProfile = () => (
-    <div className="dashboard__section dashboard__section--profile">
-      <header>
-        <h3>Informasi Perusahaan</h3>
-        <p>Perbaharui data agar proses due diligence tetap berjalan lancar.</p>
+    <div className={`${sectionClass} space-y-6`}>
+      <header className="space-y-1">
+        <h3 className="text-xl font-semibold text-slate-900">Informasi Perusahaan</h3>
+        <p className="text-sm text-slate-600">Perbaharui data agar proses due diligence tetap berjalan lancar.</p>
       </header>
-      <div className="dashboard__profile-grid">
-        <div>
-          <h4>Data Utama</h4>
-          <ul>
-            <li><strong>Nama Perusahaan:</strong> PT Sumber Sawit Ekspres</li>
-            <li><strong>NIB:</strong> 9123456780001</li>
-            <li><strong>Alamat:</strong> Jl. Jenderal Sudirman No. 88, Pekanbaru</li>
-            <li><strong>Jenis:</strong> Trading House</li>
+      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <div className={`${cardClass} space-y-3`}>
+          <h4 className="text-lg font-semibold text-slate-900">Data Utama</h4>
+          <ul className="space-y-2 text-sm text-slate-600">
+            <li><strong className="text-slate-900">Nama Perusahaan:</strong> PT Sumber Sawit Ekspres</li>
+            <li><strong className="text-slate-900">NIB:</strong> 9123456780001</li>
+            <li><strong className="text-slate-900">Alamat:</strong> Jl. Jenderal Sudirman No. 88, Pekanbaru</li>
+            <li><strong className="text-slate-900">Jenis:</strong> Trading House</li>
           </ul>
         </div>
-        <div>
-          <h4>Kontak PIC</h4>
-          <ul>
-            <li><strong>Nama:</strong> Ahmad Kurniawan</li>
-            <li><strong>Email:</strong> procurement@sumbersawit.co.id</li>
-            <li><strong>Nomor HP:</strong> +62 812-3456-7890</li>
+        <div className={`${cardClass} space-y-3`}>
+          <h4 className="text-lg font-semibold text-slate-900">Kontak PIC</h4>
+          <ul className="space-y-2 text-sm text-slate-600">
+            <li><strong className="text-slate-900">Nama:</strong> Ahmad Kurniawan</li>
+            <li><strong className="text-slate-900">Email:</strong> procurement@sumbersawit.co.id</li>
+            <li><strong className="text-slate-900">Nomor HP:</strong> +62 812-3456-7890</li>
           </ul>
         </div>
-        <div>
-          <h4>Status Dokumen</h4>
-          <ul>
-            <li>Akte Pendirian · <span className="dashboard__badge dashboard__badge--complete">Valid</span></li>
-            <li>Surat PKKP · <span className="dashboard__badge dashboard__badge--warning">Perlu Pembaharuan</span></li>
-            <li>NPWP · <span className="dashboard__badge dashboard__badge--complete">Valid</span></li>
+        <div className={`${cardClass} space-y-3`}>
+          <h4 className="text-lg font-semibold text-slate-900">Status Dokumen</h4>
+          <ul className="space-y-2 text-sm text-slate-600">
+            <li>
+              Akte Pendirian · <span className={badgeStyles.complete}>Valid</span>
+            </li>
+            <li>
+              Surat PKKP · <span className={badgeStyles.warning}>Perlu Pembaharuan</span>
+            </li>
+            <li>
+              NPWP · <span className={badgeStyles.complete}>Valid</span>
+            </li>
           </ul>
         </div>
       </div>
-      <div className="dashboard__actions">
-        <button type="button" className="btn btn--primary">Perbaharui Profil</button>
-        <button type="button" className="btn btn--ghost" onClick={() => { window.location.hash = '/'; }}>
+      <div className="flex flex-wrap gap-3">
+        <button type="button" className={primaryButtonClass}>Perbaharui Profil</button>
+        <button
+          type="button"
+          className={ghostButtonClass}
+          onClick={() => {
+            window.location.hash = '/';
+          }}
+        >
           Kembali ke Landing Page
         </button>
       </div>
@@ -685,48 +767,55 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="dashboard">
-      <div className="dashboard__layout">
-        <aside className="dashboard__sidebar" aria-label="Menu dashboard">
-          <div className="dashboard__sidebar-top">
-            <span className="dashboard__sidebar-label">Menu Utama</span>
+    <div className="min-h-screen bg-background text-slate-900">
+      <div className="grid min-h-screen lg:grid-cols-[260px_1fr]">
+        <aside className="flex flex-col justify-between gap-8 border-r border-primary/10 bg-surface px-6 py-8" aria-label="Menu dashboard">
+          <div className="space-y-6">
+            <p className="text-xs font-semibold uppercase tracking-wide text-primary/80">Menu Utama</p>
             <nav>
-              <ul className="dashboard__menu">
+              <ul className="space-y-2">
                 {menuItems.map((item) => (
                   <li key={item.key}>
                     <button
                       type="button"
-                      className={`dashboard__menu-button ${activeSection === item.key ? 'is-active' : ''}`}
+                      className={menuButtonClass(activeSection === item.key)}
                       onClick={() => setActiveSection(item.key)}
                     >
-                      {item.label}
+                      <span>{item.label}</span>
+                      <span className="text-lg">›</span>
                     </button>
                   </li>
                 ))}
               </ul>
             </nav>
           </div>
-          <div className="dashboard__sidebar-bottom">
-            <button type="button" className="dashboard__logout" onClick={() => { window.location.hash = '/'; }}>
+          <div>
+            <button
+              type="button"
+              className="flex w-full items-center justify-center rounded-full border border-rose-200 px-5 py-2 text-sm font-semibold text-rose-600 transition hover:bg-rose-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-500"
+              onClick={() => {
+                window.location.hash = '/';
+              }}
+            >
               Keluar
             </button>
           </div>
         </aside>
-        <main className="dashboard__content">
-          <header className="dashboard__header">
+        <main className="flex flex-col bg-background">
+          <header className="flex flex-wrap items-center justify-between gap-6 border-b border-primary/10 bg-surface px-8 py-6 shadow-sm">
             <div>
-              <h1>{activeTitle}</h1>
-              <p>Kelola seluruh aktivitas e-Bidding Anda melalui portal vendor APAS.</p>
+              <h1 className="text-2xl font-semibold text-slate-900">{activeTitle}</h1>
+              <p className="mt-1 text-sm text-slate-600">Kelola seluruh aktivitas e-Bidding Anda melalui portal vendor APAS.</p>
             </div>
-            <div className="dashboard__user-card">
-              <span className="dashboard__user-avatar">SE</span>
+            <div className="flex items-center gap-3 rounded-2xl border border-primary/10 bg-surface px-4 py-3 shadow-sm">
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-lg font-semibold text-white">SE</span>
               <div>
-                <strong>PT Sumber Sawit Ekspres</strong>
-                <small>Vendor ID: VND-230912</small>
+                <p className="text-sm font-semibold text-slate-900">PT Sumber Sawit Ekspres</p>
+                <p className="text-xs text-slate-500">Vendor ID: VND-230912</p>
               </div>
             </div>
           </header>
-          <section className="dashboard__main">{renderContent()}</section>
+          <section className="flex-1 space-y-6 overflow-y-auto px-6 py-8 lg:px-10">{renderContent()}</section>
         </main>
       </div>
     </div>

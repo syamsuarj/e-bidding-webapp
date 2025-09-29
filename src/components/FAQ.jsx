@@ -23,25 +23,25 @@ const faqs = [
 
 const FAQ = () => {
   return (
-    <section className="section section--alt" id="faq">
-      <div className="container faq">
-        <div className="section__header" data-reveal="fade-up">
+    <section className="bg-gradient-to-b from-primary/8 via-background to-background py-24 sm:py-28" id="faq">
+      <div className="container space-y-12">
+        <div className="max-w-2xl space-y-4" data-reveal="fade-up">
           <span className="badge">Pertanyaan Umum</span>
-          <h2>FAQ seputar Agrinas Palma Auction System</h2>
-          <p>
+          <h2 className="text-3xl font-bold leading-tight sm:text-4xl">FAQ seputar Agrinas Palma Auction System</h2>
+          <p className="text-base text-slate-600">
             Jawaban cepat untuk membantu tim procurement dan komoditas Anda memahami cara kerja APAS sebelum mengikuti demo.
           </p>
         </div>
-        <div className="faq__list">
+        <div className="grid gap-6 md:grid-cols-2">
           {faqs.map((faq, index) => (
             <article
               key={faq.question}
-              className="faq__item"
+              className="grid gap-3 rounded-2xl border border-primary/10 bg-surface p-7 shadow-soft"
               data-reveal="fade-up"
               data-reveal-delay={String(index * 80)}
             >
-              <h3>{faq.question}</h3>
-              <p>{faq.answer}</p>
+              <h3 className="text-lg font-semibold text-slate-900">{faq.question}</h3>
+              <p className="text-sm text-slate-600">{faq.answer}</p>
             </article>
           ))}
         </div>

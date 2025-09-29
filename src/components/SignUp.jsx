@@ -107,6 +107,12 @@ const SignUp = () => {
   const [submissionReceipt, setSubmissionReceipt] = useState(null);
   const [showTerms, setShowTerms] = useState(false);
 
+  const inputClasses =
+    "w-full rounded-md border border-primary/20 bg-white px-4 py-3 text-sm text-slate-900 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30";
+  const textareaClasses =
+    "w-full rounded-md border border-primary/20 bg-white px-4 py-3 text-sm text-slate-900 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30";
+  const errorClasses = "text-xs font-semibold text-red-600";
+
   const uploadedRequiredCount = useMemo(
     () =>
       requiredDocuments.reduce((count, doc) => {
@@ -325,29 +331,38 @@ const SignUp = () => {
   const renderDocumentRow = (doc, optional) => {
     const currentFile = documents[doc.key];
     return (
-      <li className="signup__document" key={doc.key} title={doc.description}>
-        <div className="signup__document-label">
-          <span className="signup__document-name">{doc.label}</span>
+      <li
+        className="flex flex-col gap-3 rounded-xl border border-primary/15 bg-background/60 p-4 sm:flex-row sm:items-center sm:justify-between"
+        key={doc.key}
+        title={doc.description}
+      >
+        <div className="space-y-1 sm:max-w-[60%]">
+          <span className="block text-sm font-semibold text-slate-900">
+            {doc.label}
+          </span>
           <span
-            className={`signup__badge ${
-              optional ? "signup__badge--optional" : ""
+            className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ${
+              optional
+                ? "bg-slate-200 text-slate-700"
+                : "bg-primary/15 text-primary"
             }`}
           >
             {optional ? "Opsional" : "Wajib"}
           </span>
         </div>
-        <div className="signup__document-controls">
-          <label className="signup__upload">
+        <div className="flex flex-col items-start gap-2 text-sm sm:items-end">
+          <label className="relative inline-flex cursor-pointer items-center gap-2 rounded-md border border-primary/30 bg-white px-4 py-2 font-semibold text-primary transition hover:bg-primary/5">
             <input
               type="file"
               accept=".pdf,.png,.jpg,.jpeg"
               onChange={(event) =>
                 handleDocumentChange(doc.key, event.target.files)
               }
+              className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
             />
             <span>{currentFile ? "Ganti File" : "Unggah"}</span>
           </label>
-          <small className="signup__upload-file" aria-live="polite">
+          <small className="text-xs text-slate-500" aria-live="polite">
             {formatFileName(currentFile)}
           </small>
         </div>
@@ -356,14 +371,19 @@ const SignUp = () => {
   };
 
   const renderReceiptCard = (receipt) => (
-    <div className="signup__receipt" role="status">
-      <h3>Pengajuan berhasil diterima ✅</h3>
-      <p>
+    <div
+      className="rounded-3xl border border-primary/20 bg-gradient-to-br from-primary/10 to-secondary/20 p-8 shadow-soft"
+      role="status"
+    >
+      <h3 className="text-xl font-semibold text-primary">
+        Pengajuan berhasil diterima ✅
+      </h3>
+      <p className="mt-3 text-sm text-slate-700">
         Terima kasih, {receipt.applicant}. Permohonan pendaftaran untuk{" "}
         {receipt.company} telah kami terima pada{" "}
         <strong>{receipt.submittedAt}</strong>.
       </p>
-      <ul>
+      <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-slate-700">
         <li>Akun akan direview dalam waktu {receipt.reviewSla}.</li>
         <li>
           Status awal akun: <strong>Menunggu Verifikasi</strong>.
@@ -378,49 +398,69 @@ const SignUp = () => {
   );
 
   return (
-    <main className="signup signup--page">
-      <div className="signup__header">
-        <div className="container signup__breadcrumbs">
-          <a href="/" className="signup__back-link">
+    <main className="min-h-screen bg-gradient-to-b from-primary/8 via-background to-background pb-24">
+      <header className="border-b border-primary/20 bg-primary/10 py-6">
+        <div className="container flex flex-wrap items-center justify-between gap-4 text-sm text-slate-700">
+          <a
+            href="/"
+            className="inline-flex items-center gap-2 font-semibold text-primary transition hover:underline"
+          >
             ← Kembali ke Beranda APAS
           </a>
-          <span>Registrasi Vendor</span>
+          <span className="inline-flex items-center rounded-full bg-white/70 px-4 py-1 text-xs font-semibold uppercase tracking-wide text-primary">
+            Registrasi Vendor
+          </span>
         </div>
-      </div>
+      </header>
 
-      <div className="container signup__container">
-        <div className="signup__intro">
-          <div className="signup__intro-header">
-            <h1>Form Registrasi Vendor e-Bidding APAS</h1>
-            <p>
+      <div className="container space-y-10 py-12">
+        <section className="grid gap-6 rounded-3xl border border-primary/15 bg-surface p-8 shadow-soft">
+          <div className="space-y-3">
+            <h1 className="text-3xl font-bold text-slate-900">
+              Form Registrasi Vendor e-Bidding APAS
+            </h1>
+            <p className="text-base text-slate-600">
               Lengkapi data perusahaan dan unggah minimal enam dokumen wajib.
               Tim bisnis APAS akan meninjau dan mengaktifkan akun Anda maksimal
               dalam 1 x 24 jam hari kerja. Jika ada perbaikan, notifikasi akan
               dikirim ke email yang terdaftar.
             </p>
           </div>
-          <ul className="signup__checklist" aria-label="Persyaratan dokumen">
-            <li>
-              <span>
+          <ul
+            className="grid gap-3 rounded-2xl bg-primary/5 p-5 text-sm text-slate-700 sm:grid-cols-3"
+            aria-label="Persyaratan dokumen"
+          >
+            <li className="flex items-center gap-3 rounded-xl border border-primary/10 bg-white/80 px-4 py-3 font-semibold text-primary">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-base font-bold text-primary">
                 {uploadedRequiredCount}/{requiredDocuments.length}
               </span>
               Dokumen wajib telah dipersiapkan
             </li>
-            <li>Review kelengkapan dilakukan manual oleh tim bisnis</li>
-            <li>Pemberitahuan revisi akan dikirim otomatis via email</li>
+            <li className="rounded-xl border border-primary/10 bg-white/70 px-4 py-3">
+              Review kelengkapan dilakukan manual oleh tim bisnis
+            </li>
+            <li className="rounded-xl border border-primary/10 bg-white/70 px-4 py-3">
+              Pemberitahuan revisi akan dikirim otomatis via email
+            </li>
           </ul>
-          <div className="signup__actions-note">
+          <p className="rounded-xl bg-background/80 px-5 py-4 text-sm text-slate-600">
             Dokumen akan diverifikasi maksimal dalam 1 x 24 jam hari kerja
             sebelum akun aktif.
-          </div>
-        </div>
+          </p>
+        </section>
 
-        <div className="signup__layout">
-          <form className="signup__form" onSubmit={handleSubmit} noValidate>
-            <div className="signup__section">
-              <h3>Data Pengguna</h3>
-              <div className="signup__grid">
-                <label className="signup__field">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(320px,380px)]">
+          <form
+            className="space-y-8 rounded-3xl border border-primary/15 bg-surface p-8 shadow-soft"
+            onSubmit={handleSubmit}
+            noValidate
+          >
+            <section className="space-y-4">
+              <h3 className="text-xl font-semibold text-slate-900">
+                Data Pengguna
+              </h3>
+              <div className="grid gap-5 md:grid-cols-2">
+                <label className="grid gap-2 text-sm font-medium text-slate-700">
                   <span>Nama Lengkap</span>
                   <input
                     type="text"
@@ -429,10 +469,13 @@ const SignUp = () => {
                     value={formData.fullName}
                     onChange={handleInputChange}
                     required
+                    className={inputClasses}
                   />
-                  {errors.fullName && <small>{errors.fullName}</small>}
+                  {errors.fullName && (
+                    <small className={errorClasses}>{errors.fullName}</small>
+                  )}
                 </label>
-                <label className="signup__field">
+                <label className="grid gap-2 text-sm font-medium text-slate-700">
                   <span>Email Perusahaan</span>
                   <input
                     type="email"
@@ -441,10 +484,13 @@ const SignUp = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
+                    className={inputClasses}
                   />
-                  {errors.email && <small>{errors.email}</small>}
+                  {errors.email && (
+                    <small className={errorClasses}>{errors.email}</small>
+                  )}
                 </label>
-                <label className="signup__field">
+                <label className="grid gap-2 text-sm font-medium text-slate-700 md:col-span-2">
                   <span>Nomor HP</span>
                   <input
                     type="tel"
@@ -454,16 +500,21 @@ const SignUp = () => {
                     value={formData.phone}
                     onChange={handleInputChange}
                     required
+                    className={inputClasses}
                   />
-                  {errors.phone && <small>{errors.phone}</small>}
+                  {errors.phone && (
+                    <small className={errorClasses}>{errors.phone}</small>
+                  )}
                 </label>
               </div>
-            </div>
+            </section>
 
-            <div className="signup__section">
-              <h3>Data Perusahaan</h3>
-              <div className="signup__grid">
-                <label className="signup__field">
+            <section className="space-y-4">
+              <h3 className="text-xl font-semibold text-slate-900">
+                Data Perusahaan
+              </h3>
+              <div className="grid gap-5 md:grid-cols-2">
+                <label className="grid gap-2 text-sm font-medium text-slate-700">
                   <span>Nama Perusahaan</span>
                   <input
                     type="text"
@@ -471,16 +522,20 @@ const SignUp = () => {
                     value={formData.companyName}
                     onChange={handleInputChange}
                     required
+                    className={inputClasses}
                   />
-                  {errors.companyName && <small>{errors.companyName}</small>}
+                  {errors.companyName && (
+                    <small className={errorClasses}>{errors.companyName}</small>
+                  )}
                 </label>
-                <label className="signup__field">
+                <label className="grid gap-2 text-sm font-medium text-slate-700">
                   <span>Jenis Perusahaan</span>
                   <select
                     name="companyType"
                     value={formData.companyType}
                     onChange={handleInputChange}
                     required
+                    className={inputClasses}
                   >
                     <option value="">Pilih jenis perusahaan</option>
                     {companyTypes.map((type) => (
@@ -489,10 +544,12 @@ const SignUp = () => {
                       </option>
                     ))}
                   </select>
-                  {errors.companyType && <small>{errors.companyType}</small>}
+                  {errors.companyType && (
+                    <small className={errorClasses}>{errors.companyType}</small>
+                  )}
                 </label>
               </div>
-              <label className="signup__field">
+              <label className="grid gap-2 text-sm font-medium text-slate-700">
                 <span>Alamat Perusahaan</span>
                 <textarea
                   name="companyAddress"
@@ -500,12 +557,15 @@ const SignUp = () => {
                   value={formData.companyAddress}
                   onChange={handleInputChange}
                   required
+                  className={textareaClasses}
                 />
                 {errors.companyAddress && (
-                  <small>{errors.companyAddress}</small>
+                  <small className={errorClasses}>
+                    {errors.companyAddress}
+                  </small>
                 )}
               </label>
-              <label className="signup__field">
+              <label className="grid gap-2 text-sm font-medium text-slate-700">
                 <span>Catatan Tambahan (Opsional)</span>
                 <textarea
                   name="additionalNotes"
@@ -513,14 +573,17 @@ const SignUp = () => {
                   placeholder="Contoh: Jadwal preferensi onboarding, info PIC cadangan, dsb."
                   value={formData.additionalNotes}
                   onChange={handleInputChange}
+                  className={textareaClasses}
                 />
               </label>
-            </div>
+            </section>
 
-            <div className="signup__section">
-              <h3>Keamanan Akun</h3>
-              <div className="signup__grid">
-                <label className="signup__field">
+            <section className="space-y-4">
+              <h3 className="text-xl font-semibold text-slate-900">
+                Keamanan Akun
+              </h3>
+              <div className="grid gap-5 md:grid-cols-2">
+                <label className="grid gap-2 text-sm font-medium text-slate-700">
                   <span>Password</span>
                   <input
                     type="password"
@@ -529,10 +592,13 @@ const SignUp = () => {
                     value={formData.password}
                     onChange={handleInputChange}
                     required
+                    className={inputClasses}
                   />
-                  {errors.password && <small>{errors.password}</small>}
+                  {errors.password && (
+                    <small className={errorClasses}>{errors.password}</small>
+                  )}
                 </label>
-                <label className="signup__field">
+                <label className="grid gap-2 text-sm font-medium text-slate-700">
                   <span>Konfirmasi Password</span>
                   <input
                     type="password"
@@ -541,17 +607,22 @@ const SignUp = () => {
                     value={formData.confirmPassword}
                     onChange={handleInputChange}
                     required
+                    className={inputClasses}
                   />
                   {errors.confirmPassword && (
-                    <small>{errors.confirmPassword}</small>
+                    <small className={errorClasses}>
+                      {errors.confirmPassword}
+                    </small>
                   )}
                 </label>
               </div>
-            </div>
+            </section>
 
-            <div className="signup__section">
-              <h3>Verifikasi Captcha</h3>
-              <div className="signup__captcha">
+            <section className="space-y-3">
+              <h3 className="text-xl font-semibold text-slate-900">
+                Verifikasi Captcha
+              </h3>
+              <div className="flex flex-wrap items-center gap-3 rounded-xl bg-primary/10 px-4 py-3 text-sm font-semibold text-primary">
                 <span>
                   {captcha.first} + {captcha.second} = ?
                 </span>
@@ -561,99 +632,117 @@ const SignUp = () => {
                   value={formData.captchaAnswer}
                   onChange={handleInputChange}
                   required
+                  className="w-24 rounded-md border border-primary/20 bg-white px-3 py-2 text-center text-sm text-slate-900 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
                 />
                 <button
                   type="button"
-                  className="signup__captcha-refresh"
+                  className="text-sm font-semibold text-primary underline"
                   onClick={() => setCaptcha(generateCaptcha())}
                 >
                   Ganti Soal
                 </button>
               </div>
               {errors.captchaAnswer && (
-                <small className="signup__error">{errors.captchaAnswer}</small>
+                <small className={errorClasses}>{errors.captchaAnswer}</small>
               )}
-            </div>
+            </section>
 
-            <div className="signup__section signup__section--terms">
-              <label className="signup__terms">
+            <section className="space-y-3">
+              <label className="flex items-start gap-3 rounded-xl bg-background/80 p-4 text-sm text-slate-700">
                 <input
                   type="checkbox"
                   name="acceptTerms"
                   checked={formData.acceptTerms}
                   onChange={handleInputChange}
                   required
+                  className="mt-1 h-4 w-4 rounded border-primary/30 text-primary focus:ring-primary/40"
                 />
                 <span>
                   Saya telah membaca dan menyetujui{" "}
                   <button
                     type="button"
                     onClick={handleShowTerms}
-                    className="signup__terms-link"
+                    className="font-semibold text-primary underline"
                   >
                     Syarat & Ketentuan APAS
                   </button>
                 </span>
               </label>
               {errors.acceptTerms && (
-                <small className="signup__error">{errors.acceptTerms}</small>
+                <small className={errorClasses}>{errors.acceptTerms}</small>
               )}
-            </div>
+            </section>
 
             {errors.documents && (
-              <div className="signup__error-block">{errors.documents}</div>
+              <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-600">
+                {errors.documents}
+              </div>
             )}
 
             <button
               type="submit"
-              className="btn btn--primary"
+              className="btn btn--primary w-full sm:w-auto"
               disabled={isSubmitting}
             >
               {isSubmitting ? "Mengirim data…" : "Kirim Pengajuan"}
             </button>
           </form>
 
-          <aside className="signup__documents" aria-label="Unggah dokumen">
-            <header className="signup__documents-header">
-              <div>
-                <h3>Unggah Dokumen Legal</h3>
-                <p>Format diizinkan: PDF, JPG, PNG · Maks. 10 MB per file.</p>
-              </div>
-              <div className="signup__documents-progress" aria-live="polite">
-                <span>
-                  {uploadedRequiredCount}/{requiredDocuments.length}
-                </span>
-                <small>Dokumen wajib terunggah</small>
-                {optionalDocuments.length > 0 && (
-                  <small className="signup__documents-progress-optional">
-                    Opsional: {uploadedOptionalCount}/{optionalDocuments.length}
+          <aside
+            className="space-y-6 rounded-3xl border border-primary/15 bg-surface p-6 shadow-soft lg:sticky lg:top-28"
+            aria-label="Unggah dokumen"
+          >
+            <header className="space-y-3">
+              <div className="flex items-start justify-between gap-4">
+                <div className="space-y-1">
+                  <h3 className="text-xl font-semibold text-slate-900">
+                    Unggah Dokumen Legal
+                  </h3>
+                  <p className="text-sm text-slate-600">
+                    Format diizinkan: PDF, JPG, PNG · Maks. 10 MB per file.
+                  </p>
+                </div>
+                <div className="rounded-xl bg-primary/10 px-4 py-2 text-right">
+                  <span className="block text-lg font-bold text-primary">
+                    {uploadedRequiredCount}/{requiredDocuments.length}
+                  </span>
+                  <small className="text-xs font-semibold uppercase tracking-wide text-primary/80">
+                    Dokumen wajib
                   </small>
-                )}
+                  {optionalDocuments.length > 0 && (
+                    <small className="block text-[11px] text-slate-500">
+                      Opsional: {uploadedOptionalCount}/
+                      {optionalDocuments.length}
+                    </small>
+                  )}
+                </div>
               </div>
             </header>
-            <div className="signup__documents-group" aria-label="Dokumen wajib">
-              <h4>Dokumen Wajib</h4>
-              <ul className="signup__documents-list signup__documents-list--grid">
+            <div className="space-y-3" aria-label="Dokumen wajib">
+              <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                Dokumen Wajib
+              </h4>
+              <ul className="grid gap-3">
                 {requiredDocuments.map((doc) => renderDocumentRow(doc, false))}
               </ul>
             </div>
             {optionalDocuments.length > 0 && (
               <details
-                className="signup__documents-optional"
+                className="rounded-xl border border-primary/15 bg-background/70 p-4 text-sm text-slate-700"
                 aria-label="Dokumen opsional"
               >
-                <summary>
+                <summary className="flex cursor-pointer items-center justify-between gap-3 font-semibold text-slate-800">
                   <span>Dokumen Opsional</span>
-                  <span className="signup__documents-badge">
+                  <span className="inline-flex items-center rounded-full bg-white px-3 py-1 text-xs font-semibold text-primary">
                     {uploadedOptionalCount}/{optionalDocuments.length}
                   </span>
                 </summary>
-                <ul className="signup__documents-list signup__documents-list--grid">
+                <ul className="mt-3 grid gap-3">
                   {optionalDocuments.map((doc) => renderDocumentRow(doc, true))}
                 </ul>
               </details>
             )}
-            <p className="signup__review-note">
+            <p className="rounded-xl bg-background/80 px-4 py-3 text-sm text-slate-600">
               Setelah dikirim, tim bisnis akan meninjau berkas maksimal 1 x 24
               jam sebelum akun aktif.
             </p>
@@ -661,46 +750,66 @@ const SignUp = () => {
         </div>
 
         {submissionReceipt && renderReceiptCard(submissionReceipt)}
-      </div>
 
-      <div className="container signup__login" aria-label="Informasi login">
-        <h3>Sudah memiliki akun?</h3>
-        <p>
-          Akses dashboard e-Bidding melalui portal internal APAS. Jika Anda
-          mengalami kendala login, hubungi{" "}
-          <a href="mailto:support@apas.id">support@apas.id</a> untuk reset
-          kredensial.
-        </p>
-        <small>
-          Modul login akan tersinkron dengan SSO internal pada saat peluncuran
-          aplikasi.
-        </small>
+        <section
+          className="rounded-3xl border border-primary/15 bg-surface p-8 shadow-soft"
+          aria-label="Informasi login"
+        >
+          <h3 className="text-xl font-semibold text-slate-900">
+            Sudah memiliki akun?
+          </h3>
+          <p className="mt-3 text-sm text-slate-600">
+            Akses dashboard e-Bidding melalui portal internal APAS. Jika Anda
+            mengalami kendala login, hubungi{" "}
+            <a
+              href="mailto:support@apas.id"
+              className="font-semibold text-primary hover:underline"
+            >
+              support@apas.id
+            </a>{" "}
+            untuk reset kredensial.
+          </p>
+          <p className="mt-2 text-xs text-slate-500">
+            Modul login akan tersinkron dengan SSO internal pada saat peluncuran
+            aplikasi.
+          </p>
+        </section>
       </div>
 
       {showTerms && (
         <div
-          className="signup__terms-modal"
+          className="fixed inset-0 z-50 flex items-center justify-center px-4 py-8"
           role="dialog"
           aria-modal="true"
           aria-labelledby="terms-title"
         >
-          <div className="signup__terms-content">
-            <header>
-              <h3 id="terms-title">Syarat & Ketentuan Registrasi APAS</h3>
+          <div
+            className="absolute inset-0 bg-text/60 backdrop-blur-sm"
+            onClick={handleHideTerms}
+          />
+          <div className="relative w-full max-w-2xl space-y-6 rounded-[28px] border border-primary/20 bg-surface p-8 shadow-2xl">
+            <header className="flex items-start justify-between gap-4">
+              <h3
+                id="terms-title"
+                className="text-2xl font-bold text-slate-900"
+              >
+                Syarat & Ketentuan Registrasi APAS
+              </h3>
               <button
                 type="button"
                 onClick={handleHideTerms}
                 aria-label="Tutup syarat & ketentuan"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-lg font-bold text-primary transition hover:bg-primary/15"
               >
                 ×
               </button>
             </header>
-            <ol>
+            <ol className="space-y-3 list-decimal pl-5 text-sm text-slate-700">
               {termsItems.map((item, index) => (
                 <li key={index}>{item}</li>
               ))}
             </ol>
-            <footer>
+            <div className="flex justify-end">
               <button
                 type="button"
                 className="btn btn--primary"
@@ -708,7 +817,7 @@ const SignUp = () => {
               >
                 Saya Mengerti
               </button>
-            </footer>
+            </div>
           </div>
         </div>
       )}
