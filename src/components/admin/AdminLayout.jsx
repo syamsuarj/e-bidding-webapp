@@ -84,70 +84,125 @@ const AdminLayout = ({
   ];
 
   return (
-    <div className="app-wrapper">
-      <div className={`admin-shell ${collapsed ? "is-collapsed" : ""}`}>
-        <aside className="admin-sidebar">
-          <div className="sidebar__header">
+    <div className="min-h-screen bg-background text-slate-900">
+      <div className="flex min-h-screen">
+        {/* Sidebar */}
+        <aside
+          className={`flex flex-col justify-between border-r border-primary/10 bg-surface transition-all duration-200 ${
+            collapsed ? "w-16" : "w-64"
+          }`}
+        >
+          <div className="p-3">
+            {/* Sidebar header / toggle */}
+            <div className="mb-4 flex items-center justify-between">
+              <button
+                className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-primary/10 hover:bg-primary/10"
+                onClick={() => setCollapsed((v) => !v)}
+                aria-label="Toggle sidebar"
+                title="Sembunyikan/Perluas menu"
+              >
+                <Menu size={18} />
+              </button>
+            </div>
+
+            {/* Nav */}
+            <nav aria-label="Navigasi admin">
+              <ul className="space-y-1">
+                {links.map(({ href, label, icon: Icon }) => {
+                  const active = pathname === href;
+                  return (
+                    <li key={href}>
+                      <a
+                        href={href}
+                        className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-semibold transition ${
+                          active
+                            ? "bg-primary/10 text-primary"
+                            : "text-slate-700 hover:bg-primary/10 hover:text-primary"
+                        }`}
+                        aria-current={active ? "page" : undefined}
+                      >
+                        <Icon size={18} className="shrink-0" />
+                        {!collapsed && (
+                          <span className="truncate">{label}</span>
+                        )}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
+          </div>
+          {/* Logout */}
+          <div className="p-3">
             <button
-              className="sidebar__toggle"
-              onClick={() => setCollapsed((v) => !v)}
-              aria-label="Toggle sidebar"
+              className="flex w-full items-center gap-3 rounded-lg border border-rose-200 px-3 py-2 text-sm font-semibold text-rose-600 transition hover:bg-rose-50"
+              onClick={onLogout}
             >
-              <Menu size={18} />
+              <LogOut size={18} className="shrink-0" />
+              {!collapsed && <span>Keluar</span>}
             </button>
           </div>
-          <nav className="sidebar__nav" aria-label="Navigasi admin">
-            <ul>
-              {links.map(({ href, label, icon: Icon }) => (
-                <li key={href}>
-                  <a
-                    href={href}
-                    className={`sidebar__link ${
-                      pathname === href ? "is-active" : ""
-                    }`}
-                  >
-                    <Icon size={18} />
-                    <span className="sidebar__label">{label}</span>
-                  </a>
-                </li>
-              ))}
-              <li>
-                <button
-                  className="sidebar__link sidebar__logout"
-                  onClick={onLogout}
-                >
-                  <LogOut size={18} />
-                  <span className="sidebar__label">Keluar</span>
-                </button>
-              </li>
-            </ul>
-          </nav>
         </aside>
 
-        <main
-          className={`admin-content ${unconstrained ? "is-unconstrained" : ""}`}
-        >
-          <div className="container">
-            <div className="admin-page-header">
-              {Array.isArray(breadcrumbs) && breadcrumbs.length > 0 && (
-                <nav className="breadcrumb" aria-label="Breadcrumb">
-                  <ol>
-                    {breadcrumbs.map((c, idx) => (
-                      <li key={idx}>
+        {/* Main content */}
+        <main className="flex min-w-0 flex-1 flex-col bg-background">
+          {/* Header - mimic user Dashboard header */}
+          <header className="flex flex-wrap items-center justify-between gap-6 border-b border-primary/10 bg-surface px-8 py-6 shadow-sm">
+            <div className="min-w-0">
+              {/* Breadcrumbs */}
+              {Array.isArray(crumbs) && crumbs.length > 0 && (
+                <nav
+                  className="mb-1 text-xs text-slate-500"
+                  aria-label="Breadcrumb"
+                >
+                  <ol className="flex flex-wrap items-center gap-1">
+                    {crumbs.map((c, idx) => (
+                      <li key={idx} className="flex items-center gap-1">
                         {c.href ? (
-                          <a href={c.href}>{c.label}</a>
+                          <a href={c.href} className="hover:text-primary">
+                            {c.label}
+                          </a>
                         ) : (
                           <span aria-current="page">{c.label}</span>
+                        )}
+                        {idx < crumbs.length - 1 && (
+                          <span className="text-slate-400">/</span>
                         )}
                       </li>
                     ))}
                   </ol>
                 </nav>
               )}
-              <h1>{pageTitle}</h1>
+              <h1 className="truncate text-2xl font-semibold text-slate-900">
+                {pageTitle}
+              </h1>
+              <p className="mt-1 line-clamp-2 text-sm text-slate-600">
+                Kelola data dan konfigurasi platform APAS melalui panel admin.
+              </p>
             </div>
+            <div className="flex items-center gap-3 rounded-2xl border border-primary/10 bg-surface px-4 py-3 shadow-sm">
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-lg font-semibold text-white">
+                AD
+              </span>
+              <div className="min-w-0">
+                <p className="truncate text-sm font-semibold text-slate-900">
+                  APAS Administrator
+                </p>
+                <p className="truncate text-xs text-slate-500">Admin Panel</p>
+              </div>
+            </div>
+          </header>
+
+          {/* Content */}
+          <section
+            className={`flex-1 ${
+              unconstrained
+                ? "px-4 md:px-6 lg:px-8"
+                : "mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8"
+            }`}
+          >
             {children}
-          </div>
+          </section>
         </main>
       </div>
     </div>

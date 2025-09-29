@@ -24,51 +24,43 @@ const AdminPKSDetail = () => {
 
   return (
     <AdminLayout title="Detail PKS" breadcrumbs={crumbs}>
-      <section className="section">
-        <div className="card" data-reveal>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: ".75rem",
-            }}
-          >
-            <h2 style={{ margin: 0 }}>
-              {item ? item.name : "Tidak ditemukan"}
-            </h2>
-            <a href="/admin/pks" className="btn btn--ghost">
-              Kembali
-            </a>
+      <section className="py-6 md:py-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="rounded-xl border border-slate-200 bg-white p-4">
+            <div className="mb-3 flex items-center justify-between">
+              <h2 className="m-0 text-lg font-semibold text-slate-900">
+                {item ? item.name : "Tidak ditemukan"}
+              </h2>
+              <a
+                href="/admin/pks"
+                className="inline-flex items-center rounded-lg border border-slate-300 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50"
+              >
+                Kembali
+              </a>
+            </div>
+            {item ? (
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-[200px_1fr]">
+                <div className="text-slate-500">ID</div>
+                <div className="text-slate-800">{item.id}</div>
+                <div className="text-slate-500">Nama PKS</div>
+                <div className="text-slate-800">{item.name}</div>
+                <div className="text-slate-500">Lokasi</div>
+                <div className="text-slate-800">{item.location}</div>
+                <div className="text-slate-500">Kapasitas</div>
+                <div className="text-slate-800">{item.capacity}</div>
+                <div className="text-slate-500">Pemilik</div>
+                <div className="text-slate-800">{item.owner}</div>
+                <div className="text-slate-500">Status</div>
+                <div className="text-slate-800">{item.status}</div>
+                <div className="text-slate-500">Sejak</div>
+                <div className="text-slate-800">{item.since}</div>
+              </div>
+            ) : (
+              <div className="text-center text-slate-500">
+                Data tidak ditemukan.
+              </div>
+            )}
           </div>
-          {item ? (
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "200px 1fr",
-                gap: ".5rem",
-              }}
-            >
-              <div style={{ color: "rgba(15,23,42,.6)" }}>ID</div>
-              <div>{item.id}</div>
-              <div style={{ color: "rgba(15,23,42,.6)" }}>Nama PKS</div>
-              <div>{item.name}</div>
-              <div style={{ color: "rgba(15,23,42,.6)" }}>Lokasi</div>
-              <div>{item.location}</div>
-              <div style={{ color: "rgba(15,23,42,.6)" }}>Kapasitas</div>
-              <div>{item.capacity}</div>
-              <div style={{ color: "rgba(15,23,42,.6)" }}>Pemilik</div>
-              <div>{item.owner}</div>
-              <div style={{ color: "rgba(15,23,42,.6)" }}>Status</div>
-              <div>{item.status}</div>
-              <div style={{ color: "rgba(15,23,42,.6)" }}>Sejak</div>
-              <div>{item.since}</div>
-            </div>
-          ) : (
-            <div style={{ textAlign: "center", color: "rgba(15,23,42,.6)" }}>
-              Data tidak ditemukan.
-            </div>
-          )}
         </div>
       </section>
     </AdminLayout>

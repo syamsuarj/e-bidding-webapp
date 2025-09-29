@@ -317,21 +317,24 @@
 
 /* Admin + Utility Components */
 .admin-shell {
-  display: grid;
-  grid-template-columns: 260px 1fr;
+  /* Use a CSS variable for sidebar width and position the sidebar fixed */
+  --sidebar-width: 260px;
+  display: block;
   min-height: 100vh;
 }
 .admin-shell.is-collapsed {
-  grid-template-columns: 76px 1fr;
+  --sidebar-width: 76px;
 }
 .admin-sidebar {
-  position: sticky;
+  position: fixed;
   top: 0;
-  align-self: start;
+  left: 0;
   height: 100vh;
+  width: var(--sidebar-width);
   background: #fff;
   border-right: 1px solid var(--color-border);
   padding: 0.9rem;
+  z-index: 60;
 }
 .sidebar__header {
   display: flex;
@@ -384,6 +387,9 @@
     rgba(15, 159, 110, 0.05),
     rgba(15, 159, 110, 0)
   );
+  /* Offset content so the fixed sidebar doesn't overlap */
+  margin-left: var(--sidebar-width);
+  width: calc(100% - var(--sidebar-width));
 }
 /* Make admin pages use full available width beyond the global container cap */
 .admin-content .container {

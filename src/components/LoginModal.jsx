@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 const initialFormState = {
-  identifier: '',
-  password: '',
+  identifier: "",
+  password: "",
   rememberMe: false,
 };
 
@@ -23,13 +23,13 @@ const LoginModal = ({ open, onClose, onSuccess }) => {
     if (!open) return undefined;
 
     const handleKeyDown = (event) => {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         onClose?.();
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [open, onClose]);
 
   if (!open) {
@@ -40,7 +40,7 @@ const LoginModal = ({ open, onClose, onSuccess }) => {
     const { name, value, type, checked } = event.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === "checkbox" ? checked : value,
     }));
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
@@ -51,11 +51,11 @@ const LoginModal = ({ open, onClose, onSuccess }) => {
     const nextErrors = {};
 
     if (!formData.identifier.trim()) {
-      nextErrors.identifier = 'Masukkan email atau username.';
+      nextErrors.identifier = "Masukkan email atau username.";
     }
 
     if (!formData.password.trim()) {
-      nextErrors.password = 'Masukkan password Anda.';
+      nextErrors.password = "Masukkan password Anda.";
     }
 
     return nextErrors;
@@ -89,16 +89,22 @@ const LoginModal = ({ open, onClose, onSuccess }) => {
       aria-modal="true"
       aria-labelledby="login-title"
     >
-      <div className="absolute inset-0 bg-text/60 backdrop-blur-sm" onClick={onClose} />
+      <div
+        className="absolute inset-0 bg-text/60 backdrop-blur-sm"
+        onClick={onClose}
+      />
       <div className="relative w-full max-w-lg rounded-[28px] border border-primary/20 bg-surface p-8 shadow-2xl">
         <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="space-y-2">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Selamat datang kembali</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+              Selamat datang kembali
+            </p>
             <h2 className="text-2xl font-bold text-slate-900" id="login-title">
               Masuk ke Akun Vendor
             </h2>
             <p className="text-sm text-slate-600">
-              Gunakan kredensial registrasi Anda untuk mengakses dashboard e-Bidding dan mulai mengikuti lelang.
+              Gunakan kredensial registrasi Anda untuk mengakses dashboard
+              e-Bidding dan mulai mengikuti lelang.
             </p>
           </div>
           <button
@@ -123,7 +129,11 @@ const LoginModal = ({ open, onClose, onSuccess }) => {
               required
               className="w-full rounded-md border border-primary/20 bg-white px-4 py-3 text-sm text-slate-900 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
             />
-            {errors.identifier && <small className="text-xs font-semibold text-red-600">{errors.identifier}</small>}
+            {errors.identifier && (
+              <small className="text-xs font-semibold text-red-600">
+                {errors.identifier}
+              </small>
+            )}
           </label>
 
           <label className="grid gap-2 text-sm font-medium text-slate-700">
@@ -137,7 +147,11 @@ const LoginModal = ({ open, onClose, onSuccess }) => {
               required
               className="w-full rounded-md border border-primary/20 bg-white px-4 py-3 text-sm text-slate-900 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
             />
-            {errors.password && <small className="text-xs font-semibold text-red-600">{errors.password}</small>}
+            {errors.password && (
+              <small className="text-xs font-semibold text-red-600">
+                {errors.password}
+              </small>
+            )}
           </label>
 
           <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
@@ -151,20 +165,30 @@ const LoginModal = ({ open, onClose, onSuccess }) => {
               />
               <span>Ingat saya di perangkat ini</span>
             </label>
-            <button type="button" className="font-semibold text-primary hover:underline">
+            <button
+              type="button"
+              className="font-semibold text-primary hover:underline"
+            >
               Lupa password?
             </button>
           </div>
 
-          <button type="submit" className="btn btn--primary w-full sm:w-auto" disabled={isSubmitting}>
-            {isSubmitting ? 'Memproses…' : 'Masuk'}
+          <button
+            type="submit"
+            className="btn btn--primary w-full sm:w-auto"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Memproses…" : "Masuk"}
           </button>
         </form>
 
         <footer className="mt-6 text-center text-sm text-slate-600">
           <p>
-            Belum punya akun?{' '}
-            <a href="#/signup" className="font-semibold text-primary hover:underline">
+            Belum punya akun?{" "}
+            <a
+              href="/signup"
+              className="font-semibold text-primary hover:underline"
+            >
               Registrasi Vendor
             </a>
           </p>

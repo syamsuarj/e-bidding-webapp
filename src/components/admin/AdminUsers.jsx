@@ -7,20 +7,13 @@ const ROLES_STORAGE_KEY = "apas_admin_role_matrix_v1";
 
 const StatusBadge = ({ value }) => {
   const map = {
-    Aktif: { bg: "rgba(16,185,129,.12)", color: "#047857" },
-    Nonaktif: { bg: "rgba(239,68,68,.12)", color: "#b91c1c" },
+    Aktif: "bg-emerald-100 text-emerald-700",
+    Nonaktif: "bg-rose-100 text-rose-700",
   };
-  const style = map[value] || map.Aktif;
+  const cls = map[value] || map.Aktif;
   return (
     <span
-      style={{
-        background: style.bg,
-        color: style.color,
-        padding: ".25rem .55rem",
-        borderRadius: 999,
-        fontSize: ".78rem",
-        fontWeight: 600,
-      }}
+      className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold ${cls}`}
     >
       {value}
     </span>
@@ -92,184 +85,209 @@ const AdminUsers = () => {
 
   return (
     <AdminLayout>
-      <section className="section">
-        <div className="card admin-scroll-table-card" data-reveal>
-          <div className="card__toolbar">
-            <div className="toolbar-left">
-              <input
-                className="input"
-                placeholder="Cari ID, nama, email, atau telepon…"
-                value={q}
-                onChange={(e) => setQ(e.target.value)}
-              />
-              <select
-                className="input"
-                style={{ maxWidth: 180 }}
-                value={roleFilter}
-                onChange={(e) => {
-                  setRoleFilter(e.target.value);
-                  setPage(1);
-                }}
-              >
-                <option>Semua</option>
-                {roles.map((r) => (
-                  <option key={r.id} value={r.id}>
-                    {r.name}
-                  </option>
-                ))}
-              </select>
-              <select
-                className="input"
-                style={{ maxWidth: 140 }}
-                value={statusFilter}
-                onChange={(e) => {
-                  setStatusFilter(e.target.value);
-                  setPage(1);
-                }}
-              >
-                <option>Semua</option>
-                <option>Aktif</option>
-                <option>Nonaktif</option>
-              </select>
+      <section className="py-6 md:py-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="rounded-xl border border-slate-200 bg-white p-4">
+            {/* Toolbar */}
+            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+              <div className="flex flex-1 flex-wrap items-center gap-2">
+                <input
+                  className="w-full min-w-60 flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm placeholder-slate-400 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+                  placeholder="Cari ID, nama, email, atau telepon…"
+                  value={q}
+                  onChange={(e) => setQ(e.target.value)}
+                />
+                <select
+                  className="max-w-44 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+                  value={roleFilter}
+                  onChange={(e) => {
+                    setRoleFilter(e.target.value);
+                    setPage(1);
+                  }}
+                >
+                  <option>Semua</option>
+                  {roles.map((r) => (
+                    <option key={r.id} value={r.id}>
+                      {r.name}
+                    </option>
+                  ))}
+                </select>
+                <select
+                  className="max-w-36 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+                  value={statusFilter}
+                  onChange={(e) => {
+                    setStatusFilter(e.target.value);
+                    setPage(1);
+                  }}
+                >
+                  <option>Semua</option>
+                  <option>Aktif</option>
+                  <option>Nonaktif</option>
+                </select>
+              </div>
+              <div className="shrink-0">
+                <button
+                  className="inline-flex items-center rounded-lg bg-gradient-to-br from-primary to-emerald-400 px-4 py-2 text-sm font-semibold text-white shadow-[0_18px_40px_-22px_rgba(15,159,110,0.55)] transition hover:-translate-y-px hover:shadow-[0_30px_60px_-30px_rgba(15,159,110,0.6)]"
+                  onClick={() => setOpen(true)}
+                >
+                  Tambah Pengguna
+                </button>
+              </div>
             </div>
-            <div className="toolbar-right">
-              <button
-                className="btn btn--primary"
-                onClick={() => setOpen(true)}
-              >
-                Tambah Pengguna
-              </button>
-            </div>
-          </div>
 
-          <div className="table-wrapper">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th style={{ width: 160 }}>ID</th>
-                  <th>Nama</th>
-                  <th>Email</th>
-                  <th style={{ width: 160 }}>Telepon</th>
-                  <th style={{ width: 140 }}>Role</th>
-                  <th style={{ width: 120 }}>Status</th>
-                  <th style={{ width: 160 }}>Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                {paginated.map((u) => (
-                  <tr key={u.id}>
-                    <td>{u.id}</td>
-                    <td>{u.name}</td>
-                    <td>{u.email}</td>
-                    <td>
-                      <div style={{ display: "grid" }}>
-                        <span>{u.phone}</span>
-                        {u.participantId && (
-                          <a
-                            href={`/admin/participants/${encodeURIComponent(
-                              u.participantId
-                            )}`}
-                            className="text-muted"
-                            style={{ fontSize: ".8rem" }}
-                          >
-                            Peserta: {u.participantId}
-                          </a>
-                        )}
-                      </div>
-                    </td>
-                    <td>
-                      {roles.find((r) => r.id === u.role)?.name || u.role}
-                    </td>
-                    <td>
-                      <StatusBadge value={u.status} />
-                    </td>
-                    <td>
-                      <div style={{ display: "flex", gap: ".4rem" }}>
-                        <a
-                          href="#"
-                          className="btn btn--ghost"
-                          onClick={(e) => e.preventDefault()}
-                        >
-                          Edit
-                        </a>
-                        <a
-                          href="#"
-                          className="btn btn--ghost"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setList((prev) =>
-                              prev.filter((x) => x.id !== u.id)
-                            );
-                          }}
-                        >
-                          Hapus
-                        </a>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-                {filtered.length === 0 && (
+            {/* Table */}
+            <div className="mt-4 overflow-x-auto">
+              <table className="min-w-full divide-y divide-slate-200 text-left text-sm">
+                <thead className="bg-slate-50">
                   <tr>
-                    <td
-                      colSpan={7}
-                      style={{
-                        textAlign: "center",
-                        color: "rgba(15,23,42,.6)",
-                      }}
-                    >
-                      Tidak ada data
-                    </td>
+                    <th className="w-40 px-3 py-2 font-semibold text-slate-700">
+                      ID
+                    </th>
+                    <th className="px-3 py-2 font-semibold text-slate-700">
+                      Nama
+                    </th>
+                    <th className="px-3 py-2 font-semibold text-slate-700">
+                      Email
+                    </th>
+                    <th className="w-40 px-3 py-2 font-semibold text-slate-700">
+                      Telepon
+                    </th>
+                    <th className="w-[140px] px-3 py-2 font-semibold text-slate-700">
+                      Role
+                    </th>
+                    <th className="w-28 px-3 py-2 font-semibold text-slate-700">
+                      Status
+                    </th>
+                    <th className="w-40 px-3 py-2 font-semibold text-slate-700">
+                      Aksi
+                    </th>
                   </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-
-          <div className="pagination">
-            <div className="limit">
-              <span>Tampilkan</span>
-              <select
-                className="input"
-                style={{ width: 90 }}
-                value={limit}
-                onChange={(e) => {
-                  setLimit(parseInt(e.target.value, 10));
-                  setPage(1);
-                }}
-              >
-                <option value={5}>5</option>
-                <option value={10}>10</option>
-                <option value={20}>20</option>
-              </select>
-              <span>per halaman</span>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {paginated.map((u) => (
+                    <tr key={u.id} className="hover:bg-slate-50">
+                      <td className="px-3 py-2 text-slate-700">{u.id}</td>
+                      <td className="px-3 py-2 text-slate-700">{u.name}</td>
+                      <td className="px-3 py-2 text-slate-700">{u.email}</td>
+                      <td className="px-3 py-2">
+                        <div className="grid">
+                          <span className="text-slate-700">{u.phone}</span>
+                          {u.participantId && (
+                            <a
+                              href={`/admin/participants/${encodeURIComponent(
+                                u.participantId
+                              )}`}
+                              className="text-xs text-slate-500 hover:text-slate-700"
+                            >
+                              Peserta: {u.participantId}
+                            </a>
+                          )}
+                        </div>
+                      </td>
+                      <td className="px-3 py-2 text-slate-700">
+                        {roles.find((r) => r.id === u.role)?.name || u.role}
+                      </td>
+                      <td className="px-3 py-2">
+                        <StatusBadge value={u.status} />
+                      </td>
+                      <td className="px-3 py-2">
+                        <div className="flex gap-2">
+                          <a
+                            href="#"
+                            className="inline-flex items-center rounded-lg border border-slate-300 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50"
+                            onClick={(e) => e.preventDefault()}
+                          >
+                            Edit
+                          </a>
+                          <a
+                            href="#"
+                            className="inline-flex items-center rounded-lg border border-slate-300 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setList((prev) =>
+                                prev.filter((x) => x.id !== u.id)
+                              );
+                            }}
+                          >
+                            Hapus
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                  {filtered.length === 0 && (
+                    <tr>
+                      <td
+                        colSpan={7}
+                        className="px-3 py-6 text-center text-slate-500"
+                      >
+                        Tidak ada data
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
             </div>
-            <div className="pager">
-              <button
-                onClick={() => setPage((p) => Math.max(1, p - 1))}
-                disabled={page === 1}
-              >
-                Sebelumnya
-              </button>
-              <span style={{ padding: "0 .4rem" }}>
-                Hal {page} / {Math.max(1, totalPages)}
-              </span>
-              <button
-                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                disabled={page >= totalPages}
-              >
-                Berikutnya
-              </button>
+
+            {/* Pagination */}
+            <div className="mt-4 flex flex-col items-center justify-between gap-3 sm:flex-row">
+              <div className="flex items-center gap-2 text-sm text-slate-700">
+                <span>Tampilkan</span>
+                <select
+                  className="w-[90px] rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+                  value={limit}
+                  onChange={(e) => {
+                    setLimit(parseInt(e.target.value, 10));
+                    setPage(1);
+                  }}
+                >
+                  <option value={5}>5</option>
+                  <option value={10}>10</option>
+                  <option value={20}>20</option>
+                </select>
+                <span>per halaman</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm">
+                <button
+                  className="inline-flex items-center rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-slate-700 enabled:hover:bg-slate-50 disabled:opacity-50"
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  disabled={page === 1}
+                >
+                  Sebelumnya
+                </button>
+                <span className="px-2 text-slate-600">
+                  Hal {page} / {Math.max(1, totalPages)}
+                </span>
+                <button
+                  className="inline-flex items-center rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-slate-700 enabled:hover:bg-slate-50 disabled:opacity-50"
+                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                  disabled={page >= totalPages}
+                >
+                  Berikutnya
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {open && (
-        <div className="modal-backdrop" onClick={() => setOpen(false)}>
-          <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <div className="modal__header">
-              <h3>Tambah Pengguna</h3>
-              <button className="btn btn--ghost" onClick={() => setOpen(false)}>
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 p-4"
+          onClick={() => setOpen(false)}
+        >
+          <div
+            className="w-full max-w-xl rounded-xl border border-slate-200 bg-white shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between border-b border-slate-200 p-4">
+              <h3 className="text-base font-semibold text-slate-900">
+                Tambah Pengguna
+              </h3>
+              <button
+                className="inline-flex items-center rounded-lg border border-slate-300 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50"
+                onClick={() => setOpen(false)}
+              >
                 Tutup
               </button>
             </div>
@@ -307,38 +325,46 @@ const UserForm = ({ roles, onCancel, onSave }) => {
         e.currentTarget.reset();
       }}
     >
-      <div className="modal__body">
-        <div className="form-field">
-          <label>ID</label>
-          <input name="id" className="input" placeholder="USR-2025-XXXX" />
+      <div className="grid gap-4 p-4">
+        <div className="grid gap-1.5">
+          <label className="text-sm font-medium text-slate-700">ID</label>
+          <input
+            name="id"
+            className="rounded-lg border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+            placeholder="USR-2025-XXXX"
+          />
         </div>
-        <div className="form-field">
-          <label>Nama</label>
+        <div className="grid gap-1.5">
+          <label className="text-sm font-medium text-slate-700">Nama</label>
           <input
             name="name"
-            className="input"
+            className="rounded-lg border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
             placeholder="Nama pengguna"
             required
           />
         </div>
-        <div className="form-field">
-          <label>Email</label>
+        <div className="grid gap-1.5">
+          <label className="text-sm font-medium text-slate-700">Email</label>
           <input
             type="email"
             name="email"
-            className="input"
+            className="rounded-lg border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
             placeholder="email@domain.com"
           />
         </div>
-        <div className="form-field">
-          <label>Telepon</label>
-          <input name="phone" className="input" placeholder="Nomor telepon" />
+        <div className="grid gap-1.5">
+          <label className="text-sm font-medium text-slate-700">Telepon</label>
+          <input
+            name="phone"
+            className="rounded-lg border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+            placeholder="Nomor telepon"
+          />
         </div>
-        <div className="form-field">
-          <label>Role</label>
+        <div className="grid gap-1.5">
+          <label className="text-sm font-medium text-slate-700">Role</label>
           <select
             name="role"
-            className="input"
+            className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
             defaultValue={roles[0]?.id || "buyer"}
           >
             {roles.map((r) => (
@@ -348,19 +374,30 @@ const UserForm = ({ roles, onCancel, onSave }) => {
             ))}
           </select>
         </div>
-        <div className="form-field">
-          <label>Status</label>
-          <select name="status" className="input" defaultValue="Aktif">
+        <div className="grid gap-1.5">
+          <label className="text-sm font-medium text-slate-700">Status</label>
+          <select
+            name="status"
+            className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+            defaultValue="Aktif"
+          >
             <option>Aktif</option>
             <option>Nonaktif</option>
           </select>
         </div>
       </div>
-      <div className="modal__footer">
-        <button type="button" className="btn btn--ghost" onClick={onCancel}>
+      <div className="flex items-center justify-end gap-2 border-t border-slate-200 p-4">
+        <button
+          type="button"
+          className="inline-flex items-center rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-700 hover:bg-slate-50"
+          onClick={onCancel}
+        >
           Batal
         </button>
-        <button type="submit" className="btn btn--primary">
+        <button
+          type="submit"
+          className="inline-flex items-center rounded-lg bg-gradient-to-br from-primary to-emerald-400 px-4 py-2 text-sm font-semibold text-white shadow-[0_18px_40px_-22px_rgba(15,159,110,0.55)] transition hover:-translate-y-px hover:shadow-[0_30px_60px_-30px_rgba(15,159,110,0.6)]"
+        >
           Simpan
         </button>
       </div>

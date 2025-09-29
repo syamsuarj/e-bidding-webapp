@@ -26,72 +26,81 @@ const AdminParticipantDetail = () => {
 
   return (
     <AdminLayout title="Detail Peserta" breadcrumbs={crumbs} unconstrained>
-      <section className="section">
-        <div className="card card--autoHeight" data-reveal>
+      <section className="py-6 md:py-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div
-            className="card__header"
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
+            className="rounded-xl border border-slate-200 bg-white p-4"
+            data-reveal
           >
-            <div>
-              <h2 style={{ margin: 0 }}>
-                {item ? item.name : "Tidak ditemukan"}
-              </h2>
-              {item && (
-                <p className="text-muted" style={{ marginTop: ".25rem" }}>
-                  {item.company}
-                </p>
-              )}
+            <div className="mb-3 flex items-center justify-between">
+              <div>
+                <h2 className="m-0 text-xl font-semibold text-slate-900">
+                  {item ? item.name : "Tidak ditemukan"}
+                </h2>
+                {item && (
+                  <p className="mt-1 text-sm text-slate-500">{item.company}</p>
+                )}
+              </div>
+              <a
+                href="/admin/participants"
+                className="inline-flex items-center rounded-lg border border-slate-300 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50"
+              >
+                Kembali
+              </a>
             </div>
-            <a href="/admin/participants" className="btn btn--ghost">
-              Kembali
-            </a>
+
+            {item ? (
+              <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+                <div className="rounded-lg border border-slate-200 p-4">
+                  <h3 className="mb-3 text-base font-semibold text-slate-900">
+                    Informasi Dasar
+                  </h3>
+                  <div className="grid grid-cols-[180px_1fr] gap-2">
+                    <div className="text-slate-500">ID</div>
+                    <div className="text-slate-900">{item.id}</div>
+                    <div className="text-slate-500">Nama Lengkap</div>
+                    <div className="text-slate-900">{item.name}</div>
+                    <div className="text-slate-500">Email</div>
+                    <div className="text-slate-900">{item.email}</div>
+                    <div className="text-slate-500">Telepon</div>
+                    <div className="text-slate-900">{item.phone || "-"}</div>
+                    <div className="text-slate-500">Status</div>
+                    <div className="text-slate-900">{item.status}</div>
+                    <div className="text-slate-500">Tanggal Daftar</div>
+                    <div className="text-slate-900">{item.registeredAt}</div>
+                  </div>
+                </div>
+
+                <div className="rounded-lg border border-slate-200 p-4">
+                  <h3 className="mb-3 text-base font-semibold text-slate-900">
+                    Data Perusahaan
+                  </h3>
+                  <div className="grid grid-cols-[180px_1fr] gap-2">
+                    <div className="text-slate-500">Nama Perusahaan</div>
+                    <div className="text-slate-900">{item.company}</div>
+                    <div className="text-slate-500">Jenis Perusahaan</div>
+                    <div className="text-slate-900">
+                      {item.companyType || "-"}
+                    </div>
+                    <div className="text-slate-500">Alamat</div>
+                    <div className="text-slate-900">
+                      {item.companyAddress || "-"}
+                    </div>
+                    <div className="text-slate-500">Catatan</div>
+                    <div className="text-slate-900">
+                      {item.additionalNotes || "-"}
+                    </div>
+                  </div>
+                </div>
+
+                <DocumentsSection item={item} />
+              </div>
+            ) : (
+              <div className="text-center text-slate-500">
+                Data tidak ditemukan.
+              </div>
+            )}
           </div>
-
-          {item ? (
-            <div className="detail-grid">
-              <div className="detail-section">
-                <h3>Informasi Dasar</h3>
-                <div className="detail-fields">
-                  <div className="detail-label">ID</div>
-                  <div>{item.id}</div>
-                  <div className="detail-label">Nama Lengkap</div>
-                  <div>{item.name}</div>
-                  <div className="detail-label">Email</div>
-                  <div>{item.email}</div>
-                  <div className="detail-label">Telepon</div>
-                  <div>{item.phone || "-"}</div>
-                  <div className="detail-label">Status</div>
-                  <div>{item.status}</div>
-                  <div className="detail-label">Tanggal Daftar</div>
-                  <div>{item.registeredAt}</div>
-                </div>
-              </div>
-
-              <div className="detail-section">
-                <h3>Data Perusahaan</h3>
-                <div className="detail-fields">
-                  <div className="detail-label">Nama Perusahaan</div>
-                  <div>{item.company}</div>
-                  <div className="detail-label">Jenis Perusahaan</div>
-                  <div>{item.companyType || "-"}</div>
-                  <div className="detail-label">Alamat</div>
-                  <div>{item.companyAddress || "-"}</div>
-                  <div className="detail-label">Catatan</div>
-                  <div>{item.additionalNotes || "-"}</div>
-                </div>
-              </div>
-
-              <DocumentsSection item={item} />
-            </div>
-          ) : (
-            <div style={{ textAlign: "center", color: "rgba(15,23,42,.6)" }}>
-              Data tidak ditemukan.
-            </div>
-          )}
         </div>
       </section>
     </AdminLayout>
@@ -126,21 +135,27 @@ const DocumentsSection = ({ item }) => {
   ];
 
   return (
-    <div className="detail-section">
-      <h3>Dokumen Terunggah</h3>
-      <ul className="docs-grid">
+    <div className="rounded-lg border border-slate-200 p-4">
+      <h3 className="mb-3 text-base font-semibold text-slate-900">
+        Dokumen Terunggah
+      </h3>
+      <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {docs.map((d) => (
-          <li key={d.key} className="doc-card">
-            <div className="doc-title">{d.title}</div>
-            <button
-              type="button"
-              className="doc-icon"
-              onClick={() => setPreview(d)}
-              title={`Lihat ${d.title}`}
-            >
-              📄
-            </button>
-            <div className="doc-meta">
+          <li key={d.key} className="rounded-lg border border-slate-200 p-3">
+            <div className="flex items-center justify-between">
+              <div className="text-sm font-medium text-slate-900">
+                {d.title}
+              </div>
+              <button
+                type="button"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-slate-300 text-lg hover:bg-slate-50"
+                onClick={() => setPreview(d)}
+                title={`Lihat ${d.title}`}
+              >
+                📄
+              </button>
+            </div>
+            <div className="mt-2 text-xs text-slate-500">
               {item.documents?.[d.key]?.name || `${d.title}.pdf`}
             </div>
           </li>
@@ -148,22 +163,31 @@ const DocumentsSection = ({ item }) => {
       </ul>
 
       {preview && (
-        <div className="modal-backdrop" onClick={() => setPreview(null)}>
-          <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <div className="modal__header">
-              <h3>{preview.title}</h3>
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 p-4"
+          onClick={() => setPreview(null)}
+        >
+          <div
+            className="h-[70vh] w-full max-w-4xl rounded-xl border border-slate-200 bg-white shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between border-b border-slate-200 p-4">
+              <h3 className="text-base font-semibold text-slate-900">
+                {preview.title}
+              </h3>
               <button
-                className="btn btn--ghost"
+                className="inline-flex items-center rounded-lg border border-slate-300 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50"
                 onClick={() => setPreview(null)}
               >
                 Tutup
               </button>
             </div>
-            <div className="modal__body" style={{ height: "70vh" }}>
+            <div className="h-[calc(70vh-64px)] p-0">
               <iframe
                 title={preview.key}
                 src={preview.src}
-                style={{ width: "100%", height: "100%", border: 0 }}
+                className="h-full w-full"
+                style={{ border: 0 }}
               />
             </div>
           </div>

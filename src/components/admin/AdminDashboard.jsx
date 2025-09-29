@@ -19,59 +19,42 @@ const useLocalData = (key, fallback = []) => {
   return data;
 };
 
-const StatCard = ({ label, value, delta, hint }) => (
-  <div className="card" style={{ padding: "1rem 1.1rem" }}>
-    <div style={{ fontSize: ".9rem", color: "rgba(15,23,42,.62)" }}>
-      {label}
-    </div>
-    <div style={{ display: "flex", alignItems: "baseline", gap: ".6rem" }}>
-      <strong style={{ fontSize: "1.8rem" }}>{value}</strong>
-      {typeof delta === "number" && (
-        <span
-          style={{
-            color: delta >= 0 ? "#047857" : "#b91c1c",
-            background:
-              delta >= 0 ? "rgba(16,185,129,.12)" : "rgba(239,68,68,.12)",
-            padding: ".15rem .45rem",
-            borderRadius: 999,
-            fontSize: ".8rem",
-            fontWeight: 700,
-          }}
-        >
-          {delta >= 0 ? `+${delta}%` : `${delta}%`}
-        </span>
-      )}
-    </div>
-    {hint && (
-      <div
-        style={{
-          marginTop: ".4rem",
-          color: "rgba(15,23,42,.55)",
-          fontSize: ".85rem",
-        }}
-      >
-        {hint}
+const StatCard = ({ label, value, delta, hint }) => {
+  const positive = typeof delta === "number" && delta >= 0;
+  return (
+    <div className="rounded-xl border border-slate-200 bg-white p-4">
+      <div className="text-sm text-slate-500">{label}</div>
+      <div className="mt-1 flex items-baseline gap-2">
+        <strong className="text-2xl font-semibold text-slate-900">
+          {value}
+        </strong>
+        {typeof delta === "number" && (
+          <span
+            className={
+              "inline-flex items-center rounded-full px-2 py-0.5 text-xs font-bold " +
+              (positive
+                ? "bg-emerald-100 text-emerald-700"
+                : "bg-rose-100 text-rose-700")
+            }
+          >
+            {positive ? `+${delta}%` : `${delta}%`}
+          </span>
+        )}
       </div>
-    )}
-  </div>
-);
+      {hint && <div className="mt-1 text-sm text-slate-500">{hint}</div>}
+    </div>
+  );
+};
 
 const MiniBar = ({ series, color = "#0f9f6e" }) => {
   const max = Math.max(1, ...series);
   return (
-    <div
-      style={{ display: "flex", alignItems: "flex-end", gap: 6, height: 48 }}
-    >
+    <div className="flex h-12 items-end gap-1.5">
       {series.map((v, i) => (
         <div
           key={i}
-          style={{
-            width: 10,
-            height: Math.max(4, (v / max) * 48),
-            background: color,
-            borderRadius: 3,
-            opacity: 0.9,
-          }}
+          className="w-2.5 rounded-md opacity-90"
+          style={{ height: Math.max(4, (v / max) * 48), background: color }}
         />
       ))}
     </div>
@@ -109,17 +92,10 @@ const AdminDashboard = () => {
 
   return (
     <AdminLayout>
-      <section className="section">
-        <div className="container" style={{ padding: 0 }}>
+      <section className="py-6 md:py-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* KPI Row */}
-          <div
-            style={{
-              display: "grid",
-              gap: "1rem",
-              gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-              marginBottom: "1rem",
-            }}
-          >
+          <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
             <StatCard
               label="Lelang Terbuka"
               value={kpis.openAuctions}
@@ -146,117 +122,96 @@ const AdminDashboard = () => {
           </div>
 
           {/* Two Columns: Trends + Alerts */}
-          <div
-            style={{
-              display: "grid",
-              gap: "1rem",
-              gridTemplateColumns: "minmax(0,1fr) minmax(0, 420px)",
-              marginBottom: "1rem",
-            }}
-          >
-            <div className="card" style={{ display: "grid", gap: ".8rem" }}>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <h3 style={{ margin: 0 }}>Tren Aktivitas</h3>
-                <small style={{ color: "rgba(15,23,42,.62)" }}>
-                  7 hari terakhir
-                </small>
+          <div className="mb-4 grid grid-cols-1 gap-4 lg:grid-cols-3">
+            <div className="rounded-xl border border-slate-200 bg-white p-4 lg:col-span-2">
+              <div className="flex items-center justify-between">
+                <h3 className="m-0 text-base font-semibold text-slate-900">
+                  Tren Aktivitas
+                </h3>
+                <small className="text-slate-500">7 hari terakhir</small>
               </div>
-              <div style={{ display: "grid", gap: ".8rem" }}>
+              <div className="mt-3 grid gap-3">
                 <div>
-                  <div
-                    style={{ fontSize: ".85rem", color: "rgba(15,23,42,.62)" }}
-                  >
+                  <div className="text-sm text-slate-500">
                     Pendaftaran Peserta
                   </div>
                   <MiniBar series={[3, 5, 2, 6, 4, 7, 5]} color="#34d399" />
                 </div>
                 <div>
-                  <div
-                    style={{ fontSize: ".85rem", color: "rgba(15,23,42,.62)" }}
-                  >
-                    Lelang Dibuka
-                  </div>
+                  <div className="text-sm text-slate-500">Lelang Dibuka</div>
                   <MiniBar series={[1, 2, 1, 3, 2, 4, 2]} color="#60a5fa" />
                 </div>
                 <div>
-                  <div
-                    style={{ fontSize: ".85rem", color: "rgba(15,23,42,.62)" }}
-                  >
-                    PKS Terdaftar
-                  </div>
+                  <div className="text-sm text-slate-500">PKS Terdaftar</div>
                   <MiniBar series={[0, 1, 1, 1, 0, 2, 1]} color="#fbbf24" />
                 </div>
               </div>
             </div>
 
-            <div className="card" style={{ display: "grid", gap: ".8rem" }}>
-              <h3 style={{ margin: 0 }}>Notifikasi</h3>
-              <div className="dashboard__alert dashboard__alert--info">
+            <div className="rounded-xl border border-slate-200 bg-white p-4">
+              <h3 className="m-0 text-base font-semibold text-slate-900">
+                Notifikasi
+              </h3>
+              <div className="mt-3 rounded-lg border border-blue-200 bg-blue-50 px-3 py-2 text-sm text-blue-700">
                 3 lelang akan segera dibuka minggu ini.
               </div>
-              <div className="dashboard__alert dashboard__alert--success">
+              <div className="mt-2 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-700">
                 2 peserta baru telah diverifikasi.
               </div>
-              <div className="dashboard__alert dashboard__alert--error">
+              <div className="mt-2 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700">
                 1 PKS membutuhkan perawatan.
               </div>
             </div>
           </div>
 
           {/* Recent tables */}
-          <div
-            style={{
-              display: "grid",
-              gap: "1rem",
-              gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)",
-            }}
-          >
-            <div className="card" style={{ display: "grid", gap: ".6rem" }}>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <h3 style={{ margin: 0 }}>Lelang Terbaru</h3>
-                <a className="btn btn--ghost" href="/admin/auctions">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+            <div className="rounded-xl border border-slate-200 bg-white p-4">
+              <div className="flex items-center justify-between">
+                <h3 className="m-0 text-base font-semibold text-slate-900">
+                  Lelang Terbaru
+                </h3>
+                <a
+                  className="inline-flex items-center rounded-lg border border-slate-300 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50"
+                  href="/admin/auctions"
+                >
                   Lihat semua
                 </a>
               </div>
-              <div className="dashboard__table-wrapper">
-                <table className="dashboard__table">
-                  <thead>
+              <div className="mt-3 overflow-x-auto">
+                <table className="min-w-full divide-y divide-slate-200 text-left text-sm">
+                  <thead className="bg-slate-50">
                     <tr>
-                      <th>ID</th>
-                      <th>Judul</th>
-                      <th>Status</th>
-                      <th>Mulai</th>
+                      <th className="whitespace-nowrap px-3 py-2 font-semibold text-slate-700">
+                        ID
+                      </th>
+                      <th className="whitespace-nowrap px-3 py-2 font-semibold text-slate-700">
+                        Judul
+                      </th>
+                      <th className="whitespace-nowrap px-3 py-2 font-semibold text-slate-700">
+                        Status
+                      </th>
+                      <th className="whitespace-nowrap px-3 py-2 font-semibold text-slate-700">
+                        Mulai
+                      </th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className="divide-y divide-slate-100">
                     {recentAuctions.map((a) => (
-                      <tr key={a.id}>
-                        <td>{a.id}</td>
-                        <td>{a.title}</td>
-                        <td>{a.status}</td>
-                        <td>{a.startDate}</td>
+                      <tr key={a.id} className="hover:bg-slate-50">
+                        <td className="px-3 py-2 text-slate-700">{a.id}</td>
+                        <td className="px-3 py-2 text-slate-700">{a.title}</td>
+                        <td className="px-3 py-2 text-slate-700">{a.status}</td>
+                        <td className="px-3 py-2 text-slate-700">
+                          {a.startDate}
+                        </td>
                       </tr>
                     ))}
                     {recentAuctions.length === 0 && (
                       <tr>
                         <td
                           colSpan={4}
-                          style={{
-                            color: "rgba(15,23,42,.6)",
-                            textAlign: "center",
-                          }}
+                          className="px-3 py-6 text-center text-slate-500"
                         >
                           Tidak ada data
                         </td>
@@ -267,46 +222,54 @@ const AdminDashboard = () => {
               </div>
             </div>
 
-            <div className="card" style={{ display: "grid", gap: ".6rem" }}>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <h3 style={{ margin: 0 }}>Peserta Terbaru</h3>
-                <a className="btn btn--ghost" href="/admin/participants">
+            <div className="rounded-xl border border-slate-200 bg-white p-4">
+              <div className="flex items-center justify-between">
+                <h3 className="m-0 text-base font-semibold text-slate-900">
+                  Peserta Terbaru
+                </h3>
+                <a
+                  className="inline-flex items-center rounded-lg border border-slate-300 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50"
+                  href="/admin/participants"
+                >
                   Lihat semua
                 </a>
               </div>
-              <div className="dashboard__table-wrapper">
-                <table className="dashboard__table">
-                  <thead>
+              <div className="mt-3 overflow-x-auto">
+                <table className="min-w-full divide-y divide-slate-200 text-left text-sm">
+                  <thead className="bg-slate-50">
                     <tr>
-                      <th>ID</th>
-                      <th>Nama</th>
-                      <th>Perusahaan</th>
-                      <th>Terdaftar</th>
+                      <th className="whitespace-nowrap px-3 py-2 font-semibold text-slate-700">
+                        ID
+                      </th>
+                      <th className="whitespace-nowrap px-3 py-2 font-semibold text-slate-700">
+                        Nama
+                      </th>
+                      <th className="whitespace-nowrap px-3 py-2 font-semibold text-slate-700">
+                        Perusahaan
+                      </th>
+                      <th className="whitespace-nowrap px-3 py-2 font-semibold text-slate-700">
+                        Terdaftar
+                      </th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className="divide-y divide-slate-100">
                     {recentParticipants.map((p) => (
-                      <tr key={p.id}>
-                        <td>{p.id}</td>
-                        <td>{p.name}</td>
-                        <td>{p.company}</td>
-                        <td>{p.registeredAt}</td>
+                      <tr key={p.id} className="hover:bg-slate-50">
+                        <td className="px-3 py-2 text-slate-700">{p.id}</td>
+                        <td className="px-3 py-2 text-slate-700">{p.name}</td>
+                        <td className="px-3 py-2 text-slate-700">
+                          {p.company}
+                        </td>
+                        <td className="px-3 py-2 text-slate-700">
+                          {p.registeredAt}
+                        </td>
                       </tr>
                     ))}
                     {recentParticipants.length === 0 && (
                       <tr>
                         <td
                           colSpan={4}
-                          style={{
-                            color: "rgba(15,23,42,.6)",
-                            textAlign: "center",
-                          }}
+                          className="px-3 py-6 text-center text-slate-500"
                         >
                           Tidak ada data
                         </td>

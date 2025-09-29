@@ -8,21 +8,14 @@ const MOCK_PKS = pksData;
 
 const StatusBadge = ({ value }) => {
   const map = {
-    Aktif: { bg: "rgba(16,185,129,.12)", color: "#047857" },
-    Perawatan: { bg: "rgba(234,179,8,.12)", color: "#92400e" },
-    "Tidak Aktif": { bg: "rgba(239,68,68,.12)", color: "#b91c1c" },
+    Aktif: "bg-emerald-100 text-emerald-700",
+    Perawatan: "bg-amber-100 text-amber-700",
+    "Tidak Aktif": "bg-rose-100 text-rose-700",
   };
-  const style = map[value] || map.Aktif;
+  const cls = map[value] || map.Aktif;
   return (
     <span
-      style={{
-        background: style.bg,
-        color: style.color,
-        padding: ".25rem .55rem",
-        borderRadius: 999,
-        fontSize: ".78rem",
-        fontWeight: 600,
-      }}
+      className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold ${cls}`}
     >
       {value}
     </span>
@@ -72,136 +65,163 @@ const AdminPKS = () => {
 
   return (
     <AdminLayout>
-      <section className="section">
-        <div className="card admin-scroll-table-card" data-reveal>
-          <div className="card__toolbar">
-            <div className="toolbar-left">
-              <input
-                className="input"
-                placeholder="Cari ID, nama, lokasi, atau pemilik…"
-                value={q}
-                onChange={(e) => setQ(e.target.value)}
-              />
-              <select
-                className="input"
-                style={{ maxWidth: 180 }}
-                value={status}
-                onChange={(e) => {
-                  setStatus(e.target.value);
-                  setPage(1);
-                }}
-              >
-                <option>Semua</option>
-                <option>Aktif</option>
-                <option>Perawatan</option>
-                <option>Tidak Aktif</option>
-              </select>
+      <section className="py-6 md:py-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="rounded-xl border border-slate-200 bg-white p-4">
+            {/* Toolbar */}
+            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+              <div className="flex flex-1 flex-wrap items-center gap-2">
+                <input
+                  className="w-full min-w-60 flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm placeholder-slate-400 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+                  placeholder="Cari ID, nama, lokasi, atau pemilik…"
+                  value={q}
+                  onChange={(e) => setQ(e.target.value)}
+                />
+                <select
+                  className="max-w-44 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+                  value={status}
+                  onChange={(e) => {
+                    setStatus(e.target.value);
+                    setPage(1);
+                  }}
+                >
+                  <option>Semua</option>
+                  <option>Aktif</option>
+                  <option>Perawatan</option>
+                  <option>Tidak Aktif</option>
+                </select>
+              </div>
+              <div className="shrink-0">
+                <button
+                  className="inline-flex items-center rounded-lg bg-gradient-to-br from-primary to-emerald-400 px-4 py-2 text-sm font-semibold text-white shadow-[0_18px_40px_-22px_rgba(15,159,110,0.55)] transition hover:-translate-y-px hover:shadow-[0_30px_60px_-30px_rgba(15,159,110,0.6)]"
+                  onClick={() => setOpen(true)}
+                >
+                  Daftarkan PKS
+                </button>
+              </div>
             </div>
-            <div className="toolbar-right">
-              <button
-                className="btn btn--primary"
-                onClick={() => setOpen(true)}
-              >
-                Daftarkan PKS
-              </button>
-            </div>
-          </div>
 
-          <div className="table-wrapper">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th style={{ width: 160 }}>ID</th>
-                  <th>Nama PKS</th>
-                  <th>Lokasi</th>
-                  <th>Kapasitas</th>
-                  <th>Pemilik</th>
-                  <th style={{ width: 140 }}>Status</th>
-                  <th style={{ width: 140 }}>Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                {paginated.map((k) => (
-                  <tr key={k.id}>
-                    <td>{k.id}</td>
-                    <td>{k.name}</td>
-                    <td>{k.location}</td>
-                    <td>{k.capacity}</td>
-                    <td>{k.owner}</td>
-                    <td>
-                      <StatusBadge value={k.status} />
-                    </td>
-                    <td>
-                      <a
-                        href={`/admin/pks/${encodeURIComponent(k.id)}`}
-                        className="btn btn--ghost"
-                      >
-                        Detail
-                      </a>
-                    </td>
-                  </tr>
-                ))}
-                {filtered.length === 0 && (
+            {/* Table */}
+            <div className="mt-4 overflow-x-auto">
+              <table className="min-w-full divide-y divide-slate-200 text-left text-sm">
+                <thead className="bg-slate-50">
                   <tr>
-                    <td
-                      colSpan={7}
-                      style={{
-                        textAlign: "center",
-                        color: "rgba(15,23,42,.6)",
-                      }}
-                    >
-                      Tidak ada data
-                    </td>
+                    <th className="w-40 px-3 py-2 font-semibold text-slate-700">
+                      ID
+                    </th>
+                    <th className="px-3 py-2 font-semibold text-slate-700">
+                      Nama PKS
+                    </th>
+                    <th className="px-3 py-2 font-semibold text-slate-700">
+                      Lokasi
+                    </th>
+                    <th className="px-3 py-2 font-semibold text-slate-700">
+                      Kapasitas
+                    </th>
+                    <th className="px-3 py-2 font-semibold text-slate-700">
+                      Pemilik
+                    </th>
+                    <th className="w-[140px] px-3 py-2 font-semibold text-slate-700">
+                      Status
+                    </th>
+                    <th className="w-[140px] px-3 py-2 font-semibold text-slate-700">
+                      Aksi
+                    </th>
                   </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-
-          <div className="pagination">
-            <div className="limit">
-              <span>Tampilkan</span>
-              <select
-                className="input"
-                style={{ width: 90 }}
-                value={limit}
-                onChange={(e) => {
-                  setLimit(parseInt(e.target.value, 10));
-                  setPage(1);
-                }}
-              >
-                <option value={5}>5</option>
-                <option value={10}>10</option>
-                <option value={20}>20</option>
-              </select>
-              <span>per halaman</span>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {paginated.map((k) => (
+                    <tr key={k.id} className="hover:bg-slate-50">
+                      <td className="px-3 py-2 text-slate-700">{k.id}</td>
+                      <td className="px-3 py-2 text-slate-700">{k.name}</td>
+                      <td className="px-3 py-2 text-slate-700">{k.location}</td>
+                      <td className="px-3 py-2 text-slate-700">{k.capacity}</td>
+                      <td className="px-3 py-2 text-slate-700">{k.owner}</td>
+                      <td className="px-3 py-2">
+                        <StatusBadge value={k.status} />
+                      </td>
+                      <td className="px-3 py-2">
+                        <a
+                          href={`/admin/pks/${encodeURIComponent(k.id)}`}
+                          className="inline-flex items-center rounded-lg border border-slate-300 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50"
+                        >
+                          Detail
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
+                  {filtered.length === 0 && (
+                    <tr>
+                      <td
+                        colSpan={7}
+                        className="px-3 py-6 text-center text-slate-500"
+                      >
+                        Tidak ada data
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
             </div>
-            <div className="pager">
-              <button
-                onClick={() => setPage((p) => Math.max(1, p - 1))}
-                disabled={page === 1}
-              >
-                Sebelumnya
-              </button>
-              <span style={{ padding: "0 .4rem" }}>
-                Hal {page} / {totalPages}
-              </span>
-              <button
-                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                disabled={page >= totalPages}
-              >
-                Berikutnya
-              </button>
+
+            {/* Pagination */}
+            <div className="mt-4 flex flex-col items-center justify-between gap-3 sm:flex-row">
+              <div className="flex items-center gap-2 text-sm text-slate-700">
+                <span>Tampilkan</span>
+                <select
+                  className="w-[90px] rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+                  value={limit}
+                  onChange={(e) => {
+                    setLimit(parseInt(e.target.value, 10));
+                    setPage(1);
+                  }}
+                >
+                  <option value={5}>5</option>
+                  <option value={10}>10</option>
+                  <option value={20}>20</option>
+                </select>
+                <span>per halaman</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm">
+                <button
+                  className="inline-flex items-center rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-slate-700 enabled:hover:bg-slate-50 disabled:opacity-50"
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  disabled={page === 1}
+                >
+                  Sebelumnya
+                </button>
+                <span className="px-2 text-slate-600">
+                  Hal {page} / {totalPages}
+                </span>
+                <button
+                  className="inline-flex items-center rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-slate-700 enabled:hover:bg-slate-50 disabled:opacity-50"
+                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                  disabled={page >= totalPages}
+                >
+                  Berikutnya
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </section>
       {open && (
-        <div className="modal-backdrop" onClick={() => setOpen(false)}>
-          <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <div className="modal__header">
-              <h3>Daftarkan PKS</h3>
-              <button className="btn btn--ghost" onClick={() => setOpen(false)}>
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 p-4"
+          onClick={() => setOpen(false)}
+        >
+          <div
+            className="w-full max-w-xl rounded-xl border border-slate-200 bg-white shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between border-b border-slate-200 p-4">
+              <h3 className="text-base font-semibold text-slate-900">
+                Daftarkan PKS
+              </h3>
+              <button
+                className="inline-flex items-center rounded-lg border border-slate-300 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50"
+                onClick={() => setOpen(false)}
+              >
                 Tutup
               </button>
             </div>
@@ -226,74 +246,94 @@ const AdminPKS = () => {
                 e.target.reset();
               }}
             >
-              <div className="modal__body">
-                <div className="form-field">
-                  <label>ID</label>
+              <div className="grid gap-4 p-4">
+                <div className="grid gap-1.5">
+                  <label className="text-sm font-medium text-slate-700">
+                    ID
+                  </label>
                   <input
                     name="id"
-                    className="input"
+                    className="rounded-lg border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
                     placeholder="PKS-2025-XXXX"
                   />
                 </div>
-                <div className="form-field">
-                  <label>Nama PKS</label>
+                <div className="grid gap-1.5">
+                  <label className="text-sm font-medium text-slate-700">
+                    Nama PKS
+                  </label>
                   <input
                     name="name"
-                    className="input"
+                    className="rounded-lg border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
                     placeholder="Nama PKS"
                     required
                   />
                 </div>
-                <div className="form-field">
-                  <label>Lokasi</label>
+                <div className="grid gap-1.5">
+                  <label className="text-sm font-medium text-slate-700">
+                    Lokasi
+                  </label>
                   <input
                     name="location"
-                    className="input"
+                    className="rounded-lg border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
                     placeholder="Lokasi"
                   />
                 </div>
-                <div className="form-field">
-                  <label>Kapasitas</label>
+                <div className="grid gap-1.5">
+                  <label className="text-sm font-medium text-slate-700">
+                    Kapasitas
+                  </label>
                   <input
                     name="capacity"
-                    className="input"
+                    className="rounded-lg border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
                     placeholder="Contoh: 30 TPH"
                   />
                 </div>
-                <div className="form-field">
-                  <label>Pemilik</label>
+                <div className="grid gap-1.5">
+                  <label className="text-sm font-medium text-slate-700">
+                    Pemilik
+                  </label>
                   <input
                     name="owner"
-                    className="input"
+                    className="rounded-lg border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
                     placeholder="Nama pemilik"
                   />
                 </div>
-                <div className="form-field">
-                  <label>Status</label>
-                  <select name="status" className="input">
+                <div className="grid gap-1.5">
+                  <label className="text-sm font-medium text-slate-700">
+                    Status
+                  </label>
+                  <select
+                    name="status"
+                    className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+                  >
                     <option>Aktif</option>
                     <option>Perawatan</option>
                     <option>Tidak Aktif</option>
                   </select>
                 </div>
-                <div className="form-field">
-                  <label>Sejak (tahun)</label>
+                <div className="grid gap-1.5">
+                  <label className="text-sm font-medium text-slate-700">
+                    Sejak (tahun)
+                  </label>
                   <input
                     name="since"
-                    className="input"
+                    className="rounded-lg border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
                     placeholder="Contoh: 2018"
                   />
                 </div>
               </div>
-              <div className="modal__footer">
+              <div className="flex items-center justify-end gap-2 border-t border-slate-200 p-4">
                 <button
                   type="button"
-                  className="btn btn--ghost"
+                  className="inline-flex items-center rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-700 hover:bg-slate-50"
                   onClick={() => setOpen(false)}
                 >
                   Batal
                 </button>
-                <button type="submit" className="btn btn--primary">
+                <button
+                  type="submit"
+                  className="inline-flex items-center rounded-lg bg-gradient-to-br from-primary to-emerald-400 px-4 py-2 text-sm font-semibold text-white shadow-[0_18px_40px_-22px_rgba(15,159,110,0.55)] transition hover:-translate-y-px hover:shadow-[0_30px_60px_-30px_rgba(15,159,110,0.6)]"
+                >
                   Simpan
                 </button>
               </div>
