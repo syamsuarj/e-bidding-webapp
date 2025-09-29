@@ -1,55 +1,165 @@
 import React, { useEffect, useMemo, useState } from "react";
 import AdminLayout from "./AdminLayout.jsx";
 
+// Default roles (disesuaikan dengan kebutuhan: superadmin, admin, buyer, business manager)
 const defaultRoles = [
+  { id: "superadmin", name: "Superadmin", description: "Akses penuh sistem" },
+  { id: "admin", name: "Admin", description: "Pengelola operasional" },
   {
     id: "buyer",
     name: "Buyer",
     description: "Calon pembeli yang mengikuti lelang",
   },
-  { id: "seller", name: "Seller", description: "Penjual komoditas" },
-  { id: "auditor", name: "Auditor", description: "Memantau proses lelang" },
-  { id: "admin", name: "Admin", description: "Pengelola sistem" },
+  {
+    id: "business_manager",
+    name: "Business Manager",
+    description: "User divisi bisnis",
+  },
 ];
 
+// Batasi agar role hanya empat ini (saat merge data lama)
+const ALLOWED_ROLE_IDS = new Set(defaultRoles.map((r) => r.id));
+
+// Default permissions (modular & aksi granular)
 const defaultPermissions = [
-  { id: "view_auctions", name: "Lihat Lelang" },
-  { id: "place_bid", name: "Pasang Bid" },
-  { id: "manage_products", name: "Kelola Produk" },
-  { id: "manage_users", name: "Kelola Pengguna" },
-  { id: "view_reports", name: "Lihat Laporan" },
+  // Auctions
+  { id: "auctions.view", name: "Lihat Lelang" },
+  { id: "auctions.create", name: "Buat Lelang" },
+  { id: "auctions.edit", name: "Ubah Lelang" },
+  { id: "auctions.delete", name: "Hapus Lelang" },
+  { id: "auctions.publish", name: "Publish Lelang" },
+  { id: "auctions.open_bidding", name: "Buka Bidding" },
+  { id: "auctions.close_bidding", name: "Tutup Bidding" },
+  { id: "auctions.set_winner", name: "Tetapkan Pemenang" },
+  { id: "auctions.cancel", name: "Batalkan Lelang" },
+  { id: "auctions.manage_documents", name: "Kelola Dokumen Lelang" },
+  { id: "auctions.place_bid", name: "Pasang Bid" }, // untuk menjaga analogi dengan fitur buyer
+
+  // Participants
+  { id: "participants.view", name: "Lihat Peserta" },
+  { id: "participants.approve", name: "Setujui Peserta" },
+  { id: "participants.reject", name: "Tolak Peserta" },
+  { id: "participants.suspend", name: "Suspend Peserta" },
+  { id: "participants.invite", name: "Undang Peserta" },
+  { id: "participants.manage_documents", name: "Kelola Dokumen Peserta" },
+
+  // Users
+  { id: "users.view", name: "Lihat Pengguna" },
+  { id: "users.create", name: "Buat Pengguna" },
+  { id: "users.edit", name: "Ubah Pengguna" },
+  { id: "users.deactivate", name: "Nonaktifkan Pengguna" },
+  { id: "users.reset_password", name: "Reset Password" },
+  { id: "users.manage_roles", name: "Kelola Role Pengguna" },
+
+  // PKS
+  { id: "pks.view", name: "Lihat PKS" },
+  { id: "pks.create", name: "Buat PKS" },
+  { id: "pks.edit", name: "Ubah PKS" },
+  { id: "pks.upload", name: "Upload Dokumen PKS" },
+  { id: "pks.approve", name: "Setujui PKS" },
+  { id: "pks.reject", name: "Tolak PKS" },
+  { id: "pks.sign", name: "Tandatangani PKS" },
+  { id: "pks.publish", name: "Publish PKS" },
+
+  // Policies
+  { id: "policies.view", name: "Lihat Kebijakan" },
+  { id: "policies.create", name: "Buat Kebijakan" },
+  { id: "policies.edit", name: "Ubah Kebijakan" },
+  { id: "policies.publish", name: "Publish Kebijakan" },
+  { id: "policies.archive", name: "Arsipkan Kebijakan" },
+
+  // Reports & Export
+  { id: "reports.view", name: "Lihat Laporan" },
+  { id: "reports.finance_view", name: "Lihat Laporan Finansial" },
+  { id: "export.data", name: "Ekspor Data" },
+
+  // System & Misc
+  { id: "settings.manage", name: "Kelola Pengaturan" },
+  { id: "role_matrix.manage", name: "Kelola Role Matrix" },
+  { id: "audit_logs.view", name: "Lihat Audit Logs" },
+  { id: "notifications.send", name: "Kirim Notifikasi" },
+
+  // Produk (untuk kompatibilitas dengan konsep lama)
+  { id: "products.manage", name: "Kelola Produk" },
 ];
 
-const defaultMatrix = {
-  buyer: {
-    view_auctions: true,
-    place_bid: true,
-    manage_products: false,
-    manage_users: false,
-    view_reports: false,
-  },
-  seller: {
-    view_auctions: true,
-    place_bid: false,
-    manage_products: true,
-    manage_users: false,
-    view_reports: true,
-  },
-  auditor: {
-    view_auctions: true,
-    place_bid: false,
-    manage_products: false,
-    manage_users: false,
-    view_reports: true,
-  },
-  admin: {
-    view_auctions: true,
-    place_bid: true,
-    manage_products: true,
-    manage_users: true,
-    view_reports: true,
-  },
+// Build default matrix programmatically
+const buildDefaultMatrix = (roles, permissions) => {
+  const permIds = permissions.map((p) => p.id);
+  const matrix = {};
+  const setAllFalse = (roleId) => {
+    matrix[roleId] = {};
+    permIds.forEach((pid) => (matrix[roleId][pid] = false));
+  };
+  roles.forEach((r) => setAllFalse(r.id));
+  const allow = (roleId, ids) => {
+    if (!matrix[roleId]) return;
+    ids.forEach((id) => {
+      if (permIds.includes(id)) matrix[roleId][id] = true;
+    });
+  };
+
+  // superadmin: semua true
+  if (roles.some((r) => r.id === "superadmin")) {
+    matrix["superadmin"] = {};
+    permIds.forEach((pid) => (matrix["superadmin"][pid] = true));
+  }
+
+  // Admin operasional: pengguna dasar, lihat modul utama, bukan settings/role matrix
+  if (roles.some((r) => r.id === "admin")) {
+    allow("admin", [
+      "users.view",
+      "users.create",
+      "users.edit",
+      "users.deactivate",
+      "users.reset_password",
+      // modul view
+      "auctions.view",
+      "participants.view",
+      "pks.view",
+      "policies.view",
+      "reports.view",
+      "audit_logs.view",
+    ]);
+  }
+
+  // Buyer portal
+  if (roles.some((r) => r.id === "buyer")) {
+    allow("buyer", ["auctions.view", "auctions.place_bid"]);
+  }
+
+  // Business Manager: kelola auction (tanpa delete/cancel), moderasi peserta, akses laporan/ekspor
+  if (roles.some((r) => r.id === "business_manager")) {
+    allow("business_manager", [
+      // Auctions
+      "auctions.view",
+      "auctions.create",
+      "auctions.edit",
+      "auctions.publish",
+      "auctions.open_bidding",
+      "auctions.close_bidding",
+      "auctions.set_winner",
+      "auctions.manage_documents",
+      // Participants moderation
+      "participants.view",
+      "participants.approve",
+      "participants.reject",
+      "participants.invite",
+      "participants.manage_documents",
+      // Read-only on PKS & Policies
+      "pks.view",
+      "policies.view",
+      // Reports & export
+      "reports.view",
+      "export.data",
+    ]);
+  }
+
+  return matrix;
 };
+
+// Base default matrix for this version
+const defaultMatrix = buildDefaultMatrix(defaultRoles, defaultPermissions);
 
 const STORAGE_KEY = "apas_admin_role_matrix_v1";
 
@@ -68,17 +178,92 @@ const AdminRoleMatrix = () => {
   }, []);
 
   useEffect(() => {
+    // Merge saved data dengan defaults lalu batasi hanya role yang diizinkan
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (parsed.roles && parsed.permissions && parsed.matrix) {
-          setRoles(parsed.roles);
-          setPermissions(parsed.permissions);
-          setMatrix(parsed.matrix);
+        // normalize legacy role ids (super_admin -> superadmin)
+        const rawSavedRoles = Array.isArray(parsed?.roles) ? parsed.roles : [];
+        const savedRoles = rawSavedRoles.map((r) =>
+          r?.id === "super_admin"
+            ? { ...r, id: "superadmin", name: r.name || "Superadmin" }
+            : r
+        );
+        const savedPermissions = Array.isArray(parsed?.permissions)
+          ? parsed.permissions
+          : [];
+        let savedMatrix =
+          parsed?.matrix && typeof parsed.matrix === "object"
+            ? parsed.matrix
+            : {};
+
+        // migrate matrix key as well
+        if (savedMatrix["super_admin"]) {
+          savedMatrix = {
+            ...savedMatrix,
+            superadmin: { ...savedMatrix["super_admin"] },
+          };
+          delete savedMatrix["super_admin"];
         }
+
+        // merge helper by id (prefer saved values for name/desc)
+        const byId = (arr) => Object.fromEntries(arr.map((x) => [x.id, x]));
+        const savedRolesMap = byId(savedRoles);
+        const defaultRolesMap = byId(defaultRoles);
+        let mergedRoles = [
+          // keep saved order first
+          ...savedRoles,
+          // append default roles not present
+          ...defaultRoles.filter((r) => !savedRolesMap[r.id]),
+        ].map((r) => ({ ...defaultRolesMap[r.id], ...r }));
+
+        // filter hanya role yang diperbolehkan
+        mergedRoles = mergedRoles.filter((r) => ALLOWED_ROLE_IDS.has(r.id));
+
+        const savedPermMap = byId(savedPermissions);
+        const defaultPermMap = byId(defaultPermissions);
+        const mergedPermissions = [
+          ...savedPermissions,
+          ...defaultPermissions.filter((p) => !savedPermMap[p.id]),
+        ].map((p) => ({ ...defaultPermMap[p.id], ...p }));
+
+        // seed matrix with defaults for merged sets
+        const seededDefaults = buildDefaultMatrix(
+          mergedRoles,
+          mergedPermissions
+        );
+        const permIds = mergedPermissions.map((p) => p.id);
+        const mergedMatrix = {};
+        mergedRoles.forEach((r) => {
+          mergedMatrix[r.id] = {};
+          permIds.forEach((pid) => {
+            const savedVal = savedMatrix?.[r.id]?.[pid];
+            const defaultVal = seededDefaults?.[r.id]?.[pid];
+            mergedMatrix[r.id][pid] =
+              typeof savedVal === "boolean"
+                ? savedVal
+                : typeof defaultVal === "boolean"
+                ? defaultVal
+                : false;
+          });
+        });
+
+        // ensure superadmin remains full access if exists
+        if (mergedRoles.some((r) => r.id === "superadmin")) {
+          permIds.forEach((pid) => (mergedMatrix["superadmin"][pid] = true));
+        }
+
+        setRoles(mergedRoles);
+        setPermissions(mergedPermissions);
+        setMatrix(mergedMatrix);
+        return;
       }
     } catch {}
+    // Fallback to defaults
+    setRoles(defaultRoles);
+    setPermissions(defaultPermissions);
+    setMatrix(defaultMatrix);
   }, []);
 
   useEffect(() => {
@@ -161,12 +346,6 @@ const AdminRoleMatrix = () => {
               <div className="flex shrink-0 flex-wrap items-center gap-2">
                 <button
                   className="inline-flex items-center rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-700 hover:bg-slate-50"
-                  onClick={addRole}
-                >
-                  Tambah Role
-                </button>
-                <button
-                  className="inline-flex items-center rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-700 hover:bg-slate-50"
                   onClick={addPermission}
                 >
                   Tambah Permission
@@ -181,7 +360,7 @@ const AdminRoleMatrix = () => {
             </div>
 
             {/* Table */}
-            <div className="mt-4 overflow-x-auto">
+            <div className="mt-4 overflow-x-auto admin-fixed-10rows">
               <table className="min-w-full divide-y divide-slate-200 text-left text-sm">
                 <thead className="bg-slate-50">
                   <tr>

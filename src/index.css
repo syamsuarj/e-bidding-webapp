@@ -391,6 +391,15 @@
   margin-left: var(--sidebar-width);
   width: calc(100% - var(--sidebar-width));
 }
+/* Ensure any container inside admin pages isn't width-capped */
+.apas-admin-scope .container {
+  max-width: none !important;
+  width: 100% !important;
+}
+/* Neutralize Tailwind max-w-* only for typical page wrappers inside admin (avoid modals) */
+.apas-admin-scope > section section > div[class*="max-w-"] {
+  max-width: none !important;
+}
 /* Make admin pages use full available width beyond the global container cap */
 .admin-content .container {
   width: 100%;
@@ -460,6 +469,21 @@
   flex: 1 1 auto;
   min-height: 0;
   overflow: auto;
+}
+
+/* Utility: fix table body height to approx 10 rows and allow vertical scroll */
+.admin-fixed-10rows {
+  /* Fixed container height to comfortably fit header + ~10 rows */
+  max-height: 560px;
+  overflow-y: auto;
+}
+.admin-fixed-10rows table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #f8fafc; /* matches bg-slate-50 */
+  /* keep bottom border visible on sticky header */
+  box-shadow: inset 0 -1px 0 #e2e8f0; /* slate-200 */
 }
 .admin-page-header {
   display: grid;
@@ -2974,3 +2998,7 @@
     padding-left: 1rem;
   }
 }
+
+/* * {
+  border: 1px solid red;
+} */

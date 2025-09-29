@@ -145,7 +145,7 @@ const AdminLayout = ({
         </aside>
 
         {/* Main content */}
-        <main className="flex min-w-0 flex-1 flex-col bg-background">
+        <main className="apas-admin-scope flex min-w-0 flex-1 flex-col bg-background">
           {/* Header - mimic user Dashboard header */}
           <header className="flex flex-wrap items-center justify-between gap-6 border-b border-primary/10 bg-surface px-8 py-6 shadow-sm">
             <div className="min-w-0">
@@ -198,7 +198,7 @@ const AdminLayout = ({
             className={`flex-1 ${
               unconstrained
                 ? "px-4 md:px-6 lg:px-8"
-                : "mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8"
+                : "mx-auto w-full max-w-[1800px] 2xl:max-w-[1920px]"
             }`}
           >
             {children}

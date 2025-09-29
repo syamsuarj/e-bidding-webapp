@@ -28,7 +28,7 @@ const AdminParticipants = () => {
   const [status, setStatus] = useState("Semua");
   const [list, setList] = useState(MOCK_PARTICIPANTS);
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(10);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -107,10 +107,13 @@ const AdminParticipants = () => {
             </div>
 
             {/* Table */}
-            <div className="mt-4 overflow-x-auto">
+            <div className="mt-4 overflow-x-auto admin-fixed-10rows">
               <table className="min-w-full divide-y divide-slate-200 text-left text-sm">
                 <thead className="bg-slate-50">
                   <tr>
+                    <th className="w-14 px-3 py-2 text-center font-semibold text-slate-700">
+                      No.
+                    </th>
                     <th className="w-40 px-3 py-2 font-semibold text-slate-700">
                       ID
                     </th>
@@ -135,8 +138,11 @@ const AdminParticipants = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
-                  {paginated.map((p) => (
+                  {paginated.map((p, idx) => (
                     <tr key={p.id} className="hover:bg-slate-50">
+                      <td className="px-3 py-2 text-center text-slate-700">
+                        {(page - 1) * limit + idx + 1}
+                      </td>
                       <td className="px-3 py-2 text-slate-700">{p.id}</td>
                       <td className="px-3 py-2 text-slate-700">{p.name}</td>
                       <td className="px-3 py-2 text-slate-700">{p.company}</td>
@@ -162,7 +168,7 @@ const AdminParticipants = () => {
                   {filtered.length === 0 && (
                     <tr>
                       <td
-                        colSpan={7}
+                        colSpan={8}
                         className="px-3 py-6 text-center text-slate-500"
                       >
                         Tidak ada data
@@ -185,9 +191,9 @@ const AdminParticipants = () => {
                     setPage(1);
                   }}
                 >
-                  <option value={5}>5</option>
                   <option value={10}>10</option>
                   <option value={20}>20</option>
+                  <option value={50}>50</option>
                 </select>
                 <span>per halaman</span>
               </div>

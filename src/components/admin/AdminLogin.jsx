@@ -31,6 +31,14 @@ const AdminLogin = () => {
     <section className="relative min-h-screen bg-gradient-to-br from-primary/5 via-emerald-50 to-white">
       {/* Decorative background */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        {/* Photo background (uses /public/admin-login-bg.jpg). This uses CSS background to avoid broken image UI if missing. */}
+        <div
+          className="absolute hidden bg-cover bg-center opacity-70 md:block md:inset-y-0 md:left-0 md:w-1/2"
+          aria-hidden="true"
+          style={{
+            backgroundImage: "url('/admin-login-bg.jpg')",
+          }}
+        />
         <div className="absolute -left-40 -top-40 h-80 w-80 rounded-full bg-primary/10 blur-3xl" />
         <div className="absolute -right-32 -bottom-32 h-80 w-80 rounded-full bg-emerald-200/30 blur-3xl" />
       </div>
@@ -38,7 +46,7 @@ const AdminLogin = () => {
       <div className="relative grid min-h-screen grid-cols-1 md:grid-cols-2">
         {/* Brand / Illustration panel */}
         <div className="hidden items-center justify-center p-10 md:flex">
-          <div className="relative w-full max-w-md rounded-3xl border border-primary/10 bg-surface/60 p-8 shadow-soft backdrop-blur">
+          <div className="relative w-full max-w-lg rounded-3xl border border-primary/10 bg-white/60 p-8 shadow-xl backdrop-blur">
             <div className="flex items-center gap-3">
               <img src="/logo-apas.png" alt="APAS" className="h-10 w-10" />
               <div>
@@ -165,12 +173,6 @@ const AdminLogin = () => {
                   >
                     {loading ? "Memproses…" : "Masuk"}
                   </button>
-                  <a
-                    className="inline-flex items-center justify-center rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
-                    href="/"
-                  >
-                    Batal
-                  </a>
                 </div>
               </form>
             </div>
