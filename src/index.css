@@ -357,6 +357,11 @@ a {
   grid-template-rows: auto 1fr; /* header + content */
   height: 100vh; /* hard cap to viewport */
 }
+/* Allow pages to opt-out of the viewport height cap and enable full-page scroll */
+.admin-content.is-unconstrained .container {
+  height: auto;
+  min-height: 100vh; /* still fill screen initially, but allow growing */
+}
 /* Keep admin pages within viewport height and make table area scrollable */
 .admin-content .section {
   padding: 1rem 0; /* compact to fit viewport */
@@ -394,6 +399,11 @@ a {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+/* When unconstrained, cards should not clamp to viewport height */
+.admin-content.is-unconstrained .container > .section .card {
+  max-height: none;
+  overflow: visible;
 }
 /* Preserve toolbar/header/footer as fixed rows inside flex card */
 .admin-content .container > .section .card .card__toolbar,
@@ -642,6 +652,74 @@ a {
 }
 .switch input:checked + .slider:before {
   transform: translateX(18px);
+}
+
+/* Detail page utilities */
+.detail-grid {
+  display: grid;
+  gap: 1.2rem;
+}
+.detail-section {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+}
+.detail-section h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.8rem;
+}
+.detail-fields {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 0.5rem 1rem;
+}
+.detail-label {
+  color: rgba(15, 23, 42, 0.6);
+}
+.docs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.9rem;
+  list-style: none;
+}
+.doc-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem;
+  display: grid;
+  gap: 0.5rem;
+}
+.card--autoHeight {
+  max-height: none !important;
+}
+.doc-icon {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 1.2rem;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.doc-icon:hover {
+  background: rgba(15, 159, 110, 0.06);
+  border-color: rgba(15, 159, 110, 0.3);
+}
+.doc-title {
+  font-weight: 600;
+}
+.doc-preview {
+  background: #f7fbf8;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 0.4rem;
+  display: grid;
+  place-items: center;
+  min-height: 120px;
+}
+.doc-meta {
+  color: rgba(15, 23, 42, 0.6);
+  font-size: 0.85rem;
 }
 
 .hero {

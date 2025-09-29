@@ -161,7 +161,22 @@ const AdminUsers = () => {
                     <td>{u.id}</td>
                     <td>{u.name}</td>
                     <td>{u.email}</td>
-                    <td>{u.phone}</td>
+                    <td>
+                      <div style={{ display: "grid" }}>
+                        <span>{u.phone}</span>
+                        {u.participantId && (
+                          <a
+                            href={`/admin/participants/${encodeURIComponent(
+                              u.participantId
+                            )}`}
+                            className="text-muted"
+                            style={{ fontSize: ".8rem" }}
+                          >
+                            Peserta: {u.participantId}
+                          </a>
+                        )}
+                      </div>
+                    </td>
                     <td>
                       {roles.find((r) => r.id === u.role)?.name || u.role}
                     </td>

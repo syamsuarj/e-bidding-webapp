@@ -12,7 +12,7 @@ import {
 
 const toTitle = (path) => {
   switch (path) {
-    case "/admin":
+    case "/admin/dashboard":
       return "Dashboard";
     case "/admin/auctions":
       return "Daftar Lelang";
@@ -31,7 +31,12 @@ const toTitle = (path) => {
   }
 };
 
-const AdminLayout = ({ children, title, breadcrumbs }) => {
+const AdminLayout = ({
+  children,
+  title,
+  breadcrumbs,
+  unconstrained = false,
+}) => {
   const [collapsed, setCollapsed] = useState(false);
 
   // Simple auth guard for all admin pages
@@ -55,7 +60,7 @@ const AdminLayout = ({ children, title, breadcrumbs }) => {
 
   const links = useMemo(
     () => [
-      { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
+      { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
       { href: "/admin/auctions", label: "Daftar Lelang", icon: ListOrdered },
       { href: "/admin/participants", label: "Daftar Peserta", icon: Users },
       { href: "/admin/pks", label: "Daftar PKS", icon: Building2 },
@@ -119,7 +124,9 @@ const AdminLayout = ({ children, title, breadcrumbs }) => {
           </nav>
         </aside>
 
-        <main className="admin-content">
+        <main
+          className={`admin-content ${unconstrained ? "is-unconstrained" : ""}`}
+        >
           <div className="container">
             <div className="admin-page-header">
               {Array.isArray(breadcrumbs) && breadcrumbs.length > 0 && (

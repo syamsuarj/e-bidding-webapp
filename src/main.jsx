@@ -22,8 +22,8 @@ const resolveRoute = () => {
 
   // Support clean path-based navigation first
   if (normalizedPath.endsWith("/signup")) return "signup";
-  if (normalizedPath.endsWith("/dashboard")) return "dashboard";
-  if (normalizedPath.endsWith("/admin")) return "admin";
+  if (normalizedPath.endsWith("/user/dashboard")) return "dashboard";
+  if (normalizedPath.endsWith("/admin/dashboard")) return "admin-dashboard";
   if (normalizedPath.endsWith("/admin/login")) return "admin-login";
   if (normalizedPath.endsWith("/admin/roles")) return "admin-roles";
   if (normalizedPath.endsWith("/admin/auctions")) return "admin-auctions";
@@ -43,7 +43,7 @@ const resolveRoute = () => {
   if (normalizedHash === "/dashboard") return "dashboard";
   if (normalizedHash === "/admin/login") return "admin-login";
   if (normalizedHash === "/admin/roles") return "admin-roles";
-  if (normalizedHash === "/admin") return "admin";
+  if (normalizedHash === "/admin/dashboard") return "admin/dashboard";
   if (normalizedHash === "/admin/auctions") return "admin-auctions";
   if (/^#\/admin\/auctions\/.+/.test(window.location.hash))
     return "admin-auction-detail";
@@ -91,7 +91,7 @@ const AppRouter = () => {
     return <AdminRoleMatrix />;
   }
 
-  if (route === "admin") return <AdminDashboard />;
+  if (route === "admin-dashboard") return <AdminDashboard />;
   if (route === "admin-auctions") return <AdminAuctions />;
   if (route === "admin-auction-detail") return <AdminAuctionDetail />;
   if (route === "admin-participants") return <AdminParticipants />;

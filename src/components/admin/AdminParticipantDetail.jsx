@@ -25,46 +25,67 @@ const AdminParticipantDetail = () => {
   ];
 
   return (
-    <AdminLayout title="Detail Peserta" breadcrumbs={crumbs}>
+    <AdminLayout title="Detail Peserta" breadcrumbs={crumbs} unconstrained>
       <section className="section">
-        <div className="card" data-reveal>
+        <div className="card card--autoHeight" data-reveal>
           <div
+            className="card__header"
             style={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              marginBottom: ".75rem",
             }}
           >
-            <h2 style={{ margin: 0 }}>
-              {item ? item.name : "Tidak ditemukan"}
-            </h2>
+            <div>
+              <h2 style={{ margin: 0 }}>
+                {item ? item.name : "Tidak ditemukan"}
+              </h2>
+              {item && (
+                <p className="text-muted" style={{ marginTop: ".25rem" }}>
+                  {item.company}
+                </p>
+              )}
+            </div>
             <a href="/admin/participants" className="btn btn--ghost">
               Kembali
             </a>
           </div>
+
           {item ? (
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "200px 1fr",
-                gap: ".5rem",
-              }}
-            >
-              <div style={{ color: "rgba(15,23,42,.6)" }}>ID</div>
-              <div>{item.id}</div>
-              <div style={{ color: "rgba(15,23,42,.6)" }}>Nama</div>
-              <div>{item.name}</div>
-              <div style={{ color: "rgba(15,23,42,.6)" }}>Perusahaan</div>
-              <div>{item.company}</div>
-              <div style={{ color: "rgba(15,23,42,.6)" }}>Email</div>
-              <div>{item.email}</div>
-              <div style={{ color: "rgba(15,23,42,.6)" }}>Telepon</div>
-              <div>{item.phone}</div>
-              <div style={{ color: "rgba(15,23,42,.6)" }}>Status</div>
-              <div>{item.status}</div>
-              <div style={{ color: "rgba(15,23,42,.6)" }}>Tanggal Daftar</div>
-              <div>{item.registeredAt}</div>
+            <div className="detail-grid">
+              <div className="detail-section">
+                <h3>Informasi Dasar</h3>
+                <div className="detail-fields">
+                  <div className="detail-label">ID</div>
+                  <div>{item.id}</div>
+                  <div className="detail-label">Nama Lengkap</div>
+                  <div>{item.name}</div>
+                  <div className="detail-label">Email</div>
+                  <div>{item.email}</div>
+                  <div className="detail-label">Telepon</div>
+                  <div>{item.phone || "-"}</div>
+                  <div className="detail-label">Status</div>
+                  <div>{item.status}</div>
+                  <div className="detail-label">Tanggal Daftar</div>
+                  <div>{item.registeredAt}</div>
+                </div>
+              </div>
+
+              <div className="detail-section">
+                <h3>Data Perusahaan</h3>
+                <div className="detail-fields">
+                  <div className="detail-label">Nama Perusahaan</div>
+                  <div>{item.company}</div>
+                  <div className="detail-label">Jenis Perusahaan</div>
+                  <div>{item.companyType || "-"}</div>
+                  <div className="detail-label">Alamat</div>
+                  <div>{item.companyAddress || "-"}</div>
+                  <div className="detail-label">Catatan</div>
+                  <div>{item.additionalNotes || "-"}</div>
+                </div>
+              </div>
+
+              <DocumentsSection item={item} />
             </div>
           ) : (
             <div style={{ textAlign: "center", color: "rgba(15,23,42,.6)" }}>
@@ -74,6 +95,81 @@ const AdminParticipantDetail = () => {
         </div>
       </section>
     </AdminLayout>
+  );
+};
+
+const DocumentsSection = ({ item }) => {
+  const [preview, setPreview] = useState(null);
+  const docs = [
+    {
+      key: "companyProfile",
+      title: "Company Profile (Compro)",
+      src: "/docs/companyProfile.pdf",
+    },
+    {
+      key: "deedOfEstablishment",
+      title: "Akte Pendirian",
+      src: "/docs/deedOfEstablishment.pdf",
+    },
+    { key: "directorId", title: "KTP Direktur", src: "/docs/directorId.pdf" },
+    {
+      key: "businessId",
+      title: "Nomor Induk Berusaha (NIB)",
+      src: "/docs/businessId.pdf",
+    },
+    {
+      key: "pkppStatement",
+      title: "Surat Pernyataan PKKP",
+      src: "/docs/pkppStatement.pdf",
+    },
+    { key: "taxId", title: "NPWP", src: "/docs/taxId.pdf" },
+  ];
+
+  return (
+    <div className="detail-section">
+      <h3>Dokumen Terunggah</h3>
+      <ul className="docs-grid">
+        {docs.map((d) => (
+          <li key={d.key} className="doc-card">
+            <div className="doc-title">{d.title}</div>
+            <button
+              type="button"
+              className="doc-icon"
+              onClick={() => setPreview(d)}
+              title={`Lihat ${d.title}`}
+            >
+              📄
+            </button>
+            <div className="doc-meta">
+              {item.documents?.[d.key]?.name || `${d.title}.pdf`}
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      {preview && (
+        <div className="modal-backdrop" onClick={() => setPreview(null)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <div className="modal__header">
+              <h3>{preview.title}</h3>
+              <button
+                className="btn btn--ghost"
+                onClick={() => setPreview(null)}
+              >
+                Tutup
+              </button>
+            </div>
+            <div className="modal__body" style={{ height: "70vh" }}>
+              <iframe
+                title={preview.key}
+                src={preview.src}
+                style={{ width: "100%", height: "100%", border: 0 }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 

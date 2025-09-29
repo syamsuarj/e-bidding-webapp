@@ -15,8 +15,8 @@ const AdminLogin = () => {
       // Placeholder auth — replace with real API later
       if (email && password) {
         sessionStorage.setItem("apas_admin_authed", "1");
-        // Navigate to /admin/roles without hash and without adding history entry
-        window.history.replaceState(null, "", "/admin/roles");
+        // Navigate to admin dashboard without hash and without adding history entry
+        window.history.replaceState(null, "", "/admin/dashboard");
         window.dispatchEvent(new PopStateEvent("popstate"));
       } else {
         setError("Email dan kata sandi wajib diisi.");
