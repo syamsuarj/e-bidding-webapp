@@ -8,6 +8,7 @@ import {
   Shield,
   FileText,
   LogOut,
+  ArrowLeft,
 } from "lucide-react";
 
 const toTitle = (path) => {
@@ -36,6 +37,8 @@ const AdminLayout = ({
   title,
   breadcrumbs,
   unconstrained = false,
+  backHref,
+  subtitle,
 }) => {
   const [collapsed, setCollapsed] = useState(false);
 
@@ -67,6 +70,7 @@ const AdminLayout = ({
       { href: "/admin/users", label: "Pengguna", icon: Users },
       { href: "/admin/roles", label: "Role Matrix", icon: Shield },
       { href: "/admin/policies", label: "Kebijakan", icon: FileText },
+      { href: "/admin/logs", label: "Logs", icon: FileText },
     ],
     []
   );
@@ -88,15 +92,15 @@ const AdminLayout = ({
       <div className="flex min-h-screen">
         {/* Sidebar */}
         <aside
-          className={`flex flex-col justify-between border-r border-primary/10 bg-surface transition-all duration-200 ${
+          className={`sticky top-0 h-screen overflow-y-auto flex flex-col justify-between border-r border-primary/10 bg-surface transition-all duration-200 ${
             collapsed ? "w-16" : "w-64"
           }`}
         >
           <div className="p-3">
             {/* Sidebar header / toggle */}
-            <div className="mb-4 flex items-center justify-between">
+            <div className="flex items-center justify-between mb-4">
               <button
-                className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-primary/10 hover:bg-primary/10"
+                className="inline-flex items-center justify-center border rounded-lg h-9 w-9 border-primary/10 hover:bg-primary/10"
                 onClick={() => setCollapsed((v) => !v)}
                 aria-label="Toggle sidebar"
                 title="Sembunyikan/Perluas menu"
@@ -135,7 +139,7 @@ const AdminLayout = ({
           {/* Logout */}
           <div className="p-3">
             <button
-              className="flex w-full items-center gap-3 rounded-lg border border-rose-200 px-3 py-2 text-sm font-semibold text-rose-600 transition hover:bg-rose-50"
+              className="flex items-center w-full gap-3 px-3 py-2 text-sm font-semibold transition border rounded-lg border-rose-200 text-rose-600 hover:bg-rose-50"
               onClick={onLogout}
             >
               <LogOut size={18} className="shrink-0" />
@@ -145,12 +149,12 @@ const AdminLayout = ({
         </aside>
 
         {/* Main content */}
-        <main className="apas-admin-scope flex min-w-0 flex-1 flex-col bg-background">
+        <main className="flex flex-col flex-1 min-w-0 apas-admin-scope bg-background">
           {/* Header - mimic user Dashboard header */}
-          <header className="flex flex-wrap items-center justify-between gap-6 border-b border-primary/10 bg-surface px-8 py-6 shadow-sm">
+          <header className="flex flex-wrap items-center justify-between gap-6 px-8 py-6 border-b shadow-sm border-primary/10 bg-surface">
             <div className="min-w-0">
               {/* Breadcrumbs */}
-              {Array.isArray(crumbs) && crumbs.length > 0 && (
+              {/* {Array.isArray(crumbs) && crumbs.length > 0 && (
                 <nav
                   className="mb-1 text-xs text-slate-500"
                   aria-label="Breadcrumb"
@@ -172,23 +176,35 @@ const AdminLayout = ({
                     ))}
                   </ol>
                 </nav>
-              )}
-              <h1 className="truncate text-2xl font-semibold text-slate-900">
-                {pageTitle}
-              </h1>
-              <p className="mt-1 line-clamp-2 text-sm text-slate-600">
-                Kelola data dan konfigurasi platform APAS melalui panel admin.
+              )} */}
+              <div className="flex items-center gap-3">
+                {backHref && (
+                  <a
+                    href={backHref}
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50"
+                  >
+                    <ArrowLeft size={16} />
+                    <span>Kembali</span>
+                  </a>
+                )}
+                <h1 className="text-2xl font-semibold truncate text-slate-900">
+                  {pageTitle}
+                </h1>
+              </div>
+              <p className="mt-1 text-sm line-clamp-2 text-slate-600">
+                {subtitle ||
+                  "Kelola data dan konfigurasi platform APAS melalui panel admin."}
               </p>
             </div>
-            <div className="flex items-center gap-3 rounded-2xl border border-primary/10 bg-surface px-4 py-3 shadow-sm">
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-lg font-semibold text-white">
+            <div className="flex items-center gap-3 px-4 py-3 border shadow-sm rounded-2xl border-primary/10 bg-surface">
+              <span className="flex items-center justify-center w-12 h-12 text-lg font-semibold text-white rounded-full bg-primary">
                 AD
               </span>
               <div className="min-w-0">
-                <p className="truncate text-sm font-semibold text-slate-900">
+                <p className="text-sm font-semibold truncate text-slate-900">
                   APAS Administrator
                 </p>
-                <p className="truncate text-xs text-slate-500">Admin Panel</p>
+                <p className="text-xs truncate text-slate-500">Admin Panel</p>
               </div>
             </div>
           </header>

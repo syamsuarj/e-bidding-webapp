@@ -11,6 +11,7 @@ import AdminParticipants from "./components/admin/AdminParticipants.jsx";
 import AdminPKS from "./components/admin/AdminPKS.jsx";
 import AdminUsers from "./components/admin/AdminUsers.jsx";
 import AdminPolicies from "./components/admin/AdminPolicies.jsx";
+import AdminLogs from "./components/admin/AdminLogs.jsx";
 import AdminAuctionDetail from "./components/admin/AdminAuctionDetail.jsx";
 import AdminParticipantDetail from "./components/admin/AdminParticipantDetail.jsx";
 import AdminPKSDetail from "./components/admin/AdminPKSDetail.jsx";
@@ -34,6 +35,7 @@ const resolveRoute = () => {
   if (normalizedPath.endsWith("/admin/pks")) return "admin-pks";
   if (normalizedPath.endsWith("/admin/users")) return "admin-users";
   if (normalizedPath.endsWith("/admin/policies")) return "admin-policies";
+  if (normalizedPath.endsWith("/admin/logs")) return "admin-logs";
   if (/^\/admin\/participants\/.+/.test(normalizedPath))
     return "admin-participant-detail";
   if (/^\/admin\/pks\/.+/.test(normalizedPath)) return "admin-pks-detail";
@@ -126,6 +128,7 @@ const AppRouter = () => {
   if (route === "admin-pks") return <AdminPKS />;
   if (route === "admin-users") return <AdminUsers />;
   if (route === "admin-policies") return <AdminPolicies />;
+  if (route === "admin-logs") return <AdminLogs />;
   if (route === "admin-participant-detail") return <AdminParticipantDetail />;
   if (route === "admin-pks-detail") return <AdminPKSDetail />;
 

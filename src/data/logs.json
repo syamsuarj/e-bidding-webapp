@@ -1,0 +1,54 @@
+[
+  {
+    "id": "L-10001",
+    "timestamp": "2025-09-30T08:10:00.000Z",
+    "level": "INFO",
+    "type": "activity",
+    "actor": { "id": "admin1", "name": "Admin Utama", "role": "admin" },
+    "action": "policies.create",
+    "resource": { "type": "policies", "id": "POL-2025-001" },
+    "status": "success",
+    "message": "Membuat kebijakan baru",
+    "metadata": { "version": "1.0" }
+  },
+  {
+    "id": "L-10002",
+    "timestamp": "2025-09-30T08:20:00.000Z",
+    "level": "WARN",
+    "type": "system",
+    "actor": null,
+    "action": "cache.miss",
+    "resource": { "type": "auctions", "id": "AUC-2025-010" },
+    "status": "success",
+    "message": "Cache miss untuk detail lelang",
+    "metadata": { "cacheKey": "auction:AUC-2025-010" }
+  },
+  {
+    "id": "L-10003",
+    "timestamp": "2025-09-30T08:25:00.000Z",
+    "level": "ERROR",
+    "type": "system",
+    "actor": null,
+    "action": "api.error",
+    "resource": { "type": "participants", "id": "PAR-2025-021" },
+    "status": "failed",
+    "message": "Gagal mengambil data peserta (HTTP 500)",
+    "metadata": { "endpoint": "/api/participants/PAR-2025-021" }
+  },
+  {
+    "id": "L-10004",
+    "timestamp": "2025-09-30T08:40:00.000Z",
+    "level": "INFO",
+    "type": "activity",
+    "actor": {
+      "id": "bizmgr1",
+      "name": "Biz Manager",
+      "role": "business_manager"
+    },
+    "action": "auctions.publish",
+    "resource": { "type": "auctions", "id": "AUC-2025-013" },
+    "status": "success",
+    "message": "Publish lelang AUC-2025-013",
+    "metadata": { "publishedBy": "bizmgr1" }
+  }
+]

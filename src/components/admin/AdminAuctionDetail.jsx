@@ -24,23 +24,21 @@ const AdminAuctionDetail = () => {
   ];
 
   return (
-    <AdminLayout title="Detail Lelang" breadcrumbs={crumbs}>
+    <AdminLayout
+      title="Detail Lelang"
+      breadcrumbs={crumbs}
+      backHref="/admin/auctions"
+    >
       <section className="py-6 md:py-8">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div
-            className="rounded-xl border border-slate-200 bg-white p-4"
+            className="p-4 bg-white border rounded-xl border-slate-200"
             data-reveal
           >
-            <div className="mb-3 flex items-center justify-between">
+            <div className="flex items-center justify-between mb-3">
               <h2 className="m-0 text-xl font-semibold text-slate-900">
                 {item ? item.title : "Tidak ditemukan"}
               </h2>
-              <a
-                href="/admin/auctions"
-                className="inline-flex items-center rounded-lg border border-slate-300 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50"
-              >
-                Kembali
-              </a>
             </div>
             {item ? (
               <div className="grid grid-cols-[200px_1fr] gap-2">

@@ -25,14 +25,19 @@ const AdminParticipantDetail = () => {
   ];
 
   return (
-    <AdminLayout title="Detail Peserta" breadcrumbs={crumbs} unconstrained>
+    <AdminLayout
+      title="Detail Peserta"
+      breadcrumbs={crumbs}
+      unconstrained
+      backHref="/admin/participants"
+    >
       <section className="py-6 md:py-8">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div
-            className="rounded-xl border border-slate-200 bg-white p-4"
+            className="p-4 bg-white border rounded-xl border-slate-200"
             data-reveal
           >
-            <div className="mb-3 flex items-center justify-between">
+            <div className="flex items-center justify-between mb-3">
               <div>
                 <h2 className="m-0 text-xl font-semibold text-slate-900">
                   {item ? item.name : "Tidak ditemukan"}
@@ -41,17 +46,11 @@ const AdminParticipantDetail = () => {
                   <p className="mt-1 text-sm text-slate-500">{item.company}</p>
                 )}
               </div>
-              <a
-                href="/admin/participants"
-                className="inline-flex items-center rounded-lg border border-slate-300 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50"
-              >
-                Kembali
-              </a>
             </div>
 
             {item ? (
               <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-                <div className="rounded-lg border border-slate-200 p-4">
+                <div className="p-4 border rounded-lg border-slate-200">
                   <h3 className="mb-3 text-base font-semibold text-slate-900">
                     Informasi Dasar
                   </h3>
@@ -71,7 +70,7 @@ const AdminParticipantDetail = () => {
                   </div>
                 </div>
 
-                <div className="rounded-lg border border-slate-200 p-4">
+                <div className="p-4 border rounded-lg border-slate-200">
                   <h3 className="mb-3 text-base font-semibold text-slate-900">
                     Data Perusahaan
                   </h3>
@@ -135,20 +134,20 @@ const DocumentsSection = ({ item }) => {
   ];
 
   return (
-    <div className="rounded-lg border border-slate-200 p-4">
+    <div className="p-4 border rounded-lg border-slate-200">
       <h3 className="mb-3 text-base font-semibold text-slate-900">
         Dokumen Terunggah
       </h3>
       <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {docs.map((d) => (
-          <li key={d.key} className="rounded-lg border border-slate-200 p-3">
+          <li key={d.key} className="p-3 border rounded-lg border-slate-200">
             <div className="flex items-center justify-between">
               <div className="text-sm font-medium text-slate-900">
                 {d.title}
               </div>
               <button
                 type="button"
-                className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-slate-300 text-lg hover:bg-slate-50"
+                className="inline-flex items-center justify-center w-8 h-8 text-lg border rounded-lg border-slate-300 hover:bg-slate-50"
                 onClick={() => setPreview(d)}
                 title={`Lihat ${d.title}`}
               >
@@ -164,14 +163,14 @@ const DocumentsSection = ({ item }) => {
 
       {preview && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40"
           onClick={() => setPreview(null)}
         >
           <div
             className="h-[70vh] w-full max-w-4xl rounded-xl border border-slate-200 bg-white shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between border-b border-slate-200 p-4">
+            <div className="flex items-center justify-between p-4 border-b border-slate-200">
               <h3 className="text-base font-semibold text-slate-900">
                 {preview.title}
               </h3>
@@ -186,7 +185,7 @@ const DocumentsSection = ({ item }) => {
               <iframe
                 title={preview.key}
                 src={preview.src}
-                className="h-full w-full"
+                className="w-full h-full"
                 style={{ border: 0 }}
               />
             </div>

@@ -81,6 +81,14 @@ const defaultPermissions = [
 
   // Produk (untuk kompatibilitas dengan konsep lama)
   { id: "products.manage", name: "Kelola Produk" },
+
+  // Logs
+  { id: "logs.view", name: "Lihat Logs" },
+  { id: "logs.system.view", name: "Lihat System Logs" },
+  { id: "logs.activity.view", name: "Lihat Activity Logs" },
+  { id: "logs.other.view", name: "Lihat Logs Lainnya" },
+  { id: "logs.export", name: "Export Logs" },
+  { id: "logs.clear", name: "Hapus Logs" },
 ];
 
 // Build default matrix programmatically
@@ -120,6 +128,8 @@ const buildDefaultMatrix = (roles, permissions) => {
       "policies.view",
       "reports.view",
       "audit_logs.view",
+      // logs basic
+      "logs.view",
     ]);
   }
 
@@ -152,6 +162,8 @@ const buildDefaultMatrix = (roles, permissions) => {
       // Reports & export
       "reports.view",
       "export.data",
+      // Logs basic view
+      "logs.view",
     ]);
   }
 
@@ -168,6 +180,7 @@ const AdminRoleMatrix = () => {
   const [permissions, setPermissions] = useState(defaultPermissions);
   const [matrix, setMatrix] = useState(defaultMatrix);
   const [filter, setFilter] = useState("");
+  const [groupKey, setGroupKey] = useState("*"); // '*' = Semua
 
   useEffect(() => {
     // auth guard
@@ -279,6 +292,71 @@ const AdminRoleMatrix = () => {
     );
   }, [filter, permissions]);
 
+  // Grouping helpers
+  const GROUP_LABEL = {
+    auctions: "Lelang",
+    participants: "Peserta",
+    users: "Pengguna",
+    pks: "PKS",
+    policies: "Kebijakan",
+    reports_export: "Laporan & Ekspor",
+    logs: "Logs",
+    system: "Sistem",
+    audit: "Audit",
+    notifications: "Notifikasi",
+    products: "Produk",
+    other: "Lainnya",
+  };
+  const GROUP_ORDER = [
+    "auctions",
+    "participants",
+    "users",
+    "pks",
+    "policies",
+    "reports_export",
+    "logs",
+    "system",
+    "audit",
+    "notifications",
+    "products",
+    "other",
+  ];
+  const getGroupKeyFromPermId = (id) => {
+    if (id.startsWith("auctions.")) return "auctions";
+    if (id.startsWith("participants.")) return "participants";
+    if (id.startsWith("users.")) return "users";
+    if (id.startsWith("pks.")) return "pks";
+    if (id.startsWith("policies.")) return "policies";
+    if (id.startsWith("reports.") || id === "export.data")
+      return "reports_export";
+    if (id.startsWith("logs.")) return "logs";
+    if (id.startsWith("settings.") || id.startsWith("role_matrix."))
+      return "system";
+    if (id.startsWith("audit_logs.")) return "audit";
+    if (id.startsWith("notifications.")) return "notifications";
+    if (id.startsWith("products.")) return "products";
+    return "other";
+  };
+
+  // Build grouped permissions after text filter and optional group filter
+  const { displayGroupKeys, groupMap, indexMap } = useMemo(() => {
+    const gm = {};
+    filteredPermissions.forEach((p) => {
+      const gk = getGroupKeyFromPermId(p.id);
+      if (!gm[gk]) gm[gk] = [];
+      gm[gk].push(p);
+    });
+    // order groups and apply group filter
+    const keysUsed = GROUP_ORDER.filter((k) => gm[k] && gm[k].length > 0);
+    const selectedKeys =
+      groupKey === "*" ? keysUsed : keysUsed.filter((k) => k === groupKey);
+    // create flattened order to build index map for numbering
+    const ordered = [];
+    selectedKeys.forEach((k) => gm[k].forEach((p) => ordered.push(p)));
+    const im = new Map(ordered.map((p, i) => [p.id, i + 1]));
+    return { displayGroupKeys: selectedKeys, groupMap: gm, indexMap: im };
+  }, [filteredPermissions, groupKey]);
+
   const toggle = (roleId, permId) => {
     setMatrix((prev) => ({
       ...prev,
@@ -330,22 +408,22 @@ const AdminRoleMatrix = () => {
   return (
     <AdminLayout>
       <section className="py-6 md:py-8">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-xl border border-slate-200 bg-white p-4">
+        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="p-4 bg-white border rounded-xl border-slate-200">
             {/* Toolbar */}
             <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-              <div className="flex flex-1 items-center gap-2">
+              <div className="flex items-center flex-1 gap-2">
                 <input
                   type="search"
-                  className="w-full max-w-lg rounded-lg border border-slate-300 px-3 py-2 text-sm placeholder-slate-400 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+                  className="w-full max-w-lg px-3 py-2 text-sm border rounded-lg shadow-sm border-slate-300 placeholder-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
                   placeholder="Cari permission…"
                   value={filter}
                   onChange={(e) => setFilter(e.target.value)}
                 />
               </div>
-              <div className="flex shrink-0 flex-wrap items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2 shrink-0">
                 <button
-                  className="inline-flex items-center rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-700 hover:bg-slate-50"
+                  className="inline-flex items-center px-3 py-2 text-sm border rounded-lg border-slate-300 text-slate-700 hover:bg-slate-50"
                   onClick={addPermission}
                 >
                   Tambah Permission
@@ -359,18 +437,42 @@ const AdminRoleMatrix = () => {
               </div>
             </div>
 
-            {/* Table */}
-            <div className="mt-4 overflow-x-auto admin-fixed-10rows">
-              <table className="min-w-full divide-y divide-slate-200 text-left text-sm">
+            {/* Group filter chips */}
+            <div className="flex items-center gap-2 mt-3 overflow-x-auto">
+              {["*"]
+                .concat(GROUP_ORDER)
+                .filter((k) => k === "*" || (groupMap[k] && groupMap[k].length))
+                .map((k) => (
+                  <button
+                    key={k}
+                    className={
+                      "whitespace-nowrap rounded-full border px-3 py-1.5 text-sm " +
+                      (groupKey === k
+                        ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+                        : "border-slate-300 text-slate-700 hover:bg-slate-50")
+                    }
+                    onClick={() => setGroupKey(k)}
+                  >
+                    {k === "*" ? "Semua" : GROUP_LABEL[k]}
+                  </button>
+                ))}
+            </div>
+
+            {/* Table (no inner vertical scroll; let page handle scrolling) */}
+            <div className="mt-4 overflow-x-auto">
+              <table className="min-w-full text-sm text-left divide-y divide-slate-200">
                 <thead className="bg-slate-50">
                   <tr>
+                    <th className="px-3 py-2 font-semibold text-center w-14 text-slate-700">
+                      No.
+                    </th>
                     <th className="px-3 py-2 font-semibold text-slate-700">
                       Permission
                     </th>
                     {roles.map((r) => (
                       <th
                         key={r.id}
-                        className="whitespace-nowrap px-3 py-2 font-semibold text-slate-700"
+                        className="px-3 py-2 font-semibold whitespace-nowrap text-slate-700"
                         title={r.description || ""}
                       >
                         {r.name}
@@ -379,35 +481,51 @@ const AdminRoleMatrix = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
-                  {filteredPermissions.map((perm) => (
-                    <tr key={perm.id}>
-                      <td className="px-3 py-2">
-                        <div className="min-w-[220px]">
-                          <div className="font-medium text-slate-800">
-                            {perm.name}
-                          </div>
-                          <div className="text-xs text-slate-500">
-                            {perm.id}
-                          </div>
-                        </div>
-                      </td>
-                      {roles.map((role) => (
+                  {displayGroupKeys.map((gk) => (
+                    <React.Fragment key={gk}>
+                      {/* Group header row */}
+                      <tr>
                         <td
-                          key={`${role.id}_${perm.id}`}
-                          className="px-3 py-2 text-center"
+                          className="px-3 py-2 font-semibold text-slate-700 bg-slate-50"
+                          colSpan={2 + roles.length}
                         >
-                          <label className="inline-flex cursor-pointer items-center">
-                            <input
-                              type="checkbox"
-                              className="peer sr-only"
-                              checked={!!matrix[role.id]?.[perm.id]}
-                              onChange={() => toggle(role.id, perm.id)}
-                            />
-                            <span className="relative h-5 w-9 rounded-full bg-slate-300 transition-colors duration-200 ease-out after:absolute after:left-0.5 after:top-0.5 after:h-4 after:w-4 after:rounded-full after:bg-white after:transition-transform after:duration-200 after:ease-out peer-checked:bg-emerald-500 peer-checked:after:translate-x-4" />
-                          </label>
+                          {GROUP_LABEL[gk]}
                         </td>
+                      </tr>
+                      {groupMap[gk].map((perm) => (
+                        <tr key={perm.id}>
+                          <td className="px-3 py-2 text-center text-slate-700">
+                            {indexMap.get(perm.id)}
+                          </td>
+                          <td className="px-3 py-2">
+                            <div className="min-w-[220px]">
+                              <div className="font-medium text-slate-800">
+                                {perm.name}
+                              </div>
+                              <div className="text-xs text-slate-500">
+                                {perm.id}
+                              </div>
+                            </div>
+                          </td>
+                          {roles.map((role) => (
+                            <td
+                              key={`${role.id}_${perm.id}`}
+                              className="px-3 py-2 text-center"
+                            >
+                              <label className="inline-flex items-center cursor-pointer">
+                                <input
+                                  type="checkbox"
+                                  className="sr-only peer"
+                                  checked={!!matrix[role.id]?.[perm.id]}
+                                  onChange={() => toggle(role.id, perm.id)}
+                                />
+                                <span className="relative h-5 w-9 rounded-full bg-slate-300 transition-colors duration-200 ease-out after:absolute after:left-0.5 after:top-0.5 after:h-4 after:w-4 after:rounded-full after:bg-white after:transition-transform after:duration-200 after:ease-out peer-checked:bg-emerald-500 peer-checked:after:translate-x-4" />
+                              </label>
+                            </td>
+                          ))}
+                        </tr>
                       ))}
-                    </tr>
+                    </React.Fragment>
                   ))}
                 </tbody>
               </table>
